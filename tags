@@ -1,0 +1,42 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -Wall$/;"	m
+Omega	funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	struct:f_params
+Omega	main.c	/^const double Omega = 1.0 ;$/;"	v
+WS_SZ	funcs.h	5;"	d
+alpha	funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	struct:f_params
+alpha	main.c	/^const double alpha = 0.01 ;$/;"	v
+assign_p	Reg_cc.c	/^int assign_p ( void* params, double* o_c, double* b, double* O, double* o_1  )$/;"	f
+beta	funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	struct:f_params
+beta	main.c	/^const double beta = 1.0 ;$/;"	v
+ex	Expi.c	/^double ex ( double t, void* params )$/;"	f
+expi	Expi.c	/^int expi ( double x, double* result, double* abserr )$/;"	f
+expi_plus	Expi.c	/^int expi_plus ( double x, double* result, double* abserr )$/;"	f
+ext_pars	funcs.h	/^struct ext_pars { struct f_params params; double w; } ;int re_gcc ( void* params, double* val ) ;$/;"	s
+f_params	funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	s
+fu	Expi.c	/^double fu ( double t, void* params ) $/;"	f
+im_gc0	Img_c0.c	/^int im_gc0 ( void* params, double* val, double* error ) $/;"	f
+im_gcc	Img_cc.c	/^int im_gcc ( void* params, double* val, double* error )$/;"	f
+im_gcs	Img_cs.c	/^int im_gcs ( void* params, double* val )$/;"	f
+im_gsc	Img_sc.c	/^int im_gsc ( void* params, double* val )$/;"	f
+im_gss	Img_ss.c	/^int im_gss ( void* params, double* val, double* error )$/;"	f
+k_func	cos_coth.c	/^double k_func ( double k, void* x_ps )$/;"	f
+k_integrand	cos_coth.c	/^double k_integrand ( void* params, double k, double w )$/;"	f
+k_integration	cos_coth.c	/^double k_integration ( double w, void* params )$/;"	f
+main	main.c	/^int main ( int argc, char* argv[] )$/;"	f
+omega_1	funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	struct:f_params
+omega_1	main.c	/^const double omega_1 = 5.0 ;$/;"	v
+omega_c	funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	struct:f_params
+omega_c	main.c	/^const double omega_c = 100.0 ;$/;"	v
+params	funcs.h	/^struct ext_pars { struct f_params params; double w; } ;int re_gcc ( void* params, double* val ) ;$/;"	m	struct:ext_pars	typeref:struct:ext_pars::f_params
+re_gc0	Reg_c0.c	/^int re_gc0 ( void* params, double* val)$/;"	f
+re_gcc	Reg_cc.c	/^int re_gcc ( void* params, double* val )$/;"	f
+re_gss	Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f
+w	funcs.h	/^struct ext_pars { struct f_params params; double w; } ;int re_gcc ( void* params, double* val ) ;$/;"	m	struct:ext_pars
+w_integrand	cos_coth.c	/^double w_integrand ( double w, void* params )$/;"	f
+w_integration	cos_coth.c	/^int w_integration ( double* result, double* abserr, void* params )$/;"	f

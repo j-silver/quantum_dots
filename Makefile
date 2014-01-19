@@ -1,0 +1,43 @@
+CC = gcc
+CFLAGS = -g -Wall
+
+main.o:	main.c
+	$(CC) $(CFLAGS) -c main.c
+
+Reg_cc.o: Reg_cc.c
+	$(CC) $(CFLAGS) -c Reg_cc.c
+
+Reg_ss.o: Reg_ss.c
+	$(CC) $(CFLAGS) -c Reg_ss.c
+
+Img_cs.o: Img_cs.c
+	$(CC) $(CFLAGS) -c Img_cs.c
+
+Img_sc.o: Img_sc.c
+	$(CC) $(CFLAGS) -c Img_sc.c
+
+Reg_c0.o: Reg_c0.c
+	$(CC) $(CFLAGS) -c Reg_c0.c
+
+Img_c0.o: Img_c0.c Expi.o
+	$(CC) $(CFLAGS) -c Img_c0.c
+
+Img_ss.o: Img_ss.c Expi.o
+	$(CC) $(CFLAGS) -c Img_ss.c
+
+Img_cc.o: Img_cc.c Expi.o
+	$(CC) $(CFLAGS) -c Img_cc.c
+
+Expi.o:	Expi.c
+	$(CC) $(CFLAGS) -c Expi.c
+
+cos_coth.o: cos_coth.c
+	$(CC) $(CFLAGS) -c cos_coth.c
+
+integ:	main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o cos_coth.o
+	$(CC) -lgsl -lgslcblas -lm -o integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o cos_coth.o
+
+
+clean: 
+	rm -f integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o cos_coth.o
+

@@ -10,7 +10,7 @@
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  Giuseppe Argentieri (), argenti@ts.infn.it
+ *         Author:  Giuseppe Argentieri (), giuseppe.argentieri@ts.infn.it
  *   Organization:  
  *
  * =====================================================================================

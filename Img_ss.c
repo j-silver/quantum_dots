@@ -41,8 +41,8 @@ int im_gss ( void* params, double* val, double* error )
 				  beta2*(E2*exp(-beta2*mu)-e2*exp(beta2*mu))) ;
 	*val = imgss ;
 
-	double err = (alpha/4)*(beta1*(err1*exp(beta1*mu))-ERR1*exp(-beta1*mu) +
-				  beta2*(ERR2*exp(-beta2*mu)-err2*exp(beta2*mu))) ;
+	double err = (alpha/4)*(beta1*(err1*exp(beta1*mu))+ERR1*exp(-beta1*mu) +
+				  beta2*(ERR2*exp(-beta2*mu)+err2*exp(beta2*mu))) ;
 	*error = err ;	
 
 	return 0;

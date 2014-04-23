@@ -67,7 +67,7 @@ int main ( int argc, char* argv[] )
 	/* Img_c0 */
 	double imgc0, imgc0_error ;
 	im_gc0 ( &params, &imgc0, &imgc0_error ) ;
-	printf("Im_gc0: %.6f +- %.9f\n", imgc0, imgc0_error) ;
+	printf("Im_gc0: %.6f +- %.6f\n", imgc0, imgc0_error) ;
 
 	/* Reg_s0 */
 	double regs0, regs0_error ;

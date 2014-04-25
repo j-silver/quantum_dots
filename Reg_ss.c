@@ -53,9 +53,8 @@ int re_gss ( void* params, double* val )
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;		
 	alpha =  pars->alpha ;
 
-	double v = M_PI_4*alpha/4*( (o_1-O)*exp(-(o_1-O)/o_c)/
-			tanh(b*(o_1-O)/2) - (o_1+O)*exp(-(o_1+O)/o_c)/
-			tanh(b*(o_1+O)/2) ) ;
+	double v = M_PI_4*alpha*( (o_1-O)*exp(-(o_1-O)/o_c)/tanh(b*(o_1-O)/2)
+				    - (o_1+O)*exp(-(o_1+O)/o_c)/tanh(b*(o_1+O)/2) ) ;
 	*val = v ;
 	
 	return 0;

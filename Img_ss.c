@@ -45,6 +45,7 @@
  */
 
 #include "funcs.h"
+/* #include <gsl/gsl_sf_expint.h> */
 
 int im_gss ( void* params, double* val, double* error )
 {
@@ -64,8 +65,14 @@ int im_gss ( void* params, double* val, double* error )
 	expi_plus ( beta1*mu, &E1, &ERR1 ) ;
 	expi_plus ( beta2*mu, &E2, &ERR2 ) ;
 	expi ( beta2*mu, &e2, &err2 ) ;
+	
+/* 	e1 = - gsl_sf_expint_E1 ( beta1*mu ) ;
+ * 	e2 = - gsl_sf_expint_E1 ( beta2*mu ) ;
+ * 	E1 = gsl_sf_expint_Ei ( beta1*mu ) ;
+ * 	E2 = gsl_sf_expint_Ei ( beta2*mu ) ;
+ */
 
-	double imgss = (alpha/4)*(beta1*(e1*exp(beta1*mu))-E1*exp(-beta1*mu) +
+	double imgss = (alpha/4)*(beta1*(e1*exp(beta1*mu)-E1*exp(-beta1*mu)) +
 				  beta2*(E2*exp(-beta2*mu)-e2*exp(beta2*mu))) ;
 	*val = imgss ;
 

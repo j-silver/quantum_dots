@@ -1,0 +1,146 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      3780,        136]
+NotebookOptionsPosition[      3259,        112]
+NotebookOutlinePosition[      3597,        127]
+CellTagsIndexPosition[      3554,        124]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Alpha]", "=", ".01"}], " ", ";", " ", 
+  RowBox[{
+   RowBox[{"\[Omega]", "'"}], "=", "5"}], " ", ";", " ", 
+  RowBox[{"\[CapitalOmega]", "=", "1"}], " ", ";", " ", 
+  RowBox[{
+   SubscriptBox["\[Omega]", "c"], "=", "100"}], " ", ";", " ", 
+  RowBox[{"\[Beta]", "=", "1"}]}]], "Input",
+ CellChangeTimes->{{3.60743316408776*^9, 3.607433171151572*^9}, 
+   3.607433205141521*^9}],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.607433206350903*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Imgsc", "=", 
+  RowBox[{
+   FractionBox[
+    RowBox[{"\[Alpha]", "*", "\[Pi]"}], "4"], "*", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"\[Omega]", "'"}], "+", "\[CapitalOmega]"}], ")"}], "*", 
+      RowBox[{"Exp", "[", 
+       FractionBox[
+        RowBox[{"-", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[Omega]", "'"}], "+", "\[CapitalOmega]"}], ")"}]}], 
+        SubscriptBox["\[Omega]", "c"]], "]"}]}], "-", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"\[Omega]", "'"}], "-", "\[CapitalOmega]"}], ")"}], "*", 
+      RowBox[{"Exp", "[", 
+       FractionBox[
+        RowBox[{"-", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[Omega]", "'"}], "-", "\[CapitalOmega]"}], ")"}]}], 
+        SubscriptBox["\[Omega]", "c"]], "]"}]}]}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.607433211407426*^9, 3.6074333511724243`*^9}}],
+
+Cell[BoxData["0.014195517664919445`"], "Output",
+ CellChangeTimes->{3.6074333636154118`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Imgcs", "=", 
+  RowBox[{
+   FractionBox[
+    RowBox[{"\[Alpha]", "*", "\[Pi]"}], "4"], "*", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"\[Omega]", "'"}], "+", "\[CapitalOmega]"}], ")"}], "*", 
+      RowBox[{"Exp", "[", 
+       FractionBox[
+        RowBox[{"-", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[Omega]", "'"}], "+", "\[CapitalOmega]"}], ")"}]}], 
+        SubscriptBox["\[Omega]", "c"]], "]"}]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"\[Omega]", "'"}], "-", "\[CapitalOmega]"}], ")"}], "*", 
+      RowBox[{"Exp", "[", 
+       FractionBox[
+        RowBox[{"-", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"\[Omega]", "'"}], "-", "\[CapitalOmega]"}], ")"}]}], 
+        SubscriptBox["\[Omega]", "c"]], "]"}]}]}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.607433399085114*^9, 3.6074334069801702`*^9}}],
+
+Cell[BoxData["0.07456369853867137`"], "Output",
+ CellChangeTimes->{3.607433407534238*^9}]
+}, Open  ]]
+},
+WindowSize->{740, 724},
+WindowMargins->{{Automatic, 323}, {Automatic, 36}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 412, 10, 32, "Input"],
+Cell[994, 34, 70, 1, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1101, 40, 959, 29, 51, "Input"],
+Cell[2063, 71, 92, 1, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2192, 77, 959, 29, 51, "Input"],
+Cell[3154, 108, 89, 1, 32, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

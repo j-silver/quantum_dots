@@ -25,7 +25,7 @@ int im_gcs ( void* params, double* val )
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;		
 	alpha =  pars->alpha ;
 
-	double v = M_PI_4*alpha*((o_1+O)*exp(-(o_1+O)/o_c) 
+	double v = M_PI_4*alpha*((o_1+O)*exp(-(o_1+O))/o_c 
 		+ (o_1-O)*exp(-(o_1-O)/o_c)) ;
 
 	*val = v ;

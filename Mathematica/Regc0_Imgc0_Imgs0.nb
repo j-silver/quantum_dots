@@ -1,0 +1,151 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      4000,        141]
+NotebookOptionsPosition[      3370,        113]
+NotebookOutlinePosition[      3708,        128]
+CellTagsIndexPosition[      3665,        125]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"\[Alpha]", "=", ".01"}], " ", ";", " ", 
+  RowBox[{
+   RowBox[{"\[Omega]", "'"}], "=", "5"}], " ", ";", " ", 
+  RowBox[{"\[CapitalOmega]", "=", "1"}], " ", ";", " ", 
+  RowBox[{
+   SubscriptBox["\[Omega]", "c"], "=", "100"}], " ", ";", " ", 
+  RowBox[{"\[Beta]", "=", "1"}]}]], "Input",
+ CellChangeTimes->{{3.6074341757619953`*^9, 3.6074342009282618`*^9}}],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.607434202548945*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Regc0", "=", 
+  RowBox[{
+   FractionBox[
+    RowBox[{"\[Pi]", "*", "\[Alpha]"}], "2"], "*", "\[CapitalOmega]", "*", 
+   RowBox[{"Exp", "[", 
+    FractionBox[
+     RowBox[{"-", "\[CapitalOmega]"}], 
+     SubscriptBox["\[Omega]", "c"]], "]"}], "*", 
+   RowBox[{"Coth", "[", 
+    RowBox[{"\[Beta]", "*", 
+     RowBox[{"\[CapitalOmega]", "/", "2"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.607434204250104*^9, 3.607434278753213*^9}}],
+
+Cell[BoxData["0.03365308164314874`"], "Output",
+ CellChangeTimes->{3.607434279632728*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Imgc0", "=", 
+  RowBox[{
+   RowBox[{"-", "\[Alpha]"}], "*", "\[Pi]", "*", 
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["\[Omega]", "c"], "-", 
+     RowBox[{
+      FractionBox["\[CapitalOmega]", "2"], "*", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Exp", "[", 
+          RowBox[{"\[CapitalOmega]", "/", 
+           SubscriptBox["\[Omega]", "c"]}], "]"}], "*", 
+         RowBox[{"ExpIntegralEi", "[", 
+          RowBox[{
+           RowBox[{"-", "\[CapitalOmega]"}], "/", 
+           SubscriptBox["\[Omega]", "c"]}], "]"}]}], "-", 
+        RowBox[{
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"-", "\[CapitalOmega]"}], "/", 
+           SubscriptBox["\[Omega]", "c"]}], "]"}], "*", 
+         RowBox[{"ExpIntegralEi", "[", 
+          RowBox[{"\[CapitalOmega]", "/", 
+           SubscriptBox["\[Omega]", "c"]}], "]"}]}]}], ")"}]}]}], 
+    ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.607434325040406*^9, 3.607434601653056*^9}, {
+  3.607434635943898*^9, 3.607434646532641*^9}}],
+
+Cell[BoxData[
+ RowBox[{"-", "3.1431722627781933`"}]], "Output",
+ CellChangeTimes->{{3.6074345818050632`*^9, 3.607434613451952*^9}, 
+   3.607434665253817*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Imgs0", "=", 
+  RowBox[{
+   FractionBox[
+    RowBox[{"\[Pi]", "*", "\[Alpha]"}], "2"], "*", "\[CapitalOmega]", "*", 
+   RowBox[{"Exp", "[", 
+    RowBox[{
+     RowBox[{"-", "\[CapitalOmega]"}], "/", 
+     SubscriptBox["\[Omega]", "c"]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.607435132477953*^9, 3.60743517222992*^9}}],
+
+Cell[BoxData["0.015551666421970914`"], "Output",
+ CellChangeTimes->{3.6074351734733133`*^9}]
+}, Open  ]]
+},
+WindowSize->{740, 724},
+WindowMargins->{{193, Automatic}, {39, Automatic}},
+FrontEndVersion->"9.0 for Linux x86 (64-bit) (November 20, 2012)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 391, 9, 32, "Input"],
+Cell[973, 33, 70, 1, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1080, 39, 458, 12, 50, "Input"],
+Cell[1541, 53, 89, 1, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1667, 59, 1049, 29, 167, "Input"],
+Cell[2719, 90, 157, 3, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2913, 98, 346, 9, 45, "Input"],
+Cell[3262, 109, 92, 1, 32, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

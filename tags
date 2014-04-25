@@ -32,8 +32,8 @@ fu_cau	/media/SPACE/PHD/programs/src/Reg_s0.c	/^double fu_cau ( double k, void* 
 fu_coth	/media/SPACE/PHD/programs/src/Reg_s0.c	/^double fu_coth ( double k, void* params )$/;"	f	language:C
 fu_coth	/media/SPACE/PHD/programs/src/funcs.h	/^double fu_coth ( double, void* ) ;$/;"	p	language:C++
 fu_inv	/media/SPACE/PHD/programs/src/Reg_s0.c	/^double fu_inv ( double k, void* params )$/;"	f	language:C
+im_gc0	/media/SPACE/PHD/programs/src/Img_c0.c	/^int im_gc0 ( void* params, double* val, double* error ) $/;"	f	language:C
 im_gc0	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gc0 ( void* params, double* val, double* error ) ;$/;"	p	language:C++
-im_gc0	Img_c0.c	/^int im_gc0 ( void* params, double* val, double* error ) $/;"	f
 im_gcc	/media/SPACE/PHD/programs/src/Img_cc.c	/^int im_gcc ( void* params, double* val, double* error )$/;"	f	language:C
 im_gcc	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gcc ( void* params, double* val, double* error ) ;$/;"	p	language:C++
 im_gcs	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gcs ( void* params, double* val ) ;$/;"	p	language:C++
@@ -42,8 +42,8 @@ im_gs0	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gs0 ( void* params, double
 im_gs0	Img_s0.c	/^int im_gs0 ( void* params, double* val )$/;"	f
 im_gsc	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gsc ( void* params, double* val ) ;$/;"	p	language:C++
 im_gsc	Img_sc.c	/^int im_gsc ( void* params, double* val )$/;"	f
+im_gss	/media/SPACE/PHD/programs/src/Img_ss.c	/^int im_gss ( void* params, double* val, double* error )$/;"	f	language:C
 im_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gss ( void* params, double* val, double* error ) ;$/;"	p	language:C++
-im_gss	Img_ss.c	/^int im_gss ( void* params, double* val, double* error )$/;"	f
 k_func	/media/SPACE/PHD/programs/src/Reg_sc.c	/^double k_func ( double k, void* params )$/;"	f	language:C
 k_func	/media/SPACE/PHD/programs/src/funcs.h	/^double k_func ( double, void* ) ;$/;"	p	language:C++
 k_func	cos_coth.c	/^double k_func ( double k, void* x_ps )$/;"	f
@@ -74,8 +74,8 @@ re_gs0	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gs0 ( void* params, double
 re_gsc	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int re_gsc ( double* result, double* error, void* params )$/;"	f	language:C
 re_gsc	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gsc ( double* result, double* error, void* params ) ;$/;"	p	language:C++
 re_gsc	cos_coth.c	/^int re_gsc ( double* result, double* abserr, void* params )$/;"	f
+re_gss	/media/SPACE/PHD/programs/src/Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f	language:C
 re_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gss ( void* params, double* val ) ;$/;"	p	language:C++
-re_gss	Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f
 second_int	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int second_int ( double* val, double* error, void* params )$/;"	f	language:C
 second_int	/media/SPACE/PHD/programs/src/funcs.h	/^int second_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f	language:C

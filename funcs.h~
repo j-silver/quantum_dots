@@ -20,6 +20,7 @@ int second_int ( double* , double* , void* ) ;
 int third_int ( double* , double* , void* ) ;
 int fourth_int ( double* , double* , void* ) ;
 int re_gsc ( double* result, double* error, void* params ) ;
+int re_gcs ( double* result, double* error, void* params ) ;
 
 int re_gcc ( void* params, double* val ) ;
 int im_gcc ( void* params, double* val, double* error ) ;

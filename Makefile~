@@ -31,9 +31,6 @@ Img_cc.o: Img_cc.c Expi.o
 Expi.o:	Expi.c
 	$(CC) $(CFLAGS) -c Expi.c
 
-cos_coth.o: cos_coth.c
-	$(CC) $(CFLAGS) -c cos_coth.c
-
 Reg_s0.o: Reg_s0.c
 	$(CC) $(CFLAGS) -c Reg_s0.c
 
@@ -43,10 +40,10 @@ Img_s0.o: Img_s0.c
 Reg_sc.o: Reg_sc.c
 	$(CC) $(CFLAGS) -c Reg_sc.c
 
-integ:	main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o cos_coth.o Reg_s0.o Img_s0.o Reg_sc.o
-	$(CC) -lgsl -lgslcblas -lm -o integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o cos_coth.o Reg_s0.o Img_s0.o Reg_sc.o
+integ:	main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o  Reg_s0.o Img_s0.o Reg_sc.o
+	$(CC) -lgsl -lgslcblas -lm -o integ main.o Reg_cc.o Reg_ss.o Expi.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o  Reg_s0.o Img_s0.o Reg_sc.o
 
 
 clean: 
-	rm -f integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o cos_coth.o Img_s0.o Reg_s0.o Reg_sc.o
+	rm -f integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o  Img_s0.o Reg_s0.o Reg_sc.o
 

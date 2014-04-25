@@ -29,34 +29,96 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Re_gss.c
+ *       Filename:  Expi.c
  *
- *    Description:  
+ *    Description:  Calculation of the exponential integrals (w/o the GSL special
+ *    			functions). 
  *
  *        Version:  1.0
- *        Created:  14/04/2013 22:13:13
+ *        Created:  15/04/2013 11:54:19
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  Giuseppe Argentieri
+ *         Author:  Giuseppe Argentieri (), giuseppe.argentieri@ts.infn.it
  *   Organization:  
  *
  * =====================================================================================
  */
 
 #include "funcs.h"
+#include <gsl/gsl_integration.h>
+/* #include <gsl/gsl_sf_expint.h> */
 
-int re_gss ( void* params, double* val )
+double fu ( double t, void* params ) 
 {
-	struct f_params* pars = (struct f_params*) params ;
-	double o_c, b, O, o_1, alpha ;
-	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;		
-	alpha =  pars->alpha ;
-
-	double v = M_PI_4*alpha/4*( (o_1-O)*exp(-(o_1-O)/o_c)/
-			tanh(b*(o_1-O)/2) - (o_1+O)*exp(-(o_1+O)/o_c)/
-			tanh(b*(o_1+O)/2) ) ;
-	*val = v ;
-	
-	return 0;
+	double f = -exp(-t)/t ;
+	return f ;
 }
+
+double ex ( double t, void* params )
+{
+	double e = exp(-t) ;
+	return e ;
+}
+
+int expi ( double x, double* result, double* abserr )
+{
+	double r, err ;
+
+	gsl_integration_workspace *expi_ws =
+	       	gsl_integration_workspace_alloc (WS_SZ) ;
+
+	gsl_function F ;
+	F.function = &fu ;
+
+	int status ;
+	status = gsl_integration_qagiu ( &F, x, 10e-7, .01 , WS_SZ, expi_ws, &r,
+				&err) ;
+
+	*result = r ; *abserr = err ;
+
+/*	Using the GSL special functions, it is simply:
+ *
+ *      *result = - gsl_sf_expint_E1(x) ;
+ */
+
+	gsl_integration_workspace_free (expi_ws) ;
+
+	return status;
+}
+
+int expi_plus ( double x, double* result, double* abserr )
+{
+	double r, err ;
+
+	gsl_integration_workspace *expi_ws =
+	       	gsl_integration_workspace_alloc (WS_SZ) ;
+
+	gsl_function F ;
+	F.function = &ex ;
+
+	int status ;
+	status = gsl_integration_qawc ( &F, -x, x, 0, 1e-6, .01, WS_SZ,
+			expi_ws, &r, &err ) ;
+
+	double R , EXPI , ERREXPI ;
+	int s = expi ( x , &EXPI, &ERREXPI ) ;
+	R = - (r - EXPI) ;                          /* The minus (-) sign because of the def.
+							of ex 				*/
+	double ERR ;
+	ERR = err + ERREXPI ;
+
+	*result = R ; 
+	*abserr = ERR ;
+
+/* 	Using the GSL exponential integral, it is simply:
+ *
+ * 	R = gsl_sf_expint_Ei(x)  ;
+ * 
+ */
+	gsl_integration_workspace_free (expi_ws) ;
+
+	return status;
+}
+
+

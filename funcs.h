@@ -33,7 +33,7 @@ int im_gc0 ( void* params, double* val, double* error ) ;
 int re_gs0 ( void* params, double* val, double* error ) ;
 int im_gs0 ( void* params, double* val ) ;
 
-/* Img_c0, Img_cc, Img_cs functions */
+/* Img_c0, Img_cc, Img_ss, Img_cs functions */
 int expi ( double , double*, double* ) ;
 int expi_plus ( double, double*, double* ) ;
 double fu ( double, void* ) ;

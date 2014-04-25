@@ -38,4 +38,4 @@ int expi ( double , double*, double* ) ;
 int expi_plus ( double, double*, double* ) ;
 double fu ( double, void* ) ;
 double ex ( double, void* ) ;
-double fu_coth ( double, void* ) ;
+

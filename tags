@@ -8,6 +8,7 @@ CC	/media/SPACE/PHD/programs/src/Makefile	/^CC = gcc$/;"	m	language:Make
 CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -g -Wall$/;"	m	language:Make
 Omega	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 Omega	/media/SPACE/PHD/programs/src/main.c	/^const double Omega = 1.0 ;$/;"	v	language:C
+POW_2	/media/SPACE/PHD/programs/src/red_gen.c	52;"	d	language:C	file:
 WS_SZ	/media/SPACE/PHD/programs/src/funcs.h	5;"	d	language:C++
 alpha	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
 alpha	/media/SPACE/PHD/programs/src/main.c	/^const double alpha = 0.01 ;$/;"	v	language:C
@@ -76,6 +77,7 @@ re_gsc	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gsc ( double* result, doub
 re_gsc	cos_coth.c	/^int re_gsc ( double* result, double* abserr, void* params )$/;"	f
 re_gss	/media/SPACE/PHD/programs/src/Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f	language:C
 re_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gss ( void* params, double* val ) ;$/;"	p	language:C++
+red_mat	/media/SPACE/PHD/programs/src/red_gen.c	/^int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )$/;"	f	language:C
 second_int	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int second_int ( double* val, double* error, void* params )$/;"	f	language:C
 second_int	/media/SPACE/PHD/programs/src/funcs.h	/^int second_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f	language:C

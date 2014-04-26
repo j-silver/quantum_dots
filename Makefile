@@ -40,10 +40,15 @@ Img_s0.o: Img_s0.c
 Reg_sc.o: Reg_sc.c
 	$(CC) $(CFLAGS) -c Reg_sc.c
 
-integ:	main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o  Reg_s0.o Img_s0.o Reg_sc.o
-	$(CC) -lgsl -lgslcblas -lm -o integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o  Reg_s0.o Img_s0.o Reg_sc.o
+integs.o: integs.c
+	$(CC) $(CFLAGS) -c integs.c
 
+red_gen.o: red_gen.c
+	$(CC) $(CFLAGS) -c red_gen.c
+
+main:	main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o  Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o 
+	$(CC) -lgsl -lgslcblas -lm -o main main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o  Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o
 
 clean: 
-	rm -f integ main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o  Img_s0.o Reg_s0.o Reg_sc.o
+	rm -f main main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Reg_c0.o Img_c0.o Expi.o Img_ss.o Img_cc.o  Img_s0.o Reg_s0.o Reg_sc.o red_gen.o integs.o
 

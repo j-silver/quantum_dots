@@ -1,3 +1,31 @@
+/* Copyright (c) 2014, Giuseppe Argentieri <giuseppe.argentieri@ts.infn.it>
+
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ * 
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ * 
+ */
+
 /* main.c */
 
 #include "funcs.h"
@@ -18,67 +46,20 @@ int main ( int argc, char* argv[] )
 	params.Omega = Omega ;
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
+ 
+	/* perform the integrals */
+  	double integrals[12] ;
+  	int status1 = integration ( &params, integrals ) ;
 
-	/* Reg_cc */
-	double regcc ;
-	re_gcc ( &params, &regcc ) ;
-	printf("Re_gcc: %.6f\n", regcc) ;
+	int i ;
+	for ( i = 0 ; i<12 ; i++ )
+		printf("integrals[%d]: %.6f\n", i, integrals[i] ) ;
 
-	/* Img_cc */
-	double imgcc, imgcc_error ;
-	im_gcc ( &params, &imgcc, &imgcc_error ) ;
-	printf("Im_gcc: %.6f +- %.8f\n", imgcc, imgcc_error) ;
+	/* set the Redfield matrix and save onto a file */
+	gsl_matrix* red_matrix = gsl_matrix_calloc ( 4, 4 ) ;
+	int status2 = red_mat ( red_matrix, integrals, &params ) ;
+	int status3 = red_mat_write ( red_matrix, "Redfield_matrix" ) ;
 
-	/* Reg_ss */
-	double regss ;
-	re_gss ( &params, &regss ) ;	
-	printf("Re_gss: %.6f\n", regss) ;
-
-	/* Img_ss */
-	double imgss, imgss_error ;
-	im_gss ( &params, &imgss, &imgss_error ) ;
-	printf("Im_gss: %.6f +- %.6f\n", imgss, imgss_error) ;
-
-	/* Reg_sc */
-	double regsc, regscerr ;
-	re_gsc ( &regsc, &regscerr, &params ) ;
-	printf("Re_gsc: %.6f +- %.6f\n", regsc, regscerr ) ;
-
-	/* Img_sc */
-	double imgsc ;
-	im_gsc ( &params, &imgsc ) ;
-	printf("Im_gsc: %.6f\n", imgsc) ;
-
-	/* Reg_cs */
-	double regcs, regcserr ;
-	re_gcs ( &regcs, &regcserr, &params ) ;
-	printf("Re_gcs: %.6f +- %.6f\n", regcs, regcserr ) ;
-
-	/* Img_cs */
-	double imgcs ;
-	im_gcs ( &params, &imgcs ) ;
-	printf("Im_gcs: %.6f\n", imgcs) ;
-
-	/* Reg_c0 */
-	double regc0 ;
-	re_gc0 ( &params, &regc0 ) ;
-	printf("Re_gc0: %.6f\n", regc0) ;
-
-	/* Img_c0 */
-	double imgc0, imgc0_error ;
-	im_gc0 ( &params, &imgc0, &imgc0_error ) ;
-	printf("Im_gc0: %.6f +- %.9f\n", imgc0, imgc0_error) ;
-
-	/* Reg_s0 */
-	double regs0, regs0_error ;
-	re_gs0 ( &params, &regs0, &regs0_error ) ;
-	printf("Re_gs0: %.6f +- %.9f\n", regs0, regs0_error) ;
-
-	/* Img_s0 */
-	double imgs0 ;
-	im_gs0 ( &params, &imgs0 ) ;
-	printf ("Im_gs0: %.6f\n", imgs0);
-
-	return 0;
+	return status1 + status2 + status3;
 }
 

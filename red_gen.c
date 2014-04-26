@@ -59,7 +59,7 @@
  *  		  and the pointer to the matrix
  * 
  */
-int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
+int red_mat ( gsl_matrix* red_mx , double integrals[] , void* params )
 {
 	/* Setting the integrals */
 	double rcc, icc, rss, iss, rsc, isc, rcs, ics, rc0, ic0, rs0, is0 ;
@@ -78,7 +78,7 @@ int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
 
 	/* Copying the parameters */
 	struct f_params* pars = (struct f_params*) params ;
-	double o_c, b, O, o_1, alpha ;
+	double o_c, b, O, o_1 ;
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
 	double D = sqrt(POW_2(o_1)-POW_2(O)) ;
 
@@ -107,3 +107,19 @@ int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
 
 	return 0;
 }		/* -----  end of function red_mat  ----- */
+
+
+/* 
+ *      FUNCTION  
+ *         Name:  red_mat_write
+ *  Description:  Save the Redfield matrix in a file.
+ * 
+ */
+int red_mat_write ( gsl_matrix* mat, char* name )
+{
+	FILE* f = fopen ( name, "w" ) ;
+	int status = gsl_matrix_fprintf ( f, mat, "%.6f" ) ;
+	fclose (f) ;	
+
+	return status;
+}		/* -----  end of function red_mat_write  ----- */

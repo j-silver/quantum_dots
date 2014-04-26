@@ -1,6 +1,7 @@
 /* funcs.h */
 
 #include <math.h>
+#include <gsl/gsl_matrix.h>
 
 #define WS_SZ 1000  /* size of the integration workspace */
 
@@ -39,3 +40,6 @@ int expi_plus ( double, double*, double* ) ;
 double fu ( double, void* ) ;
 double ex ( double, void* ) ;
 
+int red_mat ( gsl_matrix* , double* , void* ) ;
+int red_mat_write ( gsl_matrix*, char* ) ;
+int integration ( void*, double* ) ;

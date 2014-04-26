@@ -1,16 +1,16 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Im_gcs.c
+ *       Filename:  Reg_c0.c
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/04/2013 22:49:18
+ *        Created:  15/04/2013 11:26:58
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author: Giuseppe Argentieri
+ *         Author:  Giuseppe Argentieri (), giuseppe.argentieri@ts.infn.it
  *   Organization:  
  *
  * =====================================================================================
@@ -18,17 +18,17 @@
 
 #include "funcs.h"
 
-int im_gcs ( void* params, double* val )
+int re_gc0 ( void* params, double* val)
 {
 	struct f_params* pars = (struct f_params*) params ;
 	double o_c, b, O, o_1, alpha ;
-	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;		
-	alpha =  pars->alpha ;
+	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
+	alpha = pars->alpha ;
 
-	double v = M_PI_4*alpha*((o_1+O)*exp(-(o_1+O)/o_c) 
-		+ (o_1-O)*exp(-(o_1-O)/o_c)) ;
+	double vtemp = M_PI_2*alpha*(O*exp(-O/o_c)) ;
+	double v = vtemp / tanh(b*O/2) ;
 
 	*val = v ;
-
+	
 	return 0;
 }

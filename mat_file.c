@@ -25,42 +25,52 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * 
  */
-
 /*
- * =====================================================================================
  *
- *       Filename:  Img_c0.c
  *
- *    Description:  
+ *       Filename:  mat_file.c
+ *
+ *    Description:  Write and read the generator matrices on files
  *
  *        Version:  1.0
- *        Created:  15/04/2013 13:43:02
+ *        Created:  03/05/2014 13:52:15
  *       Revision:  none
- *       Compiler:  gcc
+ *        License:  BSD
  *
  *         Author:  Giuseppe Argentieri (ga), giuseppe.argentieri@ts.infn.it
- *   Organization:  
+ *   Organization:  Università degli Studi di Trieste
  *
- * =====================================================================================
+ * 
  */
 
-#include "funcs.h"
+#include <gsl/gsl_matrix.h>
 
-int im_gc0 ( void* params, double* val, double* error ) 
+/* 
+ *      FUNCTION  
+ *         Name:  mat_write
+ *  Description:  Save the generator matrix in a file.
+ * 
+ */
+int mat_write ( gsl_matrix* mat, char* name )
 {
-	struct f_params* pars = (struct f_params*) params ;
-	double o_c, b, O, o_1, alpha ;
-	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
-	alpha = pars->alpha ;
+	FILE* f = fopen ( name, "w" ) ;
+	int status = gsl_matrix_fprintf ( f, mat, "%.6f" ) ;
+	fclose (f) ;	
 
-	double ei, Ei, err1, err2 ;
-	expi( O/o_c, &ei, &err1 ) ;
-	expi_plus ( O/o_c, &Ei, &err2 ) ;
+	return status;
+}		/* -----  end of function mat_write  ----- */
 
-	double v = -alpha*(o_c+(O/2)*(exp(O/o_c)*(ei) - exp(-O/o_c)*(Ei))) ;
-	*val = v ;
-	double err = (alpha*O/2) * (exp(O/o_c)*err1 + exp(-O/o_c)*err2) ; 
-	*error = err ;
 
-	return 0;
-}
+/* 
+ *      FUNCTION  
+ *         Name:  mat_read
+ *  Description:  Read the Redfield matrix from a file 
+ * 
+ */
+int mat_read ( gsl_matrix* mat, char* name )
+{
+	FILE* f = fopen ( name, "r" ) ;
+	int status = gsl_matrix_fscanf ( f, mat ) ;
+	fclose (f) ;
+	return status;
+}		/* -----  end of function mat_read  ----- */

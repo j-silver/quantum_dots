@@ -25,42 +25,72 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * 
  */
-
 /*
- * =====================================================================================
  *
- *       Filename:  Img_c0.c
  *
- *    Description:  
+ *       Filename:  entropy.c
+ *
+ *    Description:  Calculate the entropy production for a given state, generator
+ *    			and equilibrium state
  *
  *        Version:  1.0
- *        Created:  15/04/2013 13:43:02
+ *        Created:  05/05/2014 20:53:01
  *       Revision:  none
- *       Compiler:  gcc
+ *        License:  BSD
  *
  *         Author:  Giuseppe Argentieri (ga), giuseppe.argentieri@ts.infn.it
- *   Organization:  
+ *   Organization:  Università degli Studi di Trieste
  *
- * =====================================================================================
+ * 
  */
+
+#include <math.h>
+#include <gsl/gsl_sf_log.h>
 
 #include "funcs.h"
 
-int im_gc0 ( void* params, double* val, double* error ) 
+/* 
+ *      FUNCTION  
+ *         Name:  entropy_production
+ *  Description:  
+ * 
+ */
+double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq, const gsl_matrix* L  )
 {
-	struct f_params* pars = (struct f_params*) params ;
-	double o_c, b, O, o_1, alpha ;
-	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
-	alpha = pars->alpha ;
+	/* l1, l2, l3 */
+	double l[3] ; int i, j ;
+	for ( i = 1 ; i < 3 ; i++ )
+	{
+		l[i] = 0 ;
+		for ( j = 0 ; j < 3 ; j++ )
+			l[i] += gsl_matrix_get(L,i,j)*gsl_vector_get(rho,j) ;
+	}	
 
-	double ei, Ei, err1, err2 ;
-	expi( O/o_c, &ei, &err1 ) ;
-	expi_plus ( O/o_c, &Ei, &err2 ) ;
+	/* L[rho] */
+	double Lr = 0 ;
+	for ( i = 1 ; i < 3 ; i++ )
+		Lr += l[i]*gsl_vector_get(rho,i) ;
 
-	double v = -alpha*(o_c+(O/2)*(exp(O/o_c)*(ei) - exp(-O/o_c)*(Ei))) ;
-	*val = v ;
-	double err = (alpha*O/2) * (exp(O/o_c)*err1 + exp(-O/o_c)*err2) ; 
-	*error = err ;
+	/* L[rhoeq] */
+	double Leq = 0 ;
+	for ( i = 1 ; i < 3 ; i++ )
+		Leq += l[i]*gsl_vector_get(rhoeq,i) ;
 
-	return 0;
-}
+	/* r , req */
+	double r, req ;
+	r = req = 0 ;
+
+	for ( i = 1 ; i < 3 ; i++ )
+		r += POW_2(gsl_vector_get(rho,i)) ;
+	r = sqrt(r) ;
+
+	for ( i = 1 ; i < 3 ; i++ )
+		req += POW_2(gsl_vector_get(rhoeq,i)) ;
+	req = sqrt(req) ;
+
+	/* internal entropy s */
+	double s ;
+	s = -(gsl_sf_log((1+r)/(1-r))*Lr/r - gsl_sf_log((1+req)/(1-req))*Leq/req) ;
+
+	return s;
+}		/* -----  end of function entropy_production  ----- */

@@ -25,16 +25,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * 
  */
-
 /*
  *
  *
- *       Filename:  integs.c
+ *       Filename:  station.c
  *
- *    Description:  Populating the integrals array
+ *    Description:  Find the stationary state for the given generator
  *
  *        Version:  1.0
- *        Created:  26/04/2014 13:56:01
+ *        Created:  05/05/2014 15:27:48
  *       Revision:  none
  *        License:  BSD
  *
@@ -44,63 +43,47 @@
  * 
  */
 
-#include "funcs.h"
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_linalg.h>
+
 
 /* 
  *      FUNCTION  
- *         Name:  integrals
- *  Description:  Populate the integrals array 
+ *         Name:  stationary
+ *  Description:  Given the dissipator in Bloch form, reduce to a 3x3 problem and store
+ *  			the stationary state in the 3x1 vector *X 
+ * 			
+ * 			M X = 0
  * 
+ * 	        	|  0    0    0    0  |  | 1  |    0
+ * 		        | M10  M11  M12  M13 |  | X1 |    0
+ * 		        | M20  M21  M22  M23 |  | X2 | =  0
+ * 			| M30  M31  M32  M33 |  | X3 |    0
+ *
+ *
+ * 			A x = b
+ *
+ * 			| M11  M12  M13 |  | X1 |   | -M10 |
+ * 			| M21  M22  M23 |  | X2 | = | -M20 |
+ * 			| M31  M32  M33 |  | X3 |   | -M30 |
  */
-int integration ( void* params, double* integrals )
+int stationary ( const gsl_matrix* M, gsl_vector* X )
 {
-	double regcc ;
-	re_gcc( params, &regcc ) ;
-	integrals[0] = regcc ;
+	/* Copy the dissipator matrix in a temporary local matrix m */
+	gsl_matrix* m = gsl_matrix_calloc ( 4, 4 ) ;
+	gsl_matrix_memcpy ( m, M ) ;
+	gsl_vector_view x = gsl_vector_subvector ( X, 1, 3 ) ;
 
-	double imgcc, imgcc_error ;
-	im_gcc ( params, &imgcc, &imgcc_error ) ;
-	integrals[1] = imgcc ;
+	/* Create a submatrix view of the spatial part of m and a vector view
+	 * of the spatial part of the 0-th column, which goes into -b in the system
+	 * A X = b */
+	gsl_matrix_view A = gsl_matrix_submatrix ( m, 1, 1, 3, 3 ) ;
+	gsl_vector_view b = gsl_matrix_subcolumn ( m, 0, 1, 3 ) ;
+	int status1 = gsl_vector_scale ( &b.vector, -1.0 ) ;	
 
-	double regss ;
-	re_gss ( params, &regss ) ;	
-	integrals[2] = regss ;
+	/* Solve the system A x = b using Householder transformations.
+	 * Changing the view x of X => also X is changed, in the spatial part */
+	int status2 = gsl_linalg_HH_solve ( &A.matrix, &b.vector, &x.vector ) ;
 
-	double imgss, imgss_error ;
-	im_gss ( params, &imgss, &imgss_error ) ;
-	integrals[3] = imgss ;
-
-	double regsc, regscerr ;
-	re_gsc ( &regsc, &regscerr, params ) ;
-	integrals[4] = regsc ;
-
-	double imgsc ;
-	im_gsc ( params, &imgsc ) ;
-	integrals[5] = imgsc ;
-
-	double regcs, regcserr ;
-	re_gcs ( &regcs, &regcserr, params ) ;
-	integrals[6] = regcs ;
-
-	double imgcs ;
-	im_gcs ( params, &imgcs ) ;
-	integrals[7] = imgcs ;
-
-	double regc0 ;
-	re_gc0 ( params, &regc0 ) ;
-	integrals[8] = regc0 ;
-
-	double imgc0, imgc0_error ;
-	im_gc0 ( params, &imgc0, &imgc0_error ) ;
-	integrals[9] = imgc0 ;
-
-	double regs0, regs0_error ;
-	re_gs0 ( params, &regs0, &regs0_error ) ;
-	integrals[10] = regs0 ;
-
-	double imgs0 ;
-	im_gs0 ( params, &imgs0 ) ;
-	integrals[11] = imgs0 ;
-
-	return 0;
-}		/* -----  end of function integrals  ----- */
+	return status1 + status2 ;
+}		/* -----  end of function stationary  ----- */

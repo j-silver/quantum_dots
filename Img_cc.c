@@ -68,7 +68,7 @@ int im_gcc ( void* params, double* val, double* error )
 	double imgcc = -alpha/mu - alpha/4 *
 			( + beta1*exp(beta1*mu)*e1 + beta2*exp(beta2*mu)*e2
 			- beta1*exp(-beta1*mu)*E1 - beta2*exp(-beta2*mu)*E2 ) ;
-	*val = imgcc ;
+  	*val = imgcc ; 
 
 	double err =  alpha/4 *
 			( + beta1*exp(beta1*mu)*err1 + beta2*exp(beta2*mu)*err2

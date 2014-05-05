@@ -28,14 +28,16 @@
 
 /* funcs.h */
 
-#include <math.h>
+#include <gsl/gsl_math.h>
 #include <gsl/gsl_matrix.h>
+#include <gsl/gsl_odeiv2.h>
 
 #define WS_SZ 1000  /* size of the integration workspace */
 
+#define POW_2 gsl_pow_2  /* square */
+
 struct f_params { double omega_c ; double beta ; double Omega ;
 	double omega_1; double alpha; } ;
-
 int assign_p ( void*, double*, double*, double*, double* ) ;
 
 /* Re_gsc functions */
@@ -70,5 +72,20 @@ double ex ( double, void* ) ;
 
 /* Functions to create matrices */
 int red_mat ( gsl_matrix* , double* , void* ) ;
-int red_mat_write ( gsl_matrix*, char* ) ;
+int cp_mat ( gsl_matrix*, double*, void* ) ;
+int ham_gen ( gsl_matrix*, const double* ) ;
+int mat_write ( gsl_matrix*, char* ) ;
+int mat_read ( gsl_matrix*, char* ) ;
 int integration ( void*, double* ) ;
+
+/* Functions for evolution */
+int generator ( double, const double*, double*, void* ) ;
+int jac ( double, const double*, double*, double*, void* ) ;
+int evol ( double, gsl_vector*, double, gsl_odeiv2_evolve*,
+		gsl_odeiv2_control*, gsl_odeiv2_step*, gsl_odeiv2_system* ) ;
+
+/* Stationarity */
+int stationary ( const gsl_matrix* , gsl_vector*  ) ;
+
+/* Entropy */
+double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matrix* ) ;

@@ -25,42 +25,42 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * 
  */
-
 /*
- * =====================================================================================
  *
- *       Filename:  Img_c0.c
  *
- *    Description:  
+ *       Filename:  hamil.c
+ *
+ *    Description:  Create an hamiltonian generator in Bloch form, from a given
+ *    			vector omega
  *
  *        Version:  1.0
- *        Created:  15/04/2013 13:43:02
+ *        Created:  03/05/2014 14:16:00
  *       Revision:  none
- *       Compiler:  gcc
+ *        License:  BSD
  *
  *         Author:  Giuseppe Argentieri (ga), giuseppe.argentieri@ts.infn.it
- *   Organization:  
+ *   Organization:  Università degli Studi di Trieste
  *
- * =====================================================================================
+ * 
  */
 
-#include "funcs.h"
+#include <gsl/gsl_matrix.h>
 
-int im_gc0 ( void* params, double* val, double* error ) 
+
+/* 
+ *      FUNCTION  
+ *         Name:  ham_gen
+ *  Description:  
+ * 
+ */
+int ham_gen ( gsl_matrix* h, double* o )
 {
-	struct f_params* pars = (struct f_params*) params ;
-	double o_c, b, O, o_1, alpha ;
-	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
-	alpha = pars->alpha ;
-
-	double ei, Ei, err1, err2 ;
-	expi( O/o_c, &ei, &err1 ) ;
-	expi_plus ( O/o_c, &Ei, &err2 ) ;
-
-	double v = -alpha*(o_c+(O/2)*(exp(O/o_c)*(ei) - exp(-O/o_c)*(Ei))) ;
-	*val = v ;
-	double err = (alpha*O/2) * (exp(O/o_c)*err1 + exp(-O/o_c)*err2) ; 
-	*error = err ;
+	gsl_matrix_set (h, 1, 2, o[3] ) ;
+	gsl_matrix_set (h, 1, 3, -o[2] ) ;
+	gsl_matrix_set (h, 2, 1, -o[3] ) ;
+	gsl_matrix_set (h, 2, 3, o[1] ) ;
+	gsl_matrix_set (h, 3, 1, o[2] ) ;
+	gsl_matrix_set (h, 3, 2, -o[1] ) ;
 
 	return 0;
-}
+}		/* -----  end of function ham_gen  ----- */

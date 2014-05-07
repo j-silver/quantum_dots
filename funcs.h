@@ -89,3 +89,10 @@ int stationary ( const gsl_matrix* , gsl_vector*  ) ;
 
 /* Entropy */
 double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matrix* ) ;
+
+/* DC current */
+double current ( const gsl_vector* ) ;
+
+/* writing operations */
+int save_integrals ( void* ) ;
+int save_matrices ( void* ) ;

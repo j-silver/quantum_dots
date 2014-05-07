@@ -28,13 +28,12 @@
 /*
  *
  *
- *       Filename:  entropy.c
+ *       Filename:  write.c
  *
- *    Description:  Calculate the entropy production for a given state, generator
- *    			and equilibrium state
+ *    Description:  Write the data into file .dat
  *
  *        Version:  1.0
- *        Created:  05/05/2014 20:53:01
+ *        Created:  07/05/2014 22:46:50
  *       Revision:  none
  *        License:  BSD
  *
@@ -44,52 +43,63 @@
  * 
  */
 
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_sf_log.h>
-
 #include "funcs.h"
+#include <stdio.h>
+#include <gsl/gsl_matrix.h>
 
 /* 
  *      FUNCTION  
- *         Name:  entropy_production
+ *         Name:  save_integrals
  *  Description:  
  * 
  */
-double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq, const gsl_matrix* L  )
+int save_integrals ( void* params )
 {
-	/* l1, l2, l3 */
-	double l[3] ; int i, j ;
-	for ( i = 1 ; i < 3 ; i++ )
-	{
-		l[i] = 0 ;
-		for ( j = 0 ; j < 3 ; j++ )
-			l[i] += gsl_matrix_get(L,i,j)*gsl_vector_get(rho,j) ;
-	}	
+	/* perform the integrals */
+  	double integrals[12] ;
+	void* p = (void*) params ;
+	int status = integration ( p, integrals ) ;
 
-	/* L[rho] */
-	double Lr = 0 ;
-	for ( i = 1 ; i < 3 ; i++ )
-		Lr += l[i]*gsl_vector_get(rho,i) ;
+	/* write them into a file */
+	FILE* f_integ = fopen ( "INTEGRALS.dat", "w+" ) ;
+	int i ;
+	for ( i = 0 ; i < 12 ; i++ )
+		fprintf( f_integ, "integrals[%d]: %.6f\n", i, integrals[i] ) ;
+	fclose( f_integ ) ;
 
-	/* L[rhoeq] */
-	double Leq = 0 ;
-	for ( i = 1 ; i < 3 ; i++ )
-		Leq += l[i]*gsl_vector_get(rhoeq,i) ;
+	return status;
+}		/* -----  end of function save_integrals  ----- */
 
-	/* r , req */
-	double r, req ;
-	r = req = 0 ;
 
-	r = gsl_hypot3(gsl_vector_get(rho,1),gsl_vector_get(rho,2),gsl_vector_get(rho,3)) ;
-	req = gsl_hypot3(gsl_vector_get(rhoeq,1),gsl_vector_get(rhoeq,2),
-		gsl_vector_get(rhoeq,3)) ;
+/* 
+ *      FUNCTION  
+ *         Name:  save_matrices
+ *  Description:  
+ * 
+ */
+int save_matrices ( void* params )
+{
+	double integrals[12] ;
 
-	/* internal entropy s */
-	double s ;
-	if ( r < 1 && req < 1 )
-		s = -(gsl_sf_log((1+r)/(1-r))*Lr/r - gsl_sf_log((1+req)/(1-req))*Leq/req) ;
-	else 
-		s = 0 ;
+	FILE* f_integ = fopen ( "INTEGRALS.dat", "r" ) ;
+	int i ;
+	for ( i = 0 ; i < 12 ; i++ )
+		fscanf ( f_integ, "%*s %lf", &integrals[i] ) ;
+	fclose ( f_integ ) ;
+	
+	void* p = (void *) params ;
 
-	return s;
-}		/* -----  end of function entropy_production  ----- */
+	/* create the Redfield matrix and save it into a file */
+	gsl_matrix* red_matrix = gsl_matrix_calloc ( 4, 4 ) ;
+	int status1 = red_mat ( red_matrix, integrals, p ) ;
+	int status2 = mat_write ( red_matrix, "REDFIELD_MATRIX" ) ;
+
+	/* create the CP matrix and save it into a file */
+	gsl_matrix* cp_matrix = gsl_matrix_calloc ( 4, 4 ) ;
+	int status3 = cp_mat ( cp_matrix, integrals, p ) ;
+	int status4 = mat_write ( cp_matrix, "CP_MATRIX" ) ;
+
+	return status1+status2+status3+status4 ;
+}		/* -----  end of function save_matrices  ----- */
+
+

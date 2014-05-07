@@ -28,13 +28,12 @@
 /*
  *
  *
- *       Filename:  entropy.c
+ *       Filename:  current.c
  *
- *    Description:  Calculate the entropy production for a given state, generator
- *    			and equilibrium state
+ *    Description:  Calculate the DC current given the state
  *
  *        Version:  1.0
- *        Created:  05/05/2014 20:53:01
+ *        Created:  07/05/2014 12:12:37
  *       Revision:  none
  *        License:  BSD
  *
@@ -44,52 +43,22 @@
  * 
  */
 
+#include <gsl/gsl_vector.h>
+#include <gsl/gsl_const_mksa.h>
 #include <gsl/gsl_math.h>
-#include <gsl/gsl_sf_log.h>
-
-#include "funcs.h"
+#include <math.h>
 
 /* 
  *      FUNCTION  
- *         Name:  entropy_production
+ *         Name:  current
  *  Description:  
  * 
  */
-double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq, const gsl_matrix* L  )
+double current ( const gsl_vector* state )
 {
-	/* l1, l2, l3 */
-	double l[3] ; int i, j ;
-	for ( i = 1 ; i < 3 ; i++ )
-	{
-		l[i] = 0 ;
-		for ( j = 0 ; j < 3 ; j++ )
-			l[i] += gsl_matrix_get(L,i,j)*gsl_vector_get(rho,j) ;
-	}	
+	double P = - gsl_vector_get(state,3) ;
+	double I0 = GSL_CONST_MKSA_ELECTRON_CHARGE*gamma0/sqrt(3.0) ;
+	double cur = I0*P*Omega/gsl_hypot(Omega,D) ;
 
-	/* L[rho] */
-	double Lr = 0 ;
-	for ( i = 1 ; i < 3 ; i++ )
-		Lr += l[i]*gsl_vector_get(rho,i) ;
-
-	/* L[rhoeq] */
-	double Leq = 0 ;
-	for ( i = 1 ; i < 3 ; i++ )
-		Leq += l[i]*gsl_vector_get(rhoeq,i) ;
-
-	/* r , req */
-	double r, req ;
-	r = req = 0 ;
-
-	r = gsl_hypot3(gsl_vector_get(rho,1),gsl_vector_get(rho,2),gsl_vector_get(rho,3)) ;
-	req = gsl_hypot3(gsl_vector_get(rhoeq,1),gsl_vector_get(rhoeq,2),
-		gsl_vector_get(rhoeq,3)) ;
-
-	/* internal entropy s */
-	double s ;
-	if ( r < 1 && req < 1 )
-		s = -(gsl_sf_log((1+r)/(1-r))*Lr/r - gsl_sf_log((1+req)/(1-req))*Leq/req) ;
-	else 
-		s = 0 ;
-
-	return s;
-}		/* -----  end of function entropy_production  ----- */
+	return cur;
+}		/* -----  end of function current  ----- */

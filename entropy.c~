@@ -86,7 +86,7 @@ double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq, cons
 
 	/* internal entropy s */
 	double s ;
-	if ( r < 1 && req < 1 )
+	if ( r < 1 ) && ( req < 1 )
 		s = -(gsl_sf_log((1+r)/(1-r))*Lr/r - gsl_sf_log((1+req)/(1-req))*Leq/req) ;
 	else 
 		s = 0 ;

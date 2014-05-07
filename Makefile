@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -O2 #-pedantic -ansi -W -Wmissing-prototypes -Wstrict-prototypes  -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs -fshort-enums -fno-common 
+CFLAGS = -g -Wall -O2 -ansi #-W -pedantic -Wmissing-prototypes -Wstrict-prototypes  -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs -fshort-enums -fno-common 
 LDLIBS = -lgsl -lgslcblas -lm
 
 MAIN = main
@@ -55,9 +55,20 @@ hamil.o: hamil.c
 
 station.o: station.c 
 
-entropy.o: entropy.c
+entropy.o: entropy.c funcs.h
 
-objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o
+current.o: current.c
+
+write.o: write.c funcs.h
+
+objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o write.o
+
+data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat
+
+
+
+data: main
+	./main
 
 main: $(objects)
 	$(CC) -o $(MAIN) $(objects) $(LDLIBS) $(LDFLAGS)
@@ -65,5 +76,5 @@ main: $(objects)
 .PHONY: clean
 
 clean: 
-	rm -f $(objects) REDFIELD_MATRIX CP_MATRIX EVOLUTION.dat
+	rm -f $(objects) $(data_files)
 

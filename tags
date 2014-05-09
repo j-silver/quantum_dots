@@ -5,7 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CC	/media/SPACE/PHD/programs/src/Makefile	/^CC = gcc$/;"	m	language:Make
-CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -g -Wall -O2 -ansi #-W -pedantic -Wmissing-prototypes -Wstrict-prototypes  -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs -fshort-enums -fno-common $/;"	m	language:Make
+CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common #-g -W -pedantic -Wwrite-strings -Wnested-externs -fshort-enums $/;"	m	language:Make
 CPPFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m	language:Make
 D	/media/SPACE/PHD/programs/src/main.c	/^const double D = 1 ;                            \/* pumping amplitude (GHz) *\/$/;"	v	language:C
 LDLIBS	/media/SPACE/PHD/programs/src/Makefile	/^	LDLIBS = $(libs_for_intelc)$/;"	m	language:Make
@@ -15,7 +15,6 @@ MAIN	/media/SPACE/PHD/programs/src/Makefile	/^	MAIN = main-intel$/;"	m	language:
 MAIN	/media/SPACE/PHD/programs/src/Makefile	/^MAIN = main$/;"	m	language:Make
 Omega	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 Omega	/media/SPACE/PHD/programs/src/main.c	/^const double Omega = 2 ;                        \/* pumping frequency (GHz) *\/$/;"	v	language:C
-POW_2	/media/SPACE/PHD/programs/src/cp_gen.c	52;"	d	language:C	file:
 POW_2	/media/SPACE/PHD/programs/src/funcs.h	37;"	d	language:C++
 POW_2	/media/SPACE/PHD/programs/src/red_gen.c	52;"	d	language:C	file:
 T	/media/SPACE/PHD/programs/src/main.c	/^const double T = 0.1 ;                          \/* temperature *\/$/;"	v	language:C
@@ -49,13 +48,16 @@ fourth_int	/media/SPACE/PHD/programs/src/funcs.h	/^int fourth_int ( double* , do
 fu	/media/SPACE/PHD/programs/src/Expi.c	/^double fu ( double t, void* params ) $/;"	f	language:C
 fu	/media/SPACE/PHD/programs/src/funcs.h	/^double fu ( double, void* ) ;$/;"	p	language:C++
 fu_cau	/media/SPACE/PHD/programs/src/Reg_s0.c	/^double fu_cau ( double k, void* params )$/;"	f	language:C
+fu_cau	/media/SPACE/PHD/programs/src/funcs.h	/^double fu_cau ( double, void* ) ;$/;"	p	language:C++
 fu_coth	/media/SPACE/PHD/programs/src/Reg_s0.c	/^double fu_coth ( double k, void* params )$/;"	f	language:C
+fu_coth	/media/SPACE/PHD/programs/src/funcs.h	/^double fu_coth ( double, void* ) ;$/;"	p	language:C++
 fu_inv	/media/SPACE/PHD/programs/src/Reg_s0.c	/^double fu_inv ( double k, void* params )$/;"	f	language:C
+fu_inv	/media/SPACE/PHD/programs/src/funcs.h	/^double fu_inv ( double, void* ) ;$/;"	p	language:C++
 gamma0	/media/SPACE/PHD/programs/src/main.c	/^const double gamma0 = 0.05 ;                    \/* energy hopping between sites$/;"	v	language:C
 generator	/media/SPACE/PHD/programs/src/evol.c	/^int generator ( double t, const double y[], double dydt[], void* PARS )$/;"	f	language:C
 generator	/media/SPACE/PHD/programs/src/funcs.h	/^int generator ( double, const double*, double*, void* ) ;$/;"	p	language:C++
 ham_gen	/media/SPACE/PHD/programs/src/funcs.h	/^int ham_gen ( gsl_matrix*, const double* ) ;$/;"	p	language:C++
-ham_gen	/media/SPACE/PHD/programs/src/hamil.c	/^int ham_gen ( gsl_matrix* h, double* o )$/;"	f	language:C
+ham_gen	/media/SPACE/PHD/programs/src/hamil.c	/^int ham_gen ( gsl_matrix* h, const double* o )$/;"	f	language:C
 headers_for_intelc	/media/SPACE/PHD/programs/src/Makefile	/^headers_for_intelc = -I\/media\/SPACE\/intel\/mkl\/include -I\/media\/SPACE\/intel\/include\/intel64$/;"	m	language:Make
 im_gc0	/media/SPACE/PHD/programs/src/Img_c0.c	/^int im_gc0 ( void* params, double* val, double* error ) $/;"	f	language:C
 im_gc0	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gc0 ( void* params, double* val, double* error ) ;$/;"	p	language:C++
@@ -69,7 +71,6 @@ im_gsc	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gsc ( void* params, double
 im_gsc	Img_sc.c	/^int im_gsc ( void* params, double* val )$/;"	f
 im_gss	/media/SPACE/PHD/programs/src/Img_ss.c	/^int im_gss ( void* params, double* val, double* error )$/;"	f	language:C
 im_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gss ( void* params, double* val, double* error ) ;$/;"	p	language:C++
-initialize	/media/SPACE/PHD/programs/src/evol.c	/^int initialize ( gsl_odeiv2_step* s, gsl_odeiv2_control* c, gsl_odeiv2_evolve* e )$/;"	f	language:C
 integration	/media/SPACE/PHD/programs/src/funcs.h	/^int integration ( void*, double* ) ;$/;"	p	language:C++
 integration	/media/SPACE/PHD/programs/src/integs.c	/^int integration ( void* params, double* integrals )$/;"	f	language:C
 jac	/media/SPACE/PHD/programs/src/evol.c	/^int jac ( double t, const double y[], double dfdy[] , double dfdt[], void* PARS )$/;"	f	language:C
@@ -93,12 +94,12 @@ mat_read	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_read ( gsl_matrix*, cha
 mat_read	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f	language:C
 mat_write	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_write ( gsl_matrix*, char* ) ;$/;"	p	language:C++
 mat_write	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_write ( gsl_matrix* mat, char* name )$/;"	f	language:C
-objects	/media/SPACE/PHD/programs/src/Makefile	/^objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o $/;"	m	language:Make
+objects	/media/SPACE/PHD/programs/src/Makefile	/^objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o write.o$/;"	m	language:Make
 omega_1	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/main.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
 polars	/media/SPACE/PHD/programs/src/polar.c	/^int polars ( double* r, double* theta, double* phi, const gsl_vector* v )$/;"	f	language:C
-r	/media/SPACE/PHD/programs/src/main.c	/^const double r[] = { 1, 0, -0.894, -0.447 } ;   \/* initial state: |z,-> *\/$/;"	v	language:C
+r	/media/SPACE/PHD/programs/src/main.c	/^const double r[] = { 1, 0, 0, 0 } ;   		\/* initial state: |z,-> *\/$/;"	v	language:C
 re_gc0	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gc0 ( void* params, double* val ) ;$/;"	p	language:C++
 re_gc0	Reg_c0.c	/^int re_gc0 ( void* params, double* val)$/;"	f
 re_gcc	/media/SPACE/PHD/programs/src/Reg_cc.c	/^int re_gcc ( void* params, double* val )$/;"	f	language:C
@@ -115,16 +116,16 @@ re_gss	/media/SPACE/PHD/programs/src/Reg_ss.c	/^int re_gss ( void* params, doubl
 re_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gss ( void* params, double* val ) ;$/;"	p	language:C++
 red_mat	/media/SPACE/PHD/programs/src/funcs.h	/^int red_mat ( gsl_matrix* , double* , void* ) ;$/;"	p	language:C++
 red_mat	/media/SPACE/PHD/programs/src/red_gen.c	/^int red_mat ( gsl_matrix* red_mx , double integrals[] , void* params )$/;"	f	language:C
-save_integrals	/media/SPACE/PHD/programs/src/funcs.h	/^int save_integrals ( const f_params* ) ;$/;"	p	language:C++
+save_integrals	/media/SPACE/PHD/programs/src/funcs.h	/^int save_integrals ( void* ) ;$/;"	p	language:C++
 save_integrals	/media/SPACE/PHD/programs/src/write.c	/^int save_integrals ( void* params )$/;"	f	language:C
-save_matrices	/media/SPACE/PHD/programs/src/funcs.h	/^int save_matrices ( const f_params* ) ;$/;"	p	language:C++
+save_matrices	/media/SPACE/PHD/programs/src/funcs.h	/^int save_matrices ( void* ) ;$/;"	p	language:C++
 save_matrices	/media/SPACE/PHD/programs/src/write.c	/^int save_matrices ( void* params )$/;"	f	language:C
 second_int	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int second_int ( double* val, double* error, void* params )$/;"	f	language:C
 second_int	/media/SPACE/PHD/programs/src/funcs.h	/^int second_int ( double* , double* , void* ) ;$/;"	p	language:C++
 sphere	/media/SPACE/PHD/programs/src/span.c	/^int sphere ( unsigned int n )$/;"	f	language:C
 stationary	/media/SPACE/PHD/programs/src/funcs.h	/^int stationary ( const gsl_matrix* , gsl_vector*  ) ;$/;"	p	language:C++
 stationary	/media/SPACE/PHD/programs/src/station.c	/^int stationary ( const gsl_matrix* M, gsl_vector* X )$/;"	f	language:C
-step	/media/SPACE/PHD/programs/src/main.c	/^const double step = 0.01 ;                      \/* time step *\/$/;"	v	language:C
+step	/media/SPACE/PHD/programs/src/main.c	/^const double step = .01 ;                       \/* time step *\/$/;"	v	language:C
 t_end	/media/SPACE/PHD/programs/src/main.c	/^const double t_end = 300 ;                      \/* time end *\/$/;"	v	language:C
 third_int	/media/SPACE/PHD/programs/src/Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f	language:C
 third_int	/media/SPACE/PHD/programs/src/funcs.h	/^int third_int ( double* , double* , void* ) ;$/;"	p	language:C++

@@ -72,7 +72,7 @@ int expi ( double x, double* result, double* abserr )
 	F.function = &fu ;
 
 	int status ;
-	status = gsl_integration_qagiu ( &F, x, 10e-7, .01 , WS_SZ, expi_ws, &r,
+	status = gsl_integration_qagiu ( &F, x, 10e-9, .001 , WS_SZ, expi_ws, &r,
 				&err) ;
 
 	*result = r ; *abserr = err ;
@@ -98,7 +98,7 @@ int expi_plus ( double x, double* result, double* abserr )
 	F.function = &ex ;
 
 	int status ;
-	status = gsl_integration_qawc ( &F, -x, x, 0, 1e-6, .01, WS_SZ,
+	status = gsl_integration_qawc ( &F, -x, x, 0, 1e-9, .001, WS_SZ,
 			expi_ws, &r, &err ) ;
 
 	double R , EXPI , ERREXPI ;

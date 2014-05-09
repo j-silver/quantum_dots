@@ -131,7 +131,7 @@ int first_int ( double* val, double* error, void* params )
 
 	/* Integration over (0,+Infinity) */
 	double res, err ;
-	int status = gsl_integration_qagiu( &F, 0, 1e-6, 1e-3, WS_SZ, first_int_ws, 
+	int status = gsl_integration_qagiu( &F, 0, 1e-9, 1e-3, WS_SZ, first_int_ws, 
 			&res, &err ) ;
 
 	*val = res ; *error = err ;
@@ -185,7 +185,7 @@ int second_int ( double* val, double* error, void* params )
 	F.params = pars ;
 
 	double res, err ;
-	int status = gsl_integration_qagiu( &F, 0, 1e-6, 1e-3, WS_SZ, second_int_ws,
+	int status = gsl_integration_qagiu( &F, 0, 1e-9, 1e-3, WS_SZ, second_int_ws,
 			&res, &err ) ;
 	*val = res ; *error = err ;
 
@@ -239,7 +239,7 @@ int third_int ( double* val, double* err, void* params )
 
 	double v1 , err1 ;
 	int status1 = gsl_integration_qawc( &F, (o_1-O)/2, 3*(o_1-O)/2, o_1-O, 
-			1e-6, 1e-3, WS_SZ, third_int_ws, &v1, &err1 ) ;
+			1e-9, 1e-3, WS_SZ, third_int_ws, &v1, &err1 ) ;
 
 	gsl_integration_workspace_free(third_int_ws) ;
 
@@ -252,7 +252,7 @@ int third_int ( double* val, double* err, void* params )
 		gsl_integration_workspace_alloc(WS_SZ) ;
 
 	double v2, err2 ;
-	int status2 = gsl_integration_qagiu( &G, 3*(o_1-O)/2, 1e-6, 1e-3, WS_SZ,
+	int status2 = gsl_integration_qagiu( &G, 3*(o_1-O)/2, 1e-9, 1e-3, WS_SZ,
 			third_int_ws_2, &v2, &err2 ) ;
 
 	gsl_integration_workspace_free(third_int_ws_2) ;
@@ -266,7 +266,7 @@ int third_int ( double* val, double* err, void* params )
 	H.params = pars ;
 
 	double v3, err3 ;
-	int status3 = gsl_integration_qag( &H, 0, (o_1-O)/2, 1e-6, 1e-3, WS_SZ, 6,
+	int status3 = gsl_integration_qag( &H, 0, (o_1-O)/2, 1e-9, 1e-3, WS_SZ, 6,
 			third_int_ws_3, &v3, &err3 ) ;
 
 	gsl_integration_workspace_free(third_int_ws_3) ;
@@ -321,7 +321,7 @@ int fourth_int ( double* val, double* err, void* params )
 
 	double v1 , err1 ;
 	int status1 = gsl_integration_qawc( &F, (o_1+O)/2, 3*(o_1+O)/2, o_1+O, 
-			1e-6, 1e-3, WS_SZ, fourth_int_ws, &v1, &err1 ) ;
+			1e-9, 1e-3, WS_SZ, fourth_int_ws, &v1, &err1 ) ;
 
 	gsl_integration_workspace_free(fourth_int_ws) ;
 
@@ -334,7 +334,7 @@ int fourth_int ( double* val, double* err, void* params )
 		gsl_integration_workspace_alloc(WS_SZ) ;
 
 	double v2, err2 ;
-	int status2 = gsl_integration_qagiu( &G, 3*(o_1+O)/2, 1e-6, 1e-3, WS_SZ,
+	int status2 = gsl_integration_qagiu( &G, 3*(o_1+O)/2, 1e-9, 1e-3, WS_SZ,
 			fourth_int_ws_2, &v2, &err2 ) ;
 
 	gsl_integration_workspace_free(fourth_int_ws_2) ;
@@ -348,7 +348,7 @@ int fourth_int ( double* val, double* err, void* params )
 	K.params = pars ;
 	double v3, err3 ;
 
-	int status3 = gsl_integration_qag( &K, 0, (O+o_1)/2, 1e-6, 1e-3, WS_SZ, 6,
+	int status3 = gsl_integration_qag( &K, 0, (O+o_1)/2, 1e-9, 1e-3, WS_SZ, 6,
 	    fourth_int_ws_3, &v3, &err3 ) ;
 
 	gsl_integration_workspace_free(fourth_int_ws_3) ;

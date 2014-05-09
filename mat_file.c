@@ -44,6 +44,7 @@
  */
 
 #include <gsl/gsl_matrix.h>
+#include "funcs.h"
 
 /* 
  *      FUNCTION  

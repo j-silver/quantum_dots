@@ -64,7 +64,7 @@ int save_integrals ( void* params )
 	FILE* f_integ = fopen ( "INTEGRALS.dat", "w+" ) ;
 	int i ;
 	for ( i = 0 ; i < 12 ; i++ )
-		fprintf( f_integ, "integrals[%d]: %.6f\n", i, integrals[i] ) ;
+		fprintf( f_integ, "integrals[%d]: %.9f\n", i, integrals[i] ) ;
 	fclose( f_integ ) ;
 
 	return status;

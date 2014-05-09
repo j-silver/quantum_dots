@@ -58,7 +58,7 @@
 double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq, const gsl_matrix* L  )
 {
 	/* l1, l2, l3 */
-	double l[3] ; int i, j ;
+	double l[3] ; unsigned int i, j ;
 	for ( i = 1 ; i < 3 ; i++ )
 	{
 		l[i] = 0 ;

@@ -44,6 +44,7 @@
  * 
  */
 
+#include "funcs.h"
 #include <gsl/gsl_matrix.h>
 
 
@@ -53,7 +54,7 @@
  *  Description:  
  * 
  */
-int ham_gen ( gsl_matrix* h, double* o )
+int ham_gen ( gsl_matrix* h, const double* o )
 {
 	gsl_matrix_set (h, 1, 2, o[3] ) ;
 	gsl_matrix_set (h, 1, 3, -o[2] ) ;

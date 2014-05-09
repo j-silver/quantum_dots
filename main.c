@@ -45,9 +45,9 @@ const double gamma0 = 0.05 ;                    /* energy hopping between sites
 						 * in MeV                       */
 
 const double t_end = 300 ;                      /* time end */
-const double step = 0.01 ;                      /* time step */
+const double step = .01 ;                       /* time step */
 
-const double r[] = { 1, 0, -0.894, -0.447 } ;   /* initial state: |z,-> */
+const double r[] = { 1, 0, 0, 0 } ;   		/* initial state: |z,-> */
 
 
 int main ( int argc, char* argv[] )
@@ -65,7 +65,7 @@ int main ( int argc, char* argv[] )
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
  
-	int i ;                                 /* counter for the for loops */
+	unsigned int i ;                                 /* counter for the for loops */
 
 	int status1 = save_integrals ( &params ) ;
 
@@ -96,18 +96,18 @@ int main ( int argc, char* argv[] )
 
 	printf("REDFIELD DYNAMICS\n") ;
 	int status6 = stationary ( (const gsl_matrix*) (void*) red_m , req_red ) ;
-	printf("Stationary state: ( %.1f , %.6f , %.6f , %.6f )\n", 
+	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
 			gsl_vector_get(req_red,0), gsl_vector_get(req_red,1),
 			gsl_vector_get(req_red,2), gsl_vector_get(req_red,3) ) ;
-	printf("Stationary normalized (I/I0) DC current: %.6f\n\n",
+	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
 			-gsl_vector_get(req_red,3)*Omega/omega_1) ;
 
 	printf("CP DYNAMICS\n") ;
 	int status7 = stationary ( (const gsl_matrix*) (void*) cp_m , req_cp ) ;
-	printf("Stationary state: ( %.1f , %.6f , %.6f , %.6f )\n", 
+	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
 			gsl_vector_get(req_cp,0), gsl_vector_get(req_cp,1),
 			gsl_vector_get(req_cp,2), gsl_vector_get(req_cp,3) ) ;
-	printf("Stationary normalized (I/I0) DC current: %.6f\n\n",
+	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
 			-gsl_vector_get(req_cp,3)*Omega/omega_1) ;
 
 	/* 
@@ -123,8 +123,8 @@ int main ( int argc, char* argv[] )
 	/* Choosing the step function type: Runge-Kutta Cash-Karp (4,5) */	
 	gsl_odeiv2_step* r_s = gsl_odeiv2_step_alloc ( gsl_odeiv2_step_rkck , 4 ) ;
 
-	/* Setting the step control: abserr=1e-6, relerr=1e-3 */
-	gsl_odeiv2_control* r_c = gsl_odeiv2_control_standard_new ( 1e-6, 1e-3, 1, 1 ) ;
+	/* Setting the step control: abserr=1e-9, relerr=1e-3 */
+	gsl_odeiv2_control* r_c = gsl_odeiv2_control_standard_new ( 1e-9, 1e-3, 1, 1 ) ;
 
 	/* Allocating the space for evolution function */
 	gsl_odeiv2_evolve* r_e = gsl_odeiv2_evolve_alloc ( 4 ) ;
@@ -143,8 +143,8 @@ int main ( int argc, char* argv[] )
 	/* Choosing the step function type: Runge-Kutta Cash-Karp (4,5) */	
 	gsl_odeiv2_step* cp_s = gsl_odeiv2_step_alloc ( gsl_odeiv2_step_rkck , 4 ) ;
 
-	/* Setting the step control: abserr=1e-6, relerr=1e-3 */
-	gsl_odeiv2_control* cp_c = gsl_odeiv2_control_standard_new ( 1e-6, 1e-3, 1, 1 ) ;
+	/* Setting the step control: abserr=1e-9, relerr=1e-3 */
+	gsl_odeiv2_control* cp_c = gsl_odeiv2_control_standard_new ( 1e-9, 1e-3, 1, 1 ) ;
 
 	/* Allocating the space for evolution function */
 	gsl_odeiv2_evolve* cp_e = gsl_odeiv2_evolve_alloc ( 4 ) ;
@@ -186,19 +186,19 @@ int main ( int argc, char* argv[] )
 	while ( t < t_end )
 	{
 		evol ( t, init_red, step, r_e, r_c, r_s, &red_sys ) ;
-		fprintf ( f_red, "%.3f %.6f %.6f %.6f\n", t, gsl_vector_get(init_red,1),
+		fprintf ( f_red, "%.3f %.9f %.9f %.9f\n", t, gsl_vector_get(init_red,1),
 				gsl_vector_get(init_red,2), gsl_vector_get(init_red,3) ) ;
-		fprintf ( g_red, "%.3f %.6f\n",
+		fprintf ( g_red, "%.3f %.9f\n",
 				t, entropy_production( init_red, req_red, red_m )) ;
-		fprintf ( h_red, "%.3f %.6f\n",
+		fprintf ( h_red, "%.3f %.9f\n",
 				t, -gsl_vector_get(init_red,3)*Omega/omega_1 ) ;
 
 		evol ( t, init_cp, step, cp_e, cp_c, cp_s, &cp_sys ) ;
-		fprintf ( f_cp, "%.3f %.6f %.6f %.6f\n", t, gsl_vector_get(init_cp,1),
+		fprintf ( f_cp, "%.3f %.9f %.9f %.9f\n", t, gsl_vector_get(init_cp,1),
 				gsl_vector_get(init_cp,2), gsl_vector_get(init_cp,3) ) ;
-		fprintf ( g_cp, "%.3f %.6f\n",
+		fprintf ( g_cp, "%.3f %.9f\n",
 				t, entropy_production( init_cp , req_cp, cp_m )) ;
-		fprintf ( h_cp, "%.3f %.6f\n",
+		fprintf ( h_cp, "%.3f %.9f\n",
 				t, -gsl_vector_get(init_cp,3)*Omega/omega_1 ) ;
 
 		t += step ;
@@ -218,7 +218,7 @@ int main ( int argc, char* argv[] )
 	double D30 = gsl_matrix_get(red_m,3,0) ;
 	double D33 = gsl_matrix_get(red_m,3,3) ;
 	double pol = -D30/D33 ;
-	printf("n-Polarization -D30/D33: %.6f\n", pol ) ;
+	printf("n-Polarization -D30/D33: %.9f\n", pol ) ;
 
 	return status1 + status2 + status3 + status4 + status5 + status6 + status7 ;
 }

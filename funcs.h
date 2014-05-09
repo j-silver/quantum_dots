@@ -70,6 +70,11 @@ int expi_plus ( double, double*, double* ) ;
 double fu ( double, void* ) ;
 double ex ( double, void* ) ;
 
+/* Reg_s0 functions */
+double fu_inv ( double, void* ) ;
+double fu_cau ( double, void* ) ;
+double fu_coth ( double, void* ) ;
+
 /* Functions to create matrices */
 int red_mat ( gsl_matrix* , double* , void* ) ;
 int cp_mat ( gsl_matrix*, double*, void* ) ;

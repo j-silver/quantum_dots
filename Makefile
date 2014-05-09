@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -O2 -ansi #-W -pedantic -Wmissing-prototypes -Wstrict-prototypes  -Wconversion -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wnested-externs -fshort-enums -fno-common 
+CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common #-g -W -pedantic -Wwrite-strings -Wnested-externs -fshort-enums 
 LDLIBS = -lgsl -lgslcblas -lm
 
 MAIN = main
@@ -51,13 +51,13 @@ mat_file.o: mat_file.c funcs.h
 
 evol.o:	evol.c funcs.h
 
-hamil.o: hamil.c 
+hamil.o: hamil.c funcs.h
 
-station.o: station.c 
+station.o: station.c funcs.h
 
 entropy.o: entropy.c funcs.h
 
-current.o: current.c
+current.o: current.c funcs.h
 
 write.o: write.c funcs.h
 

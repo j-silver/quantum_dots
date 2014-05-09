@@ -62,7 +62,7 @@ int generator ( double t, const double y[], double dydt[], void* PARS )
 	gsl_matrix* M = (gsl_matrix*) PARS ;
 
 	/* Generator */
-	int i , j ;
+	unsigned int i , j ;
 	for ( i = 0; i < 4 ; i++ )
 		dydt[i] = 0 ;
 
@@ -89,7 +89,7 @@ int jac ( double t, const double y[], double dfdy[] , double dfdt[], void* PARS 
 	gsl_matrix_view m = gsl_matrix_view_array ( dfdy , 4, 4 ) ; 	
 	
 	/* Initializing the jacobian matrix with the Bloch generator */
-	int i, j ; 
+	unsigned int i, j ; 
 	for ( i = 0 ; i < 4 ; i++ ) 
 		for ( j = 0 ; j < 4 ; j++ ) 
 			gsl_matrix_set ( &m.matrix, i, j, gsl_matrix_get(bloch,i,j) ) ;
@@ -113,7 +113,7 @@ int evol ( double t, gsl_vector* state, double step,
 {
 	/* Creating the array 'rho' pointing to vector 'state' */
 	double rho[4] ;
-	int i ;
+	unsigned int i ;
 	for ( i = 0 ; i < 4 ; i++ ) 
 		rho[i] = gsl_vector_get( state, i ) ;
 

@@ -150,14 +150,14 @@ int re_gs0 ( void* params, double* val, double* error )
 		gsl_integration_workspace_alloc (WS_SZ) ;
 
 	int status1 ;
-	status1 = gsl_integration_qagiu ( &G, 2/O, 1e-8, .001, WS_SZ,
+	status1 = gsl_integration_qagiu ( &G, 2/O, 1e-9, .001, WS_SZ,
 		       	fu_inv_ws, &r1,	&err1 ) ;
 	int status2 ;
-	status2 = gsl_integration_qawc ( &F, O/2, 3*O/2, O, 1e-8, .001, WS_SZ,
+	status2 = gsl_integration_qawc ( &F, O/2, 3*O/2, O, 1e-9, .001, WS_SZ,
 			fu_fin_ws, &r2, &err2 ) ;
 
 	int status3 ;
-	status3 = gsl_integration_qagiu ( &f, 3*O/2, 1e-8, .001, WS_SZ,
+	status3 = gsl_integration_qagiu ( &f, 3*O/2, 1e-9, .001, WS_SZ,
 		       	fu_inf_ws, &r3,	&err3 ) ;
 
 	r = r1 + r2 + r3 ; err = err1 + err2 + err3 ;

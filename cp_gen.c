@@ -80,7 +80,7 @@ int cp_mat ( gsl_matrix* cp_mx , double integrals[] , void* params )
 	gsl_matrix_set_zero ( cp_mx ) ;
 
 	/*  Building the matrix */
-	int i ;
+	unsigned int i ;
 	for ( i = 0; i < 4; i++ )
 		gsl_matrix_set ( cp_mx, 0 , i , 0 ) ;
 	gsl_matrix_set ( cp_mx, 1, 0, 0 ) ; 

@@ -79,24 +79,16 @@ int save_integrals ( void* params )
  */
 int save_matrices ( void* params )
 {
-	double integrals[12] ;
-
-	FILE* f_integ = fopen ( "INTEGRALS.dat", "r" ) ;
-	int i ;
-	for ( i = 0 ; i < 12 ; i++ )
-		fscanf ( f_integ, "%*s %lf", &integrals[i] ) ;
-	fclose ( f_integ ) ;
-	
 	void* p = (void *) params ;
 
 	/* create the Redfield matrix and save it into a file */
 	gsl_matrix* red_matrix = gsl_matrix_calloc ( 4, 4 ) ;
-	int status1 = red_mat ( red_matrix, integrals, p ) ;
+	int status1 = red_mat ( red_matrix, p ) ;
 	int status2 = mat_write ( red_matrix, "REDFIELD_MATRIX" ) ;
 
 	/* create the CP matrix and save it into a file */
 	gsl_matrix* cp_matrix = gsl_matrix_calloc ( 4, 4 ) ;
-	int status3 = cp_mat ( cp_matrix, integrals, p ) ;
+	int status3 = cp_mat ( cp_matrix, p ) ;
 	int status4 = mat_write ( cp_matrix, "CP_MATRIX" ) ;
 
 	return status1+status2+status3+status4 ;

@@ -76,8 +76,8 @@ double fu_cau ( double, void* ) ;
 double fu_coth ( double, void* ) ;
 
 /* Functions to create matrices */
-int red_mat ( gsl_matrix* , double* , void* ) ;
-int cp_mat ( gsl_matrix*, double*, void* ) ;
+int red_mat ( gsl_matrix* , void* ) ;
+int cp_mat ( gsl_matrix*, void* ) ;
 int ham_gen ( gsl_matrix*, const double* ) ;
 int mat_write ( gsl_matrix*, char* ) ;
 int mat_read ( gsl_matrix*, char* ) ;
@@ -97,7 +97,16 @@ double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matr
 
 /* DC current */
 double current ( const gsl_vector* ) ;
+double current_temp ( double ) ;
+
 
 /* writing operations */
 int save_integrals ( void* ) ;
 int save_matrices ( void* ) ;
+int write_red_curr_T ( void* ) ;
+int write_cp_curr_T ( void* ) ;
+
+
+/* currents */
+double current_red ( double, void* ) ;
+double current_cp ( double, void* ) ;

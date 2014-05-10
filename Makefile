@@ -61,11 +61,9 @@ current.o: current.c funcs.h
 
 write.o: write.c funcs.h
 
-objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o write.o
+objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o write.o 
 
-data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat
-
-
+data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat
 
 data: main
 	./main
@@ -73,8 +71,18 @@ data: main
 main: $(objects)
 	$(CC) -o $(MAIN) $(objects) $(LDLIBS) $(LDFLAGS)
 
+
+
+#
+# Stationary currents as functions of T/D and Omega/D
+#
+current_tdel.o: current_tdel.c funcs.h
+
+current_tdel:	current_tdel.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o
+	$(CC) -o current_tdel current_tdel.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o $(LDLIBS) $(LDFLAGS)
+
 .PHONY: clean
 
 clean: 
-	rm -f $(objects) $(data_files)
+	rm -f $(objects) $(data_files) current_tdel current_tdel.o
 

@@ -68,7 +68,7 @@
  * 			| M21  M22  M23 |  | X2 | = | -M20 |
  * 			| M31  M32  M33 |  | X3 |   | -M30 |
  */
-int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
+int stationary ( const gsl_matrix* M, gsl_vector stat_state )
 {
 	/* Store space for the stationary state */
 	gsl_vector* req = gsl_vector_calloc ( 4 ) ;
@@ -94,7 +94,7 @@ int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
 	int status2 = gsl_linalg_HH_solve ( &A.matrix, &b.vector, &x.vector ) ;
 
 	/* Set the returning value for the state stat_state */
-	*stat_state = *req ;
+	stat_state = *req ;
 
 	/* Free memory */
 	gsl_matrix_free(m) ;

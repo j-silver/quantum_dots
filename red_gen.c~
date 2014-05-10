@@ -49,7 +49,6 @@
 #include <math.h>
 #include "funcs.h"
 
-#define	POW_2	gsl_pow_2	/* square */
 
 /* 
  *      FUNCTION  
@@ -59,7 +58,7 @@
  *  		  and the pointer to the matrix
  * 
  */
-int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
+int red_mat ( gsl_matrix* red_mx , double integrals[] , void* params )
 {
 	/* Setting the integrals */
 	double rcc, icc, rss, iss, rsc, isc, rcs, ics, rc0, ic0, rs0, is0 ;
@@ -78,7 +77,7 @@ int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
 
 	/* Copying the parameters */
 	struct f_params* pars = (struct f_params*) params ;
-	double o_c, b, O, o_1, alpha ;
+	double o_c, b, O, o_1 ;
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
 	double D = sqrt(POW_2(o_1)-POW_2(O)) ;
 
@@ -86,9 +85,6 @@ int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
 	gsl_matrix_set_zero ( red_mx ) ;
 
 	/* Building the matrix */
-	int i ;
-	for ( i = 0; i < 4; i++ )
-		gsl_matrix_set (red_mx, 0, i, 0) ;
 	gsl_matrix_set ( red_mx, 1, 0, (D/o_1)*(-(O/o_1)*ic0+iss+(O/o_1)*icc) ) ;
 	gsl_matrix_set ( red_mx, 1, 1, POW_2(D/o_1)*rc0+(O/o_1)*rss+POW_2(O/o_1)*rcc ) ;
 	gsl_matrix_set ( red_mx, 1, 2, o_1/4+(O/o_1)*rsc-POW_2(O/o_1)*rcs ) ;
@@ -97,10 +93,15 @@ int red_mat ( gsl_matrix* red_mx, double* integrals, void* params )
 	gsl_matrix_set ( red_mx, 2, 1, -(o_1/4)-(O/o_1)*rsc+rcs ) ;
 	gsl_matrix_set ( red_mx, 2, 2, POW_2(D/o_1)*rc0+rcc+(O/o_1)*rss ) ;
 	gsl_matrix_set ( red_mx, 2, 3, -(D/o_1)*((O/o_1)*rcc+rss) ) ;
-	gsl_matrix_set ( red_mx, 3, 0, -2*(O/o_1)*isc+((O*O+o_1*o_1)/(o_1*o_1))*ics ) ;
+	gsl_matrix_set ( red_mx, 3, 0, (1+POW_2(O/o_1))*ics-2*(O/o_1)*isc ) ;
 	gsl_matrix_set ( red_mx, 3, 1, -(D/o_1)*rs0 ) ; 
-	gsl_matrix_set ( red_mx, 3, 2, - (O*D/(o_1*o_1))*rc0 ) ;
-	gsl_matrix_set ( red_mx, 3, 3, ((O*O+o_1*o_1)/(o_1*o_1))*rcc+2*(O/o_1)*rss ) ;
+	gsl_matrix_set ( red_mx, 3, 2, -(O*D/(o_1*o_1))*rc0 ) ;
+	gsl_matrix_set ( red_mx, 3, 3, (1+POW_2(O/o_1))*rcc+2*(O/o_1)*rss ) ;
+
+	/* Multiplies times -2 to obtain the Bloch matrix */
+	gsl_matrix_scale ( red_mx, -2 ) ;
 
 	return 0;
 }		/* -----  end of function red_mat  ----- */
+
+

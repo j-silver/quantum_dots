@@ -50,16 +50,20 @@
 #include "funcs.h"
 
 
-
 /* 
  *      FUNCTION  
  *         Name:  cp_mat
  *  Description:  Creating the CP generator matrix in Bloch form, taking as
- *  		  arguments all the integrals, the physical parameters and the pointer to the matrix
+ *  		  arguments all the integrals, the physical parameters and 
+ *  		  the pointer to the matrix
  * 
  */
-int cp_mat ( gsl_matrix* cp_mx , double integrals[] , void* params )
+int cp_mat ( gsl_matrix* cp_mx , void* params )
 {
+	double integrals[12] ;
+	if ( (integration(params,integrals)) != 0 )
+		return -1;
+
 	/* Setting the integrals */
 	double rcc, rss, rsc, isc, rcs, ics, rc0 ;
 	rcc = integrals[0] ;

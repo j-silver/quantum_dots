@@ -51,7 +51,7 @@
 /* 
  *      FUNCTION  
  *         Name:  current
- *  Description:  
+ *  Description:  Asymptotic current produced on the stationary state.
  * 
  */
 double current ( const gsl_vector* state )
@@ -62,3 +62,4 @@ double current ( const gsl_vector* state )
 
 	return cur;
 }		/* -----  end of function current  ----- */
+

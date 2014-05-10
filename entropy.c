@@ -55,7 +55,8 @@
  *  Description:  
  * 
  */
-double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq, const gsl_matrix* L  )
+double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq,
+		const gsl_matrix* L  )
 {
 	/* l1, l2, l3 */
 	double l[3] ; unsigned int i, j ;

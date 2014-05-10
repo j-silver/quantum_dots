@@ -47,14 +47,14 @@ const double gamma0 = 0.05 ;                    /* energy hopping between sites
 const double t_end = 300 ;                      /* time end */
 const double step = .01 ;                       /* time step */
 
-const double r[] = { 1, 0, 0, 0 } ;   		/* initial state: |z,-> */
+const double r[] = { 1, 0, -0.894, -0.447 } ;   		/* initial state: |z,-> */
 
 
 int main ( int argc, char* argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1/T ;                     /* Boltzmann factor: beta */
+	double beta = 1.0/T ;                     /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(Omega,D) ;   /* omega' */
 
 
@@ -68,7 +68,6 @@ int main ( int argc, char* argv[] )
 	unsigned int i ;                                 /* counter for the for loops */
 
 	int status1 = save_integrals ( &params ) ;
-
 	int status2 = save_matrices ( &params ) ;
 	
 	/* read the Redfield matrix from a file */
@@ -89,13 +88,11 @@ int main ( int argc, char* argv[] )
 	 * Find the stationary state by solving the linear systems
 	 * and the associated stationary currents
 	 */
-	gsl_vector* req_red = gsl_vector_calloc ( 4 ) ;
-	gsl_vector* req_cp  = gsl_vector_calloc ( 4 ) ;
-	gsl_vector_set ( req_red, 0, 1 ) ;
-	gsl_vector_set ( req_cp, 0, 1 ) ;
+	gsl_vector* req_red = gsl_vector_calloc (4) ;
+	gsl_vector* req_cp = gsl_vector_calloc (4) ;
 
 	printf("REDFIELD DYNAMICS\n") ;
-	int status6 = stationary ( (const gsl_matrix*) (void*) red_m , req_red ) ;
+	int status6 = stationary ( red_m , req_red ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
 			gsl_vector_get(req_red,0), gsl_vector_get(req_red,1),
 			gsl_vector_get(req_red,2), gsl_vector_get(req_red,3) ) ;
@@ -103,12 +100,13 @@ int main ( int argc, char* argv[] )
 			-gsl_vector_get(req_red,3)*Omega/omega_1) ;
 
 	printf("CP DYNAMICS\n") ;
-	int status7 = stationary ( (const gsl_matrix*) (void*) cp_m , req_cp ) ;
+	int status7 = stationary ( cp_m , req_cp ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
 			gsl_vector_get(req_cp,0), gsl_vector_get(req_cp,1),
 			gsl_vector_get(req_cp,2), gsl_vector_get(req_cp,3) ) ;
 	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
 			-gsl_vector_get(req_cp,3)*Omega/omega_1) ;
+
 
 	/* 
 	 *
@@ -174,14 +172,6 @@ int main ( int argc, char* argv[] )
 	FILE* h_red = fopen ( "RED-CURRENT.dat", "w" ) ;
 	FILE* h_cp = fopen ( "CP-CURRENT.dat", "w" ) ;
 
-	/* writing column heads */
-	fprintf ( f_red, "t a(t) b(t) c(t)\n" ) ;
-	fprintf ( f_cp,  "t a(t) b(t) c(t)\n" ) ;
-	fprintf ( g_red, "t entropy\n" ) ;
-	fprintf ( g_cp,  "t entropy\n" ) ;
-	fprintf ( h_red, "t I/I0\n" ) ;
-	fprintf ( h_cp,  "t I/I0\n" ) ;
-
 	/* writing data */
 	while ( t < t_end )
 	{
@@ -209,16 +199,23 @@ int main ( int argc, char* argv[] )
 	fclose (g_red) ; fclose (g_cp) ;
 	fclose (h_red) ; fclose (h_cp) ;
 
-	/* free memory for evolution */
-	gsl_odeiv2_evolve_free (r_e) ; gsl_odeiv2_evolve_free (cp_e) ;
-	gsl_odeiv2_control_free (r_c) ;	gsl_odeiv2_control_free (cp_c) ;
-	gsl_odeiv2_step_free (r_s) ; gsl_odeiv2_step_free (cp_s) ;
-
 	/* polarization */
-	double D30 = gsl_matrix_get(red_m,3,0) ;
-	double D33 = gsl_matrix_get(red_m,3,3) ;
+	double D30 = gsl_matrix_get(cp_m,3,0) ;
+	double D33 = gsl_matrix_get(cp_m,3,3) ;
 	double pol = -D30/D33 ;
 	printf("n-Polarization -D30/D33: %.9f\n", pol ) ;
+
+	/* free memory for evolution */
+ 	gsl_vector_free(init_red) ;
+ 	gsl_vector_free(init_cp) ;
+ 	gsl_odeiv2_evolve_free (r_e) ; gsl_odeiv2_evolve_free (cp_e) ;
+  	gsl_odeiv2_control_free (r_c) ;	gsl_odeiv2_control_free (cp_c) ;
+  	gsl_odeiv2_step_free (r_s) ; gsl_odeiv2_step_free (cp_s) ;
+  
+ 
+	/* free memory for matrices */
+	gsl_matrix_free(red_m) ;
+ 	gsl_matrix_free(cp_m) ;	
 
 	return status1 + status2 + status3 + status4 + status5 + status6 + status7 ;
 }

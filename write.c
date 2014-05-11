@@ -91,6 +91,9 @@ int save_matrices ( void* params )
 	int status3 = cp_mat ( cp_matrix, p ) ;
 	int status4 = mat_write ( cp_matrix, "CP_MATRIX" ) ;
 
+	gsl_matrix_free (red_matrix) ;
+	gsl_matrix_free (cp_matrix) ;
+
 	return status1+status2+status3+status4 ;
 }		/* -----  end of function save_matrices  ----- */
 

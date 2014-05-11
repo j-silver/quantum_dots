@@ -98,7 +98,7 @@ int main ( int argc, char* argv[] )
 			gsl_vector_get(req_red,2), gsl_vector_get(req_red,3) ) ;
 	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
 			-gsl_vector_get(req_red,3)*Omega/omega_1) ;
-
+	
 	printf("CP DYNAMICS\n") ;
 	int status7 = stationary ( cp_m , req_cp ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
@@ -211,7 +211,6 @@ int main ( int argc, char* argv[] )
  	gsl_odeiv2_evolve_free (r_e) ; gsl_odeiv2_evolve_free (cp_e) ;
   	gsl_odeiv2_control_free (r_c) ;	gsl_odeiv2_control_free (cp_c) ;
   	gsl_odeiv2_step_free (r_s) ; gsl_odeiv2_step_free (cp_s) ;
-  
  
 	/* free memory for matrices */
 	gsl_matrix_free(red_m) ;

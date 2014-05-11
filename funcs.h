@@ -105,6 +105,8 @@ int save_integrals ( void* ) ;
 int save_matrices ( void* ) ;
 int write_red_curr_T ( void* ) ;
 int write_cp_curr_T ( void* ) ;
+int write_red_curr_O ( void* ) ;
+int write_cp_curr_O ( void* ) ;
 
 
 /* currents */

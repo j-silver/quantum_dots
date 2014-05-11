@@ -55,7 +55,7 @@
 int mat_write ( gsl_matrix* mat, char* name )
 {
 	FILE* f = fopen ( name, "w" ) ;
-	int status = gsl_matrix_fprintf ( f, mat, "%.6f" ) ;
+	int status = gsl_matrix_fprintf ( f, mat, "%.9f" ) ;
 	fclose (f) ;	
 
 	return status;

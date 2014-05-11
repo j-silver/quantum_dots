@@ -7,6 +7,7 @@
 CC	/media/SPACE/PHD/programs/src/Makefile	/^CC = gcc$/;"	m	language:Make
 CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common #-g -W -pedantic -Wwrite-strings -Wnested-externs -fshort-enums $/;"	m	language:Make
 CPPFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m	language:Make
+D	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double D = 1 ;                            \/* pumping amplitude (GHz) *\/$/;"	v	language:C
 D	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double D = 1 ;                            \/* pumping amplitude (GHz) *\/$/;"	v	language:C
 D	/media/SPACE/PHD/programs/src/main.c	/^const double D = 1 ;                            \/* pumping amplitude (GHz) *\/$/;"	v	language:C
 LDLIBS	/media/SPACE/PHD/programs/src/Makefile	/^	LDLIBS = $(libs_for_intelc)$/;"	m	language:Make
@@ -18,8 +19,10 @@ Omega	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double Omega = 2 ;   
 Omega	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 Omega	/media/SPACE/PHD/programs/src/main.c	/^const double Omega = 2 ;                        \/* pumping frequency (GHz) *\/$/;"	v	language:C
 POW_2	/media/SPACE/PHD/programs/src/funcs.h	37;"	d	language:C++
+T	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double T = 0.01 ;                           \/* temperature *\/$/;"	v	language:C
 T	/media/SPACE/PHD/programs/src/main.c	/^const double T = 0.1 ;                          \/* temperature *\/$/;"	v	language:C
 WS_SZ	/media/SPACE/PHD/programs/src/funcs.h	35;"	d	language:C++
+alpha	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double alpha = 5e-3 ;                     \/* coupling strength *\/$/;"	v	language:C
 alpha	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double alpha = 5e-3 ;                     \/* coupling strength *\/$/;"	v	language:C
 alpha	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
 alpha	/media/SPACE/PHD/programs/src/main.c	/^const double alpha = 5e-3 ;                     \/* coupling strength *\/$/;"	v	language:C
@@ -31,12 +34,14 @@ cp_mat	/media/SPACE/PHD/programs/src/funcs.h	/^int cp_mat ( gsl_matrix*, void* )
 cp_mat	cp_gen.c	/^int cp_mat ( gsl_matrix* cp_mx , void* params )$/;"	f
 current	/media/SPACE/PHD/programs/src/funcs.h	/^double current ( const gsl_vector* ) ;$/;"	p	language:C++
 current	current.c	/^double current ( const gsl_vector* state )$/;"	f
-current_cp	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_cp ( double T, void* params )$/;"	f	language:C
+current_cp	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_cp ( double x, void* params )$/;"	f	language:C
+current_cp	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_cp ( double x, void* params )$/;"	f	language:C
 current_cp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_cp ( double, void* ) ;$/;"	p	language:C++
-current_red	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_red ( double T, void* params )$/;"	f	language:C
+current_red	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_red ( double x, void* params )$/;"	f	language:C
+current_red	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_red ( double x, void* params )$/;"	f	language:C
 current_red	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red ( double, void* ) ;$/;"	p	language:C++
 current_temp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_temp ( double ) ;$/;"	p	language:C++
-data_files	/media/SPACE/PHD/programs/src/Makefile	/^data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat$/;"	m	language:Make
+data_files	/media/SPACE/PHD/programs/src/Makefile	/^data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat$/;"	m	language:Make
 entropy_production	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matrix* ) ;$/;"	p	language:C++
 entropy_production	entropy.c	/^double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq,$/;"	f
 evol	/media/SPACE/PHD/programs/src/funcs.h	/^int evol ( double, gsl_vector*, double, gsl_odeiv2_evolve*,$/;"	p	language:C++
@@ -93,14 +98,16 @@ k_func_3	Reg_sc.c	/^double k_func_3 ( double k, void* params )$/;"	f
 k_func_4	/media/SPACE/PHD/programs/src/funcs.h	/^double k_func_4 ( double , void* ) ;$/;"	p	language:C++
 k_func_4	Reg_sc.c	/^double k_func_4 ( double k, void* params )$/;"	f
 libs_for_intelc	/media/SPACE/PHD/programs/src/Makefile	/^libs_for_intelc = -L\/media\/SPACE\/intel\/lib\/intel64 -mkl -lgsl$/;"	m	language:Make
+main	/media/SPACE/PHD/programs/src/current_omegad.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/current_tdel.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/main.c	/^int main ( int argc, char* argv[] )$/;"	f	language:C
 mat_read	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_read ( gsl_matrix*, char* ) ;$/;"	p	language:C++
-mat_read	mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f
+mat_read	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f	language:C
 mat_write	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_write ( gsl_matrix*, char* ) ;$/;"	p	language:C++
-mat_write	mat_file.c	/^int mat_write ( gsl_matrix* mat, char* name )$/;"	f
+mat_write	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_write ( gsl_matrix* mat, char* name )$/;"	f	language:C
 objects	/media/SPACE/PHD/programs/src/Makefile	/^objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o write.o $/;"	m	language:Make
 omega_1	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
+omega_c	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
 omega_c	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
 omega_c	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/main.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
@@ -121,18 +128,20 @@ re_gss	Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f
 red_mat	/media/SPACE/PHD/programs/src/funcs.h	/^int red_mat ( gsl_matrix* , void* ) ;$/;"	p	language:C++
 red_mat	red_gen.c	/^int red_mat ( gsl_matrix* red_mx , void* params )$/;"	f
 save_integrals	/media/SPACE/PHD/programs/src/funcs.h	/^int save_integrals ( void* ) ;$/;"	p	language:C++
-save_integrals	write.c	/^int save_integrals ( void* params )$/;"	f
+save_integrals	/media/SPACE/PHD/programs/src/write.c	/^int save_integrals ( void* params )$/;"	f	language:C
 save_matrices	/media/SPACE/PHD/programs/src/funcs.h	/^int save_matrices ( void* ) ;$/;"	p	language:C++
-save_matrices	write.c	/^int save_matrices ( void* params )$/;"	f
+save_matrices	/media/SPACE/PHD/programs/src/write.c	/^int save_matrices ( void* params )$/;"	f	language:C
 second_int	/media/SPACE/PHD/programs/src/funcs.h	/^int second_int ( double* , double* , void* ) ;$/;"	p	language:C++
 second_int	Reg_sc.c	/^int second_int ( double* val, double* error, void* params )$/;"	f
 stationary	/media/SPACE/PHD/programs/src/funcs.h	/^int stationary ( const gsl_matrix* , gsl_vector*  ) ;$/;"	p	language:C++
-stationary	station.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f
+stationary	/media/SPACE/PHD/programs/src/station.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f	language:C
 step	/media/SPACE/PHD/programs/src/main.c	/^const double step = .01 ;                       \/* time step *\/$/;"	v	language:C
 t_end	/media/SPACE/PHD/programs/src/main.c	/^const double t_end = 300 ;                      \/* time end *\/$/;"	v	language:C
 third_int	/media/SPACE/PHD/programs/src/funcs.h	/^int third_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f
+write_cp_curr_O	/media/SPACE/PHD/programs/src/current_omegad.c	/^int write_cp_curr_O ( void* params )$/;"	f	language:C
 write_cp_curr_T	/media/SPACE/PHD/programs/src/current_tdel.c	/^int write_cp_curr_T ( void* params )$/;"	f	language:C
 write_cp_curr_T	/media/SPACE/PHD/programs/src/funcs.h	/^int write_cp_curr_T ( void* ) ;$/;"	p	language:C++
+write_red_curr_O	/media/SPACE/PHD/programs/src/current_omegad.c	/^int write_red_curr_O ( void* params )$/;"	f	language:C
 write_red_curr_T	/media/SPACE/PHD/programs/src/current_tdel.c	/^int write_red_curr_T ( void* params )$/;"	f	language:C
 write_red_curr_T	/media/SPACE/PHD/programs/src/funcs.h	/^int write_red_curr_T ( void* ) ;$/;"	p	language:C++

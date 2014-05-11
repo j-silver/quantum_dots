@@ -28,12 +28,13 @@
 /*
  *
  *
- *       Filename:  current_tdel.c
+ *       Filename:  current_omegad.c
  *
- *    Description:  Stationary current as a function of T/D
+ *    Description:  Calculate the normalized stationary current (I/I0) as a function
+ *    			of the ration Omega/Delta
  *
  *        Version:  1.0
- *        Created:  10/05/2014 19:52:35
+ *        Created:  11/05/2014 18:19:15
  *       Revision:  none
  *        License:  BSD
  *
@@ -50,14 +51,13 @@
 
 const double omega_c = 1000 ;                   /* critical ohmic frequency */
 const double D = 1 ;                            /* pumping amplitude (GHz) */
-const double Omega = 2 ;                        /* pumping frequency (GHz) */
 const double alpha = 5e-3 ;                     /* coupling strength */
-
+const double T = 0.01 ;                           /* temperature */
 
 /* 
  *      FUNCTION  
  *         Name:  current_red
- *  Description:  Given the physical parameters and the ratio x = T/Delta, 
+ *  Description:  Given the physical parameters and the ratio x = Omega/Delta, 
  *  		  determine the generators matrix in Redfield case
  *  		  and the stationary current.
  *
@@ -66,9 +66,9 @@ double current_red ( double x, void* params )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
-	/* Calculate beta and set into pars */
-	double T = x*D ;
-	pars->beta = 1.0/T ;
+	/* Insert Omega, omega_1 into pars */
+	pars->Omega = x*D ;
+	pars->omega_1 = gsl_hypot(pars->Omega,D) ;
 
 	/* Calculate the matrix */
 	gsl_matrix* m = gsl_matrix_calloc(4,4) ;	
@@ -81,13 +81,12 @@ double current_red ( double x, void* params )
 	if ( (s1 + s2) != 0 )
 		exit(EXIT_FAILURE) ;
 
-	double curr = -gsl_vector_get(stat_state,3)*Omega/pars->omega_1 ;
+	double curr = -gsl_vector_get(stat_state,3)*(pars->Omega/pars->omega_1) ;
 
 	gsl_matrix_free(m) ;
 
 	return curr ;
 }		/* -----  end of function current_red  ----- */
-
 
 /* 
  *      FUNCTION  
@@ -99,10 +98,9 @@ double current_cp ( double x, void* params )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
-	/* Calculate beta and set into pars */
-	double T = x*D ;
-	pars->beta = 1.0/T ;	
-
+	/* Insert Omega, omega_1 into pars */
+	pars->Omega = x*D ;	
+	pars->omega_1 = gsl_hypot(pars->Omega,D) ;
 	/* Calculate the matrix */
 	gsl_matrix* m = gsl_matrix_calloc(4,4) ;	
 	int s1 = cp_mat ( m, pars ) ;
@@ -114,7 +112,7 @@ double current_cp ( double x, void* params )
 	if ( (s1 + s2) != 0 )
 		exit(EXIT_FAILURE) ;
 
-	double curr = -gsl_vector_get(stat_state,3)*Omega/pars->omega_1 ;
+	double curr = -gsl_vector_get(stat_state,3)*(pars->Omega/pars->omega_1) ;
 
 	gsl_matrix_free(m) ;
 
@@ -124,52 +122,61 @@ double current_cp ( double x, void* params )
 
 /* 
  *      FUNCTION  
- *         Name:  write_red_curr_T
+ *         Name:  write_red_curr_O
  *  Description:  
  * 
  */
-int write_red_curr_T ( void* params )
+int write_red_curr_O ( void* params )
 {
-	FILE* f = fopen ( "RED-STAT-CURR-T.dat" , "w" ) ;
+	FILE* f = fopen ( "RED-STAT-CURR-O.dat" , "a" ) ;
 
 	double x = 0.00 ;
 
 	int i ;
-	for ( i = 0 ; i < 1000 ; i++ )
+	for ( i = 0 ; i < 100 ; i++ )
 	{
 		x += 0.01 ;
 		fprintf ( f, "%.2f %.9f\n", x, current_red (x, params) ) ;
 	}
 
+	for ( i = 0 ; i < 990 ; i++ )
+	{
+		x += 0.1 ;
+		fprintf ( f, "%.2f %.9f\n", x, current_red (x, params) ) ;
+	}
 	fclose (f) ;
 
 	return 0;
-}		/* -----  end of function write_red_curr_T  ----- */
+}		/* -----  end of function write_red_curr_O  ----- */
 
 /* 
  *      FUNCTION  
- *         Name:  write_cp_curr_T
+ *         Name:  write_cp_curr_O
  *  Description:  
  * 
  */
-int write_cp_curr_T ( void* params )
+int write_cp_curr_O ( void* params )
 {
-	FILE* f = fopen ( "CP-STAT-CURR-T.dat" , "w" ) ;
+	FILE* f = fopen ( "CP-STAT-CURR-O.dat" , "a" ) ;
 
 	double x = 0.00 ;
 
 	int i ;
-	for ( i = 0 ; i < 1000 ; i++ )
+	for ( i = 0 ; i < 100 ; i++ )
 	{
 		x += 0.01 ;
 		fprintf ( f, "%.2f %.9f\n", x, current_cp (x, params) ) ;
 	}
 
+	for ( i = 0 ; i < 990 ; i++ )
+	{
+		x += 0.1 ;
+		fprintf ( f, "%.2f %.9f\n", x, current_cp (x, params) ) ;
+	}
 	fclose (f) ;
 
 	return 0;
-}		/* -----  end of function write_cp_curr_T  ----- */
-
+}		/* -----  end of function write_cp_curr_O  ----- */
 
 
 /* 
@@ -180,17 +187,18 @@ int write_cp_curr_T ( void* params )
  */
 int main ( int argc, char *argv[] )
 {
+	double Omega = 1 ;
 	double omega_1 = gsl_hypot(Omega,D) ;   /* omega' */
 
 	struct f_params params;
 	params.omega_c = omega_c ;
-	params.beta = 1 ;                       /* it will be changed after... */
-	params.Omega = Omega ;
-	params.omega_1 = omega_1 ;
+	params.beta = 1/T ;                       
+	params.Omega = Omega ;			/* it will be changed after... */
+	params.omega_1 = omega_1 ;              /* ...and also this one */
 	params.alpha = alpha ;
 
-	int status1 = write_red_curr_T ( &params ) ;
-	int status2 = write_cp_curr_T ( &params ) ;
+	int status1 = write_red_curr_O ( &params ) ;
+	int status2 = write_cp_curr_O ( &params ) ;
 
 	return status1+status2 ;
 }				/* ----------  end of function main  ---------- */

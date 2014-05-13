@@ -34,12 +34,12 @@ cp_mat	/media/SPACE/PHD/programs/src/funcs.h	/^int cp_mat ( gsl_matrix*, void* )
 cp_mat	cp_gen.c	/^int cp_mat ( gsl_matrix* cp_mx , void* params )$/;"	f
 current	/media/SPACE/PHD/programs/src/funcs.h	/^double current ( const gsl_vector* ) ;$/;"	p	language:C++
 current	current.c	/^double current ( const gsl_vector* state )$/;"	f
-current_cp	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_cp ( double x, void* params )$/;"	f	language:C
-current_cp	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_cp ( double x, void* params )$/;"	f	language:C
 current_cp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_cp ( double, void* ) ;$/;"	p	language:C++
-current_red	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_red ( double x, void* params )$/;"	f	language:C
-current_red	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_red ( double x, void* params )$/;"	f	language:C
+current_cp_T	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_cp_T ( double x, void* params )$/;"	f	language:C
+current_cp_om	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_cp_om ( double x, void* params )$/;"	f	language:C
 current_red	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red ( double, void* ) ;$/;"	p	language:C++
+current_red_T	/media/SPACE/PHD/programs/src/current_tdel.c	/^double current_red_T ( double x, void* params )$/;"	f	language:C
+current_red_om	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_red_om ( double x, void* params )$/;"	f	language:C
 current_temp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_temp ( double ) ;$/;"	p	language:C++
 data_files	/media/SPACE/PHD/programs/src/Makefile	/^data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat$/;"	m	language:Make
 entropy_production	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matrix* ) ;$/;"	p	language:C++
@@ -112,7 +112,7 @@ omega_c	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double omega_c = 10
 omega_c	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/main.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
 polars	polar.c	/^int polars ( unsigned double* r, double* theta, double* phi, const gsl_vector* v )$/;"	f
-r	/media/SPACE/PHD/programs/src/main.c	/^const double r[] = { 1, 0, -0.894, -0.447 } ;   		\/* initial state: |z,-> *\/$/;"	v	language:C
+r	/media/SPACE/PHD/programs/src/main.c	/^const double r[] = { 1, 0, -0.894, -0.447 } ;  	\/* initial state: |z,-> *\/$/;"	v	language:C
 re_gc0	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gc0 ( void* params, double* val ) ;$/;"	p	language:C++
 re_gc0	Reg_c0.c	/^int re_gc0 ( void* params, double* val)$/;"	f
 re_gcc	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gcc ( void* params, double* val ) ;$/;"	p	language:C++
@@ -136,7 +136,7 @@ second_int	Reg_sc.c	/^int second_int ( double* val, double* error, void* params 
 stationary	/media/SPACE/PHD/programs/src/funcs.h	/^int stationary ( const gsl_matrix* , gsl_vector*  ) ;$/;"	p	language:C++
 stationary	/media/SPACE/PHD/programs/src/station.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f	language:C
 step	/media/SPACE/PHD/programs/src/main.c	/^const double step = .01 ;                       \/* time step *\/$/;"	v	language:C
-t_end	/media/SPACE/PHD/programs/src/main.c	/^const double t_end = 300 ;                      \/* time end *\/$/;"	v	language:C
+t_end	/media/SPACE/PHD/programs/src/main.c	/^const double t_end = 100 ;                      \/* time end *\/$/;"	v	language:C
 third_int	/media/SPACE/PHD/programs/src/funcs.h	/^int third_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f
 write_cp_curr_O	/media/SPACE/PHD/programs/src/current_omegad.c	/^int write_cp_curr_O ( void* params )$/;"	f	language:C

@@ -56,13 +56,13 @@ const double T = 0.01 ;                           /* temperature */
 
 /* 
  *      FUNCTION  
- *         Name:  current_red
+ *         Name:  current_red_om
  *  Description:  Given the physical parameters and the ratio x = Omega/Delta, 
  *  		  determine the generators matrix in Redfield case
  *  		  and the stationary current.
  *
  */
-double current_red ( double x, void* params )
+double current_red_om ( double x, void* params )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
@@ -86,15 +86,15 @@ double current_red ( double x, void* params )
 	gsl_matrix_free(m) ;
 
 	return curr ;
-}		/* -----  end of function current_red  ----- */
+}		/* -----  end of function current_red_om  ----- */
 
 /* 
  *      FUNCTION  
- *         Name:  current_cp
+ *         Name:  current_cp_om
  *  Description:  
  * 
  */
-double current_cp ( double x, void* params )
+double current_cp_om ( double x, void* params )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
@@ -117,7 +117,7 @@ double current_cp ( double x, void* params )
 	gsl_matrix_free(m) ;
 
 	return curr ;
-}		/* -----  end of function current_cp  ----- */
+}		/* -----  end of function current_cp_om  ----- */
 
 
 /* 
@@ -133,17 +133,30 @@ int write_red_curr_O ( void* params )
 	double x = 0.00 ;
 
 	int i ;
-	for ( i = 0 ; i < 100 ; i++ )
+	for ( i = 0 ; i < 1000 ; i++ )
 	{
-		x += 0.01 ;
-		fprintf ( f, "%.2f %.9f\n", x, current_red (x, params) ) ;
+		x += 0.001 ;
+		fprintf ( f, "%.3f %.9f\n", x, current_red_om (x, params) ) ;
 	}
 
-	for ( i = 0 ; i < 990 ; i++ )
+	for ( i = 0 ; i < 900 ; i++ )
+	{
+		x += 0.01 ;
+		fprintf ( f, "%.2f %.9f\n", x, current_red_om (x, params) ) ;
+	}
+
+	for ( i = 0 ; i < 900 ; i++ )
 	{
 		x += 0.1 ;
-		fprintf ( f, "%.2f %.9f\n", x, current_red (x, params) ) ;
+		fprintf ( f, "%.1f %.9f\n", x, current_red_om (x, params) ) ;
 	}
+
+	for ( i = 0 ; i < 900 ; i++ )
+	{
+		x += 1 ;
+		fprintf ( f, "%.1f %.9f\n", x, current_red_om (x, params) ) ;
+	}
+
 	fclose (f) ;
 
 	return 0;
@@ -162,17 +175,30 @@ int write_cp_curr_O ( void* params )
 	double x = 0.00 ;
 
 	int i ;
-	for ( i = 0 ; i < 100 ; i++ )
+	for ( i = 0 ; i < 1000 ; i++ )
 	{
-		x += 0.01 ;
-		fprintf ( f, "%.2f %.9f\n", x, current_cp (x, params) ) ;
+		x += 0.001 ;
+		fprintf ( f, "%.3f %.9f\n", x, current_cp_om (x, params) ) ;
 	}
 
-	for ( i = 0 ; i < 990 ; i++ )
+	for ( i = 0 ; i < 900 ; i++ )
+	{
+		x += 0.01 ;
+		fprintf ( f, "%.2f %.9f\n", x, current_cp_om (x, params) ) ;
+	}
+
+	for ( i = 0 ; i < 900 ; i++ )
 	{
 		x += 0.1 ;
-		fprintf ( f, "%.2f %.9f\n", x, current_cp (x, params) ) ;
+		fprintf ( f, "%.1f %.9f\n", x, current_cp_om (x, params) ) ;
 	}
+
+	for ( i = 0 ; i < 900 ; i++ )
+	{
+		x += 1 ;
+		fprintf ( f, "%.1f %.9f\n", x, current_cp_om (x, params) ) ;
+	}
+
 	fclose (f) ;
 
 	return 0;

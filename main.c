@@ -44,17 +44,17 @@ const double alpha = 5e-3 ;                     /* coupling strength */
 const double gamma0 = 0.05 ;                    /* energy hopping between sites
 						 * in MeV                       */
 
-const double t_end = 300 ;                      /* time end */
+const double t_end = 100 ;                      /* time end */
 const double step = .01 ;                       /* time step */
 
-const double r[] = { 1, 0, -0.894, -0.447 } ;   		/* initial state: |z,-> */
+const double r[] = { 1, 0, -0.894, -0.447 } ;  	/* initial state: |z,-> */
 
 
 int main ( int argc, char* argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1.0/T ;                     /* Boltzmann factor: beta */
+	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(Omega,D) ;   /* omega' */
 
 
@@ -65,7 +65,7 @@ int main ( int argc, char* argv[] )
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
  
-	unsigned int i ;                                 /* counter for the for loops */
+	unsigned int i ;                        /* counter for the for loops */
 
 	int status1 = save_integrals ( &params ) ;
 	int status2 = save_matrices ( &params ) ;
@@ -206,8 +206,6 @@ int main ( int argc, char* argv[] )
 	printf("n-Polarization -D30/D33: %.9f\n", pol ) ;
 
 	/* free memory for evolution */
- 	gsl_vector_free(init_red) ;
- 	gsl_vector_free(init_cp) ;
  	gsl_odeiv2_evolve_free (r_e) ; gsl_odeiv2_evolve_free (cp_e) ;
   	gsl_odeiv2_control_free (r_c) ;	gsl_odeiv2_control_free (cp_c) ;
   	gsl_odeiv2_step_free (r_s) ; gsl_odeiv2_step_free (cp_s) ;

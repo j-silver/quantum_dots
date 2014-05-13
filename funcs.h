@@ -110,5 +110,7 @@ int write_cp_curr_O ( void* ) ;
 
 
 /* currents */
-double current_red ( double, void* ) ;
-double current_cp ( double, void* ) ;
+double current_red_om ( double, void* ) ;
+double current_red_T ( double, void* ) ;
+double current_cp_om ( double, void* ) ;
+double current_cp_T ( double, void* ) ;

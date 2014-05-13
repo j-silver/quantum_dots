@@ -91,5 +91,5 @@ current_omegad:	current_omegad.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o 
 .PHONY: clean
 
 clean: 
-	rm -f $(objects) $(data_files) current_tdel current_tdel.o current_omegad current_omegad.o
+	rm -f $(objects) $(data_files) main current_tdel current_tdel.o current_omegad current_omegad.o
 

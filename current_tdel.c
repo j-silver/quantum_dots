@@ -56,13 +56,13 @@ const double alpha = 5e-3 ;                     /* coupling strength */
 
 /* 
  *      FUNCTION  
- *         Name:  current_red
+ *         Name:  current_red_T
  *  Description:  Given the physical parameters and the ratio x = T/Delta, 
  *  		  determine the generators matrix in Redfield case
  *  		  and the stationary current.
  *
  */
-double current_red ( double x, void* params )
+double current_red_T ( double x, void* params )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
@@ -86,16 +86,16 @@ double current_red ( double x, void* params )
 	gsl_matrix_free(m) ;
 
 	return curr ;
-}		/* -----  end of function current_red  ----- */
+}		/* -----  end of function current_red_T  ----- */
 
 
 /* 
  *      FUNCTION  
- *         Name:  current_cp
+ *         Name:  current_cp_T
  *  Description:  
  * 
  */
-double current_cp ( double x, void* params )
+double current_cp_T ( double x, void* params )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
@@ -119,7 +119,7 @@ double current_cp ( double x, void* params )
 	gsl_matrix_free(m) ;
 
 	return curr ;
-}		/* -----  end of function current_cp  ----- */
+}		/* -----  end of function current_cp_T  ----- */
 
 
 /* 
@@ -137,8 +137,20 @@ int write_red_curr_T ( void* params )
 	int i ;
 	for ( i = 0 ; i < 1000 ; i++ )
 	{
+		x += 0.001 ;
+		fprintf ( f, "%.3f %.9f\n", x, current_red_T (x, params) ) ;
+	}
+
+	for ( i = 0 ; i < 900 ; i++ )
+	{
 		x += 0.01 ;
-		fprintf ( f, "%.2f %.9f\n", x, current_red (x, params) ) ;
+		fprintf ( f, "%.2f %.9f\n", x, current_red_T (x, params) ) ;
+	}
+
+	for ( i = 0 ; i < 900 ; i++ )
+	{
+		x += 0.1 ;
+		fprintf ( f, "%.1f %.9f\n", x, current_red_T (x, params) ) ;
 	}
 
 	fclose (f) ;
@@ -161,8 +173,20 @@ int write_cp_curr_T ( void* params )
 	int i ;
 	for ( i = 0 ; i < 1000 ; i++ )
 	{
+		x += 0.001 ;
+		fprintf ( f, "%.3f %.9f\n", x, current_cp_T (x, params) ) ;
+	}
+
+	for ( i = 0 ; i < 900 ; i++ )
+	{
 		x += 0.01 ;
-		fprintf ( f, "%.2f %.9f\n", x, current_cp (x, params) ) ;
+		fprintf ( f, "%.2f %.9f\n", x, current_cp_T (x, params) ) ;
+	}
+
+	for ( i = 0 ; i < 900 ; i++ )
+	{
+		x += 0.1 ;
+		fprintf ( f, "%.1f %.9f\n", x, current_cp_T (x, params) ) ;
 	}
 
 	fclose (f) ;

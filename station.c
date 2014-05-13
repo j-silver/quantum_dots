@@ -98,7 +98,6 @@ int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
 
 	/* Free memory */
 	gsl_matrix_free(m) ;
-	gsl_vector_free(req) ;
 	
 	return status1 + status2 ;
 }		/* -----  end of function stationary  ----- */

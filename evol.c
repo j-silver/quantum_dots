@@ -115,7 +115,7 @@ int evol ( double t, gsl_vector* state, double step,
 	double rho[4] ;
 	unsigned int i ;
 	for ( i = 0 ; i < 4 ; i++ ) 
-		rho[i] = gsl_vector_get( state, i ) ;
+		rho[i] = VECTOR( state, i ) ;
 
 	/*  evolving the array 'rho'  */
 	int status = gsl_odeiv2_evolve_apply_fixed_step	( e, c, s, sys, &t, step, rho ) ;

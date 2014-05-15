@@ -44,6 +44,8 @@
  */
 
 #include <gsl/gsl_matrix.h>
+#include <gsl/gsl_errno.h>
+#include <string.h>
 #include "funcs.h"
 
 /* 
@@ -55,7 +57,11 @@
 int mat_write ( gsl_matrix* mat, char* name )
 {
 	FILE* f = fopen ( name, "w" ) ;
+	if ( f == NULL )
+		printf("error: %s\n", strerror(errno)) ;
+
 	int status = gsl_matrix_fprintf ( f, mat, "%.9f" ) ;
+
 	fclose (f) ;	
 
 	return status;
@@ -71,7 +77,12 @@ int mat_write ( gsl_matrix* mat, char* name )
 int mat_read ( gsl_matrix* mat, char* name )
 {
 	FILE* f = fopen ( name, "r" ) ;
+	if ( f == NULL )
+		printf("error: %s\n", strerror(errno)) ;
+
 	int status = gsl_matrix_fscanf ( f, mat ) ;
+
 	fclose (f) ;
+
 	return status;
 }		/* -----  end of function mat_read  ----- */

@@ -81,15 +81,27 @@ current_tdel.o: current_tdel.c funcs.h
 current_tdel:	current_tdel.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o
 	$(CC) -o current_tdel current_tdel.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o $(LDLIBS) $(LDFLAGS)
 
-current_omegad.o: current_omegad.o funcs.h
-
+current_omegad.o: current_omegad.c funcs.h
 
 current_omegad:	current_omegad.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o
 	$(CC) -o current_omegad current_omegad.o red_gen.o cp_gen.o station.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o $(LDLIBS) $(LDFLAGS)
+
+#
+# Evolution of the Redfield and CP dynamics
+#
+red_evol.o: red_evol.c funcs.h initial.h
+
+red_evol: red_evol.o evol.o mat_file.o station.o entropy.o
+	$(CC) -o red_evol red_evol.o evol.o mat_file.o station.o entropy.o $(LDLIBS) $(LDFLAGS) 
+
+cp_evol.o: cp_evol.c funcs.h initial.h
+
+cp_evol: cp_evol.o evol.o mat_file.o station.o entropy.o
+	$(CC) -o cp_evol cp_evol.o evol.o mat_file.o station.o entropy.o $(LDLIBS) $(LDFLAGS)
 
 
 .PHONY: clean
 
 clean: 
-	rm -f $(objects) $(data_files) main current_tdel current_tdel.o current_omegad current_omegad.o
+	rm -f $(objects) $(data_files) main current_tdel current_tdel.o current_omegad current_omegad.o red_evol.o cp_evol.o red_evol cp_evol
 

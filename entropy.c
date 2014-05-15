@@ -64,26 +64,26 @@ double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq,
 	{
 		l[i] = 0 ;
 		for ( j = 0 ; j < 3 ; j++ )
-			l[i] += gsl_matrix_get(L,i,j)*gsl_vector_get(rho,j) ;
+			l[i] += gsl_matrix_get(L,i,j)*VECTOR(rho,j) ;
 	}	
 
 	/* L[rho] */
 	double Lr = 0 ;
 	for ( i = 1 ; i < 3 ; i++ )
-		Lr += l[i]*gsl_vector_get(rho,i) ;
+		Lr += l[i]*VECTOR(rho,i) ;
 
 	/* L[rhoeq] */
 	double Leq = 0 ;
 	for ( i = 1 ; i < 3 ; i++ )
-		Leq += l[i]*gsl_vector_get(rhoeq,i) ;
+		Leq += l[i]*VECTOR(rhoeq,i) ;
 
 	/* r , req */
 	double r, req ;
 	r = req = 0 ;
 
-	r = gsl_hypot3(gsl_vector_get(rho,1),gsl_vector_get(rho,2),gsl_vector_get(rho,3)) ;
-	req = gsl_hypot3(gsl_vector_get(rhoeq,1),gsl_vector_get(rhoeq,2),
-		gsl_vector_get(rhoeq,3)) ;
+	r = gsl_hypot3(VECTOR(rho,1),VECTOR(rho,2),VECTOR(rho,3)) ;
+	req = gsl_hypot3(VECTOR(rhoeq,1),VECTOR(rhoeq,2),
+		VECTOR(rhoeq,3)) ;
 
 	/* internal entropy s */
 	double s ;

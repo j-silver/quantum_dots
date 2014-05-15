@@ -29,25 +29,13 @@
 /* main.c */
 
 #include "funcs.h"
+#include "initial.h"
+
 #include <stdio.h>
-#include <math.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_odeiv2.h>
 #include <gsl/gsl_ieee_utils.h>
 
-const double omega_c = 1000 ;                   /* critical ohmic frequency */
-const double T = 0.1 ;                          /* temperature */
-const double D = 1 ;                            /* pumping amplitude (GHz) */
-const double Omega = 2 ;                        /* pumping frequency (GHz) */
-const double alpha = 5e-3 ;                     /* coupling strength */
-
-const double gamma0 = 0.05 ;                    /* energy hopping between sites
-						 * in MeV                       */
-
-const double t_end = 100 ;                      /* time end */
-const double step = .01 ;                       /* time step */
-
-const double r[] = { 1, 0, -0.894, -0.447 } ;  	/* initial state: |z,-> */
 
 
 int main ( int argc, char* argv[] )
@@ -55,13 +43,12 @@ int main ( int argc, char* argv[] )
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
 	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
-	double omega_1 = gsl_hypot(Omega,D) ;   /* omega' */
-
+	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;
 	params.omega_c = omega_c ;
 	params.beta = beta ;
-	params.Omega = Omega ;
+	params.Omega = OMEGA ;
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
  
@@ -94,19 +81,24 @@ int main ( int argc, char* argv[] )
 	printf("REDFIELD DYNAMICS\n") ;
 	int status6 = stationary ( red_m , req_red ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
-			gsl_vector_get(req_red,0), gsl_vector_get(req_red,1),
-			gsl_vector_get(req_red,2), gsl_vector_get(req_red,3) ) ;
+			VECTOR(req_red,0), VECTOR(req_red,1),
+			VECTOR(req_red,2), VECTOR(req_red,3) ) ;
 	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
-			-gsl_vector_get(req_red,3)*Omega/omega_1) ;
+			-VECTOR(req_red,3)*OMEGA/omega_1) ;
 	
 	printf("CP DYNAMICS\n") ;
 	int status7 = stationary ( cp_m , req_cp ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
-			gsl_vector_get(req_cp,0), gsl_vector_get(req_cp,1),
-			gsl_vector_get(req_cp,2), gsl_vector_get(req_cp,3) ) ;
+			VECTOR(req_cp,0), VECTOR(req_cp,1),
+			VECTOR(req_cp,2), VECTOR(req_cp,3) ) ;
 	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
-			-gsl_vector_get(req_cp,3)*Omega/omega_1) ;
+			-VECTOR(req_cp,3)*OMEGA/omega_1) ;
 
+ /* :REMARK:16/05/2014 01:05:34:ga: From here the main can be cut:
+  * 					we only need to generate
+  * 					the matrices, since the
+  * 					evolution is calculated
+  * 					elsewhere */
 
 	/* 
 	 *
@@ -158,10 +150,10 @@ int main ( int argc, char* argv[] )
 	/* setting the initial vector */
 	gsl_vector* init_red = gsl_vector_calloc(4) ;
 	gsl_vector* init_cp = gsl_vector_calloc(4) ;
-	for ( i = 0 ; i < 3 ; i++ )
+	for ( i = 0 ; i < 4 ; i++ )
 	{
-		gsl_vector_set ( init_red, i, r[i] ) ;
-		gsl_vector_set ( init_cp, i, r[i] ) ;
+		gsl_vector_set ( init_red, i, R[i] ) ;
+		gsl_vector_set ( init_cp, i, R[i] ) ;
 	}
 
 	/* opening the files */
@@ -175,23 +167,33 @@ int main ( int argc, char* argv[] )
 	/* writing data */
 	while ( t < t_end )
 	{
-		evol ( t, init_red, step, r_e, r_c, r_s, &red_sys ) ;
-		fprintf ( f_red, "%.3f %.9f %.9f %.9f\n", t, gsl_vector_get(init_red,1),
-				gsl_vector_get(init_red,2), gsl_vector_get(init_red,3) ) ;
+		evol ( t, init_red, STEP, r_e, r_c, r_s, &red_sys ) ;
+		fprintf ( f_red, "%.3f %.9f %.9f %.9f %.9f\n", t,
+				VECTOR(init_red,1),
+				VECTOR(init_red,2),
+				VECTOR(init_red,3),
+				gsl_hypot3(VECTOR(init_red,1),
+						VECTOR(init_red,2),
+						VECTOR(init_red,3)) ) ;
 		fprintf ( g_red, "%.3f %.9f\n",
 				t, entropy_production( init_red, req_red, red_m )) ;
 		fprintf ( h_red, "%.3f %.9f\n",
-				t, -gsl_vector_get(init_red,3)*Omega/omega_1 ) ;
+				t, -VECTOR(init_red,3)*OMEGA/omega_1 ) ;
 
-		evol ( t, init_cp, step, cp_e, cp_c, cp_s, &cp_sys ) ;
-		fprintf ( f_cp, "%.3f %.9f %.9f %.9f\n", t, gsl_vector_get(init_cp,1),
-				gsl_vector_get(init_cp,2), gsl_vector_get(init_cp,3) ) ;
+		evol ( t, init_cp, STEP, cp_e, cp_c, cp_s, &cp_sys ) ;
+		fprintf ( f_cp, "%.3f %.9f %.9f %.9f %.9f\n", t,
+				VECTOR(init_cp,1),
+				VECTOR(init_cp,2),
+				VECTOR(init_cp,3),
+				gsl_hypot3(VECTOR(init_cp,1),
+						VECTOR(init_cp,2),
+						VECTOR(init_cp,3)) ) ;
 		fprintf ( g_cp, "%.3f %.9f\n",
 				t, entropy_production( init_cp , req_cp, cp_m )) ;
 		fprintf ( h_cp, "%.3f %.9f\n",
-				t, -gsl_vector_get(init_cp,3)*Omega/omega_1 ) ;
+				t, -VECTOR(init_cp,3)*OMEGA/omega_1 ) ;
 
-		t += step ;
+		t += STEP ;
 	}
 
 	/*  close the files */

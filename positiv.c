@@ -28,12 +28,14 @@
 /*
  *
  *
- *       Filename:  current.c
+ *       Filename:  r0dot.c
  *
- *    Description:  Calculate the DC current given the state
+ *    Description:  Check the sign of the time derivative at t=0
+ *    			of the Bloch vector for an initial state with r=1 :
+ *    			if negative, the dynamics is non positive.
  *
  *        Version:  1.0
- *        Created:  07/05/2014 12:12:37
+ *        Created:  14/05/2014 18:07:11
  *       Revision:  none
  *        License:  BSD
  *
@@ -44,22 +46,47 @@
  */
 
 #include <gsl/gsl_vector.h>
-#include <gsl/gsl_const_mksa.h>
-#include <gsl/gsl_math.h>
-#include <math.h>
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_cblas.h>
+#include <stdlib.h>
+#include "funcs.h"
+
 
 /* 
  *      FUNCTION  
- *         Name:  current
- *  Description:  Asymptotic current produced on the stationary state.
+ *         Name:  r0_dot
+ *  Description:  Calculate the time derivative of r at time t=0 
  * 
  */
-double current ( const gsl_vector* state )
+double r0_dot ( const gsl_matrix* K, const gsl_vector* R )
 {
-	double P = - VECTOR(state,3) ;
-	double I0 = GSL_CONST_MKSA_ELECTRON_CHARGE*gamma0/sqrt(3.0) ;
-	double cur = I0*P*Omega/gsl_hypot(Omega,D) ;
+	/* time derivative of r at time t = 0 */
+	double time_d ; 
 
-	return cur;
-}		/* -----  end of function current  ----- */
+	/* Take the spatial part (index = 1,2,3) of the Bloch generator */
+	gsl_matrix_const_view* L = gsl_matrix_const_submatrix ( K, 1, 1, 3, 3) ;
 
+	/* spatial subcolumn of col. 0 */
+	gsl_vector_const_view* l = gsl_matrix_const_subcolumn ( K, 0, 1, 3 ) ;
+
+	/* spatial part of Bloch vector R */
+	gsl_vector_const_view* r = gsl_vector_const_subvector ( R, 1, 3 ) ;
+
+	/* L.r product */
+	gsl_vector* y = gsl_vector_calloc(4) ;
+	if ( gsl_blas_dgemv(CblasNoTrans, 1, L, r, 0, y) != 0 )
+		exit(EXIT_FAILURE) ;
+
+	/* r.L.r scalar product */
+	double scal1 ;
+	if ( gsl_blas_ddot( r, y, &scal1 ) != 0 )
+		exit(EXIT_FAILURE) ;
+	/*  r.l scalar product */
+	double scal2 ;
+	if ( gsl_blas_ddot( r, l, &scal2 ) != 0 )
+		exit(EXIT_FAILURE) ;
+
+	double s = -2*( scal1 + scal2 ) ;
+	 
+	return (s) ;
+}		/* -----  end of function r0_dot  ----- */

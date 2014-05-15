@@ -26,14 +26,14 @@
  * 
  */
 /*
+ * 
  *
+ *       Filename:  initial.h
  *
- *       Filename:  current.c
- *
- *    Description:  Calculate the DC current given the state
+ *    Description:  Initial values
  *
  *        Version:  1.0
- *        Created:  07/05/2014 12:12:37
+ *        Created:  16/05/2014 00:44:34
  *       Revision:  none
  *        License:  BSD
  *
@@ -43,23 +43,19 @@
  * 
  */
 
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_const_mksa.h>
-#include <gsl/gsl_math.h>
-#include <math.h>
+const double omega_c = 1000 ;                  /* critical ohmic frequency */
+const double T = 0.1 ;                         /* temperature */
+const double D = 1 ;                           /* pumping amplitude (GHz) */
+const double OMEGA = 2 ;                       /* pumping frequency (GHz) */
+const double alpha = 5e-3 ;                    /* coupling strength */
 
-/* 
- *      FUNCTION  
- *         Name:  current
- *  Description:  Asymptotic current produced on the stationary state.
- * 
- */
-double current ( const gsl_vector* state )
-{
-	double P = - VECTOR(state,3) ;
-	double I0 = GSL_CONST_MKSA_ELECTRON_CHARGE*gamma0/sqrt(3.0) ;
-	double cur = I0*P*Omega/gsl_hypot(Omega,D) ;
+const double gamma0 = 0.05 ;                   /* energy hopping between sites */
+	
+const double t_end = 1000 ;                     /* time end */
+const double STEP = .01 ;                      /* time step */
 
-	return cur;
-}		/* -----  end of function current  ----- */
+const double R[] = { 1, 0, -0.894, -0.447 } ;  	/* initial state: |z,-> */
+
+/* const double r[] = { 1, 0, 0.5, -0.4 } ;  	 initial state with neg. e.p. */
+/* const double r[] = { 1, 0, 1, 0 } ;  	 initial state with pos. t.d. */
 

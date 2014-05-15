@@ -32,9 +32,11 @@
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_odeiv2.h>
 
-#define WS_SZ 1000  /* size of the integration workspace */
+#define WS_SZ 1000  			/* size of the integration workspace */
 
-#define POW_2 gsl_pow_2  /* square */
+#define POW_2 gsl_pow_2  		/* square */
+#define VECTOR	gsl_vector_get		/* vector_get */
+
 
 struct f_params { double omega_c ; double beta ; double Omega ;
 	double omega_1; double alpha; } ;
@@ -88,6 +90,8 @@ int generator ( double, const double*, double*, void* ) ;
 int jac ( double, const double*, double*, double*, void* ) ;
 int evol ( double, gsl_vector*, double, gsl_odeiv2_evolve*,
 		gsl_odeiv2_control*, gsl_odeiv2_step*, gsl_odeiv2_system* ) ;
+int red_evol ( void*, const double*, double, double, const gsl_vector*,	gsl_matrix* ) ;
+int cp_evol ( void*, const double*, double, double, const gsl_vector*,	gsl_matrix* ) ;
 
 /* Stationarity */
 int stationary ( const gsl_matrix* , gsl_vector*  ) ;
@@ -114,3 +118,6 @@ double current_red_om ( double, void* ) ;
 double current_red_T ( double, void* ) ;
 double current_cp_om ( double, void* ) ;
 double current_cp_T ( double, void* ) ;
+
+/* positivity */
+double r0_dot ( const gsl_matrix* , const gsl_vector*  ) ;

@@ -80,16 +80,16 @@ int bloch_vector ( gsl_vector* v, unsigned double r, double theta, double phi )
  */
 int polars ( unsigned double* r, double* theta, double* phi, const gsl_vector* v )
 {
-	*r = gsl_hypot3( gsl_vector_get(v,1), gsl_vector_get(v,2), gsl_vector_get(v,3) ) ;
+	*r = gsl_hypot3( VECTOR(v,1), VECTOR(v,2), VECTOR(v,3) ) ;
 	if ( *r > 1 )
 		return -1 ;
 
-	*theta = acos(gsl_vector_get(v,3)) ;
+	*theta = acos(VECTOR(v,3)) ;
 
 	if ( fabs(*theta)==1 )
 		*phi = 0 ;
 	else
-		*phi = atan2(gsl_vector_get(v,2),gsl_vector_get(v,1)) ;
+		*phi = atan2(VECTOR(v,2),VECTOR(v,1)) ;
 
 	return 0;
 }		/* -----  end of function polars  ----- */

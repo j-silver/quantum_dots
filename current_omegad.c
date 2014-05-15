@@ -81,7 +81,7 @@ double current_red_om ( double x, void* params )
 	if ( (s1 + s2) != 0 )
 		exit(EXIT_FAILURE) ;
 
-	double curr = -gsl_vector_get(stat_state,3)*(pars->Omega/pars->omega_1) ;
+	double curr = -VECTOR(stat_state,3)*(pars->Omega/pars->omega_1) ;
 
 	gsl_matrix_free(m) ;
 
@@ -112,7 +112,7 @@ double current_cp_om ( double x, void* params )
 	if ( (s1 + s2) != 0 )
 		exit(EXIT_FAILURE) ;
 
-	double curr = -gsl_vector_get(stat_state,3)*(pars->Omega/pars->omega_1) ;
+	double curr = -VECTOR(stat_state,3)*(pars->Omega/pars->omega_1) ;
 
 	gsl_matrix_free(m) ;
 

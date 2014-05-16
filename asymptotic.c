@@ -26,73 +26,14 @@
  * 
  */
 
-/* main.c */
-
 #include "funcs.h"
 #include "initial.h"
 
 #include <stdio.h>
 #include <gsl/gsl_math.h>
+#include <gsl/gsl_linalg.h>
 #include <gsl/gsl_odeiv2.h>
 #include <gsl/gsl_ieee_utils.h>
-
-
-/* 
- *      FUNCTION  
- *         Name:  stationary
- *  Description:  Given the dissipator in Bloch form, reduce to a 3x3 problem and store
- *  			the stationary state in the 3x1 vector *X 
- * 			
- * 			M X = 0
- * 
- * 	        	|  0    0    0    0  |  | 1  |    0
- * 		        | M10  M11  M12  M13 |  | X1 |    0
- * 		        | M20  M21  M22  M23 |  | X2 | =  0
- * 			| M30  M31  M32  M33 |  | X3 |    0
- *
- *
- * 			A x = b
- *
- * 			| M11  M12  M13 |  | X1 |   | -M10 |
- * 			| M21  M22  M23 |  | X2 | = | -M20 |
- * 			| M31  M32  M33 |  | X3 |   | -M30 |
- */
-int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
-{
-	/* Store space for the stationary state */
-	gsl_vector* req = gsl_vector_calloc ( 4 ) ;
-	gsl_vector_set ( req, 0, 1 ) ;
-
-	/* Copy the dissipator matrix in a temporary local matrix m
-	 * (because the algorithm destroys it...) */
-	gsl_matrix* m = gsl_matrix_calloc ( 4, 4 ) ;
-	gsl_matrix_memcpy ( m, M ) ;
-
-	/* Create a view of the spatial part of vector req */
-	gsl_vector_view x = gsl_vector_subvector ( req, 1, 3 ) ;
-
-	/* Create a submatrix view of the spatial part of m and a vector view
-	 * of the spatial part of the 0-th column, which goes into -b in the system
-	 * A X = b */
-	gsl_matrix_view A = gsl_matrix_submatrix ( m, 1, 1, 3, 3 ) ;
-	gsl_vector_view b = gsl_matrix_subcolumn ( m, 0, 1, 3 ) ;
-	int status1 = gsl_vector_scale ( &b.vector, -1.0 ) ;	
-
-	/* Solve the system A x = b using Householder transformations.
-	 * Changing the view x of req => also req is changed, in the spatial part */
-	int status2 = gsl_linalg_HH_solve ( &A.matrix, &b.vector, &x.vector ) ;
-
-	/* Set the returning value for the state stat_state */
-	*stat_state = *req ;
-
-	/* Free memory */
-	gsl_matrix_free(m) ;
-	
-	return status1 + status2 ;
-}		/* -----  end of function stationary  ----- */
-
-
-
 
 int main ( int argc, char* argv[] )
 {
@@ -108,8 +49,6 @@ int main ( int argc, char* argv[] )
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
  
-	unsigned int i ;                        /* counter for the for loops */
-
 	int status1 = save_integrals ( &params ) ;
 	int status2 = save_matrices ( &params ) ;
 	
@@ -149,6 +88,14 @@ int main ( int argc, char* argv[] )
 			VECTOR(req_cp,2), VECTOR(req_cp,3) ) ;
 	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
 			-VECTOR(req_cp,3)*OMEGA/omega_1) ;
+
+	/* Save the stationary states into files */
+	FILE* f = fopen ( "RED_STATIONARY.dat", "w" ) ;
+	gsl_vector_fprintf ( f, req_red, "%.9f" ) ;
+	FILE* g = fopen ( "CP_STATIONARY.dat", "w" ) ;
+	gsl_vector_fprintf ( g, req_cp, "%.9f" ) ;
+
+	fclose (f) ; fclose (g) ;
 
 	/* polarization */
 	double D30 = gsl_matrix_get(cp_m,3,0) ;

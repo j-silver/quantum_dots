@@ -45,14 +45,12 @@
  */
 
 #include <gsl/gsl_ieee_utils.h>
+#include <gsl/gsl_vector.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "funcs.h"
+#include "initial.h"
 
-const double omega_c = 1000 ;                   /* critical ohmic frequency */
-const double D = 1 ;                            /* pumping amplitude (GHz) */
-const double alpha = 5e-3 ;                     /* coupling strength */
-const double T = 0.01 ;                           /* temperature */
 
 /* 
  *      FUNCTION  
@@ -70,20 +68,16 @@ double current_red_om ( double x, void* params )
 	pars->Omega = x*D ;
 	pars->omega_1 = gsl_hypot(pars->Omega,D) ;
 
-	/* Calculate the matrix */
-	gsl_matrix* m = gsl_matrix_calloc(4,4) ;	
-	int s1 = red_mat ( m, pars ) ;
-
 	/* Calculate the stationary current */
 	gsl_vector* stat_state = gsl_vector_calloc (4) ;
-	int s2 = stationary ( m , stat_state ) ;
-	
-	if ( (s1 + s2) != 0 )
-		exit(EXIT_FAILURE) ;
+	gsl_matrix* red_m = gsl_matrix_calloc ( 4, 4 ) ;
+	red_mat ( red_m, pars ) ;
+
+	stationary ( red_m, stat_state ) ;
 
 	double curr = -VECTOR(stat_state,3)*(pars->Omega/pars->omega_1) ;
 
-	gsl_matrix_free(m) ;
+	gsl_matrix_free (red_m) ;
 
 	return curr ;
 }		/* -----  end of function current_red_om  ----- */
@@ -101,20 +95,17 @@ double current_cp_om ( double x, void* params )
 	/* Insert Omega, omega_1 into pars */
 	pars->Omega = x*D ;	
 	pars->omega_1 = gsl_hypot(pars->Omega,D) ;
-	/* Calculate the matrix */
-	gsl_matrix* m = gsl_matrix_calloc(4,4) ;	
-	int s1 = cp_mat ( m, pars ) ;
 
 	/* Calculate the stationary current */
 	gsl_vector* stat_state = gsl_vector_calloc (4) ;
-	int s2 = stationary ( m , stat_state ) ;
-	
-	if ( (s1 + s2) != 0 )
-		exit(EXIT_FAILURE) ;
+	gsl_matrix* cp_m = gsl_matrix_calloc ( 4, 4 ) ;
+	cp_mat ( cp_m, pars ) ;
+
+	stationary ( cp_m, stat_state ) ;
 
 	double curr = -VECTOR(stat_state,3)*(pars->Omega/pars->omega_1) ;
 
-	gsl_matrix_free(m) ;
+	gsl_matrix_free (cp_m) ;
 
 	return curr ;
 }		/* -----  end of function current_cp_om  ----- */

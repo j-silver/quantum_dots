@@ -25,16 +25,27 @@
  * POSSIBILITY OF SUCH DAMAGE.
  * 
  */
-
-/* main.c */
+/*
+ *
+ *
+ *       Filename:  stationary.c
+ *
+ *    Description:  Find the stationary state for the given generator
+ *
+ *        Version:  1.0
+ *        Created:  05/05/2014 15:27:48
+ *       Revision:  none
+ *        License:  BSD
+ *
+ *         Author:  Giuseppe Argentieri (ga), giuseppe.argentieri@ts.infn.it
+ *   Organization:  Università degli Studi di Trieste
+ *
+ * 
+ */
 
 #include "funcs.h"
-#include "initial.h"
-
-#include <stdio.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_odeiv2.h>
-#include <gsl/gsl_ieee_utils.h>
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_linalg.h>
 
 
 /* 
@@ -92,74 +103,4 @@ int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
 }		/* -----  end of function stationary  ----- */
 
 
-
-
-int main ( int argc, char* argv[] )
-{
-	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
-
-	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
-	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
-
-	struct f_params params;
-	params.omega_c = omega_c ;
-	params.beta = beta ;
-	params.Omega = OMEGA ;
-	params.omega_1 = omega_1 ;
-	params.alpha = alpha ;
- 
-	unsigned int i ;                        /* counter for the for loops */
-
-	int status1 = save_integrals ( &params ) ;
-	int status2 = save_matrices ( &params ) ;
-	
-	/* read the Redfield matrix from a file */
-	gsl_matrix* red_m = gsl_matrix_calloc ( 4, 4 ) ;
-	int status3 = mat_read ( red_m, "REDFIELD_MATRIX" ) ;
-
-	/* read the CP matrix from a file */
-	gsl_matrix* cp_m = gsl_matrix_calloc ( 4, 4 ) ;
-	int status4 = mat_read ( cp_m, "CP_MATRIX" ) ;
-	
-	/* Hamiltonian generator */
-	const double om[] = { 0 , 0 , 0 , omega_1/2 } ;
-	gsl_matrix* H = gsl_matrix_calloc ( 4, 4 ) ;
-	int status5 = ham_gen ( H, om ) ;
-
-
-	/* 
-	 * Find the stationary state by solving the linear systems
-	 * and the associated stationary currents
-	 */
-	gsl_vector* req_red = gsl_vector_calloc (4) ;
-	gsl_vector* req_cp = gsl_vector_calloc (4) ;
-
-	printf("REDFIELD DYNAMICS\n") ;
-	int status6 = stationary ( red_m , req_red ) ;
-	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
-			VECTOR(req_red,0), VECTOR(req_red,1),
-			VECTOR(req_red,2), VECTOR(req_red,3) ) ;
-	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
-			-VECTOR(req_red,3)*OMEGA/omega_1) ;
-	
-	printf("CP DYNAMICS\n") ;
-	int status7 = stationary ( cp_m , req_cp ) ;
-	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
-			VECTOR(req_cp,0), VECTOR(req_cp,1),
-			VECTOR(req_cp,2), VECTOR(req_cp,3) ) ;
-	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
-			-VECTOR(req_cp,3)*OMEGA/omega_1) ;
-
-	/* polarization */
-	double D30 = gsl_matrix_get(cp_m,3,0) ;
-	double D33 = gsl_matrix_get(cp_m,3,3) ;
-	double pol = -D30/D33 ;
-	printf("n-Polarization of the CP dynamics -D30/D33: %.9f\n", pol ) ;
-
-	/* free memory for matrices */
-	gsl_matrix_free(red_m) ;
- 	gsl_matrix_free(cp_m) ;	
-
-	return status1 + status2 + status3 + status4 + status5 + status6 + status7 ;
-}
 

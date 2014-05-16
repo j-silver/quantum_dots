@@ -45,6 +45,7 @@
 
 #include	<gsl/gsl_odeiv2.h>
 #include	<stdlib.h>
+#include	<string.h>
 #include	<gsl/gsl_ieee_utils.h>
 #include 	"funcs.h"
 #include	"initial.h"
@@ -162,9 +163,13 @@ int main ( int argc, char *argv[] )
 	 * and the associated stationary currents
 	 */
 	gsl_vector* req_red = gsl_vector_calloc (4) ;
+	FILE* f_red = fopen ( "RED_STATIONARY.dat", "r" ) ;
+	if ( f_red == NULL )
+		printf("error: %s\n", strerror(errno)) ;
+	gsl_vector_fscanf ( f_red, req_red ) ;
+	fclose ( f_red ) ;
 
 	printf("REDFIELD DYNAMICS\n") ;
-	stationary ( red_m , req_red ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
 			VECTOR(req_red,0), VECTOR(req_red,1),
 			VECTOR(req_red,2), VECTOR(req_red,3) ) ;

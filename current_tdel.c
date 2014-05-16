@@ -47,11 +47,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "funcs.h"
-
-const double omega_c = 1000 ;                   /* critical ohmic frequency */
-const double D = 1 ;                            /* pumping amplitude (GHz) */
-const double Omega = 2 ;                        /* pumping frequency (GHz) */
-const double alpha = 5e-3 ;                     /* coupling strength */
+#include "initial.h"
 
 
 /* 
@@ -67,23 +63,19 @@ double current_red_T ( double x, void* params )
 	struct f_params* pars = (struct f_params*) params ;
 
 	/* Calculate beta and set into pars */
-	double T = x*D ;
-	pars->beta = 1.0/T ;
-
-	/* Calculate the matrix */
-	gsl_matrix* m = gsl_matrix_calloc(4,4) ;	
-	int s1 = red_mat ( m, pars ) ;
+	double Temp = x*D ;
+	pars->beta = 1.0/Temp ;
 
 	/* Calculate the stationary current */
 	gsl_vector* stat_state = gsl_vector_calloc (4) ;
-	int s2 = stationary ( m , stat_state ) ;
-	
-	if ( (s1 + s2) != 0 )
-		exit(EXIT_FAILURE) ;
+	gsl_matrix* red_m = gsl_matrix_calloc ( 4, 4 ) ;
+	red_mat ( red_m, pars ) ;
 
-	double curr = -VECTOR(stat_state,3)*Omega/pars->omega_1 ;
+	stationary ( red_m, stat_state ) ;
 
-	gsl_matrix_free(m) ;
+	double curr = -VECTOR(stat_state,3)*OMEGA/pars->omega_1 ;
+
+	gsl_matrix_free (red_m) ;
 
 	return curr ;
 }		/* -----  end of function current_red_T  ----- */
@@ -100,23 +92,19 @@ double current_cp_T ( double x, void* params )
 	struct f_params* pars = (struct f_params*) params ;
 
 	/* Calculate beta and set into pars */
-	double T = x*D ;
-	pars->beta = 1.0/T ;	
-
-	/* Calculate the matrix */
-	gsl_matrix* m = gsl_matrix_calloc(4,4) ;	
-	int s1 = cp_mat ( m, pars ) ;
+	double Temp = x*D ;
+	pars->beta = 1.0/Temp ;	
 
 	/* Calculate the stationary current */
 	gsl_vector* stat_state = gsl_vector_calloc (4) ;
-	int s2 = stationary ( m , stat_state ) ;
+	gsl_matrix* cp_m = gsl_matrix_calloc ( 4, 4 ) ;
+	cp_mat ( cp_m, pars ) ;
+
+	stationary ( cp_m, stat_state ) ;
 	
-	if ( (s1 + s2) != 0 )
-		exit(EXIT_FAILURE) ;
+	double curr = -VECTOR(stat_state,3)*OMEGA/pars->omega_1 ;
 
-	double curr = -VECTOR(stat_state,3)*Omega/pars->omega_1 ;
-
-	gsl_matrix_free(m) ;
+	gsl_matrix_free (cp_m) ;
 
 	return curr ;
 }		/* -----  end of function current_cp_T  ----- */
@@ -204,12 +192,12 @@ int write_cp_curr_T ( void* params )
  */
 int main ( int argc, char *argv[] )
 {
-	double omega_1 = gsl_hypot(Omega,D) ;   /* omega' */
+	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;
 	params.omega_c = omega_c ;
 	params.beta = 1 ;                       /* it will be changed after... */
-	params.Omega = Omega ;
+	params.Omega = OMEGA ;
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
 

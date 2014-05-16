@@ -7,30 +7,24 @@
 CC	/media/SPACE/PHD/programs/src/Makefile	/^CC = gcc$/;"	m	language:Make
 CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common #-g -W -pedantic -Wwrite-strings -Wnested-externs -fshort-enums $/;"	m	language:Make
 CPPFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m	language:Make
-D	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double D = 1 ;                            \/* pumping amplitude (GHz) *\/$/;"	v	language:C
-D	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double D = 1 ;                            \/* pumping amplitude (GHz) *\/$/;"	v	language:C
 D	/media/SPACE/PHD/programs/src/initial.h	/^const double D = 1 ;                           \/* pumping amplitude (GHz) *\/$/;"	v	language:C++
 LDLIBS	/media/SPACE/PHD/programs/src/Makefile	/^	LDLIBS = $(libs_for_intelc)$/;"	m	language:Make
 LDLIBS	/media/SPACE/PHD/programs/src/Makefile	/^LDLIBS = -lgsl -lgslcblas -lm$/;"	m	language:Make
 MAIN	/media/SPACE/PHD/programs/src/Makefile	/^	MAIN = main-clang$/;"	m	language:Make
 MAIN	/media/SPACE/PHD/programs/src/Makefile	/^	MAIN = main-intel$/;"	m	language:Make
-MAIN	/media/SPACE/PHD/programs/src/Makefile	/^MAIN = main$/;"	m	language:Make
 OMEGA	/media/SPACE/PHD/programs/src/initial.h	/^const double OMEGA = 2 ;                       \/* pumping frequency (GHz) *\/$/;"	v	language:C++
-Omega	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double Omega = 2 ;                        \/* pumping frequency (GHz) *\/$/;"	v	language:C
 Omega	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 POW_2	/media/SPACE/PHD/programs/src/funcs.h	37;"	d	language:C++
 R	/media/SPACE/PHD/programs/src/initial.h	/^const double R[] = { 1, 0, -0.894, -0.447 } ;  	\/* initial state: |z,-> *\/$/;"	v	language:C++
 STEP	/media/SPACE/PHD/programs/src/initial.h	/^const double STEP = .01 ;                      \/* time step *\/$/;"	v	language:C++
-T	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double T = 0.01 ;                           \/* temperature *\/$/;"	v	language:C
 T	/media/SPACE/PHD/programs/src/initial.h	/^const double T = 0.1 ;                         \/* temperature *\/$/;"	v	language:C++
 VECTOR	/media/SPACE/PHD/programs/src/funcs.h	38;"	d	language:C++
 WS_SZ	/media/SPACE/PHD/programs/src/funcs.h	35;"	d	language:C++
-alpha	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double alpha = 5e-3 ;                     \/* coupling strength *\/$/;"	v	language:C
-alpha	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double alpha = 5e-3 ;                     \/* coupling strength *\/$/;"	v	language:C
 alpha	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
 alpha	/media/SPACE/PHD/programs/src/initial.h	/^const double alpha = 5e-3 ;                    \/* coupling strength *\/$/;"	v	language:C++
 assign_p	/media/SPACE/PHD/programs/src/funcs.h	/^int assign_p ( void*, double*, double*, double*, double* ) ;$/;"	p	language:C++
 assign_p	Reg_cc.c	/^int assign_p ( void* params, double* o_c, double* b, double* O, double* o_1  )$/;"	f
+asymptotic_objects	/media/SPACE/PHD/programs/src/Makefile	/^asymptotic_objects = asymptotic.o stationary.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o entropy.o write.o $/;"	m	language:Make
 beta	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 bloch_vector	/media/SPACE/PHD/programs/src/polar.c	/^int bloch_vector ( gsl_vector* v, unsigned double r, double theta, double phi )$/;"	f	language:C
 cp_evol	/media/SPACE/PHD/programs/src/cp_evol.c	/^int cp_evol ( void* params, const double r[], double time_end, double step,$/;"	f	language:C
@@ -48,7 +42,7 @@ current_red_T	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red_T ( dou
 current_red_om	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_red_om ( double x, void* params )$/;"	f	language:C
 current_red_om	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red_om ( double, void* ) ;$/;"	p	language:C++
 current_temp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_temp ( double ) ;$/;"	p	language:C++
-data_files	/media/SPACE/PHD/programs/src/Makefile	/^data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat$/;"	m	language:Make
+data_files	/media/SPACE/PHD/programs/src/Makefile	/^data_files = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat$/;"	m	language:Make
 entropy_production	/media/SPACE/PHD/programs/src/entropy.c	/^double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq,$/;"	f	language:C
 entropy_production	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matrix* ) ;$/;"	p	language:C++
 evol	/media/SPACE/PHD/programs/src/funcs.h	/^int evol ( double, gsl_vector*, double, gsl_odeiv2_evolve*,$/;"	p	language:C++
@@ -110,15 +104,13 @@ main	/media/SPACE/PHD/programs/src/current_omegad.c	/^int main ( int argc, char 
 main	/media/SPACE/PHD/programs/src/current_tdel.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/main.c	/^int main ( int argc, char* argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/red_evol.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/stationary.c	/^int main ( int argc, char* argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/test.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 mat_read	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_read ( gsl_matrix*, char* ) ;$/;"	p	language:C++
 mat_read	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f	language:C
 mat_write	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_write ( gsl_matrix*, char* ) ;$/;"	p	language:C++
 mat_write	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_write ( gsl_matrix* mat, char* name )$/;"	f	language:C
-objects	/media/SPACE/PHD/programs/src/Makefile	/^objects = main.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o station.o entropy.o write.o $/;"	m	language:Make
 omega_1	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
-omega_c	/media/SPACE/PHD/programs/src/current_omegad.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
-omega_c	/media/SPACE/PHD/programs/src/current_tdel.c	/^const double omega_c = 1000 ;                   \/* critical ohmic frequency *\/$/;"	v	language:C
 omega_c	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/initial.h	/^const double omega_c = 1000 ;                  \/* critical ohmic frequency *\/$/;"	v	language:C++
 polars	/media/SPACE/PHD/programs/src/polar.c	/^int polars ( unsigned double* r, double* theta, double* phi, const gsl_vector* v )$/;"	f	language:C
@@ -149,6 +141,7 @@ second_int	Reg_sc.c	/^int second_int ( double* val, double* error, void* params 
 sign	/media/SPACE/PHD/programs/src/positiv.c	/^int sign ( const gsl_matrix* K, const gsl_vector*\\ )$/;"	f	language:C
 stationary	/media/SPACE/PHD/programs/src/funcs.h	/^int stationary ( const gsl_matrix* , gsl_vector*  ) ;$/;"	p	language:C++
 stationary	/media/SPACE/PHD/programs/src/station.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f	language:C
+stationary	/media/SPACE/PHD/programs/src/stationary.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f	language:C
 t_end	/media/SPACE/PHD/programs/src/initial.h	/^const double t_end = 1000 ;                     \/* time end *\/$/;"	v	language:C++
 third_int	/media/SPACE/PHD/programs/src/funcs.h	/^int third_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f

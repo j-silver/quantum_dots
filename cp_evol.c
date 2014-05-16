@@ -45,6 +45,7 @@
 
 #include	<gsl/gsl_odeiv2.h>
 #include	<stdlib.h>
+#include	<string.h>
 #include	<gsl/gsl_ieee_utils.h>
 #include	"funcs.h"
 #include	"initial.h"
@@ -163,15 +164,19 @@ int main ( int argc, char *argv[] )
 	 */
 
 	gsl_vector* req_cp = gsl_vector_calloc (4) ;
+	
+	FILE* f_cp = fopen ( "CP_STATIONARY.dat", "r" ) ;
+	gsl_vector_fscanf ( f_cp, req_cp ) ;
+	if ( f_cp == NULL )
+		printf("error: %s\n", strerror(errno)) ;
+	fclose ( f_cp ) ;
 
 	printf("CP DYNAMICS\n") ;
-	stationary ( cp_m , req_cp ) ;
 	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
 			VECTOR(req_cp,0), VECTOR(req_cp,1),
 			VECTOR(req_cp,2), VECTOR(req_cp,3) ) ;
 	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
 			-VECTOR(req_cp,3)*OMEGA/omega_1) ;
-
 
 	int status = cp_evol ( &params, R, t_end, STEP, req_cp, cp_m ) ;
 	if ( status != 0 )

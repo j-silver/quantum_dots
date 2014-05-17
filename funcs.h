@@ -121,3 +121,6 @@ double current_cp_T ( double, void* ) ;
 
 /* positivity */
 double r0_dot ( const gsl_matrix* , const gsl_vector*  ) ;
+int bloch_vector ( gsl_vector* , double , double , double ) ;
+int polars ( double* , double* , double* , const gsl_vector*  ) ;
+int sample ( const gsl_matrix* , unsigned int ) ;

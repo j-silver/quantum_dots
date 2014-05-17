@@ -46,6 +46,7 @@
 #include <math.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_math.h>
+#include "funcs.h"
 
 /* 
  *      FUNCTION  
@@ -53,7 +54,7 @@
  *  Description:  Return the Bloch vector corresponding to (r,theta,phi) polar coords
  * 
  */
-int bloch_vector ( gsl_vector* v, unsigned double r, double theta, double phi )
+int bloch_vector ( gsl_vector* v, double r, double theta, double phi )
 {
 	/* Check the validity of coordinates */
 	if ( r > 1 )                   /* Non physical state */
@@ -78,7 +79,7 @@ int bloch_vector ( gsl_vector* v, unsigned double r, double theta, double phi )
  *  Description:  From the Bloch vector representation to the polar coordinates
  * 
  */
-int polars ( unsigned double* r, double* theta, double* phi, const gsl_vector* v )
+int polars ( double* r, double* theta, double* phi, const gsl_vector* v )
 {
 	*r = gsl_hypot3( VECTOR(v,1), VECTOR(v,2), VECTOR(v,3) ) ;
 	if ( *r > 1 )

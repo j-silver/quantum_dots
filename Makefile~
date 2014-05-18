@@ -133,7 +133,7 @@ tdel_objects: $(TDEL_OBJECTS)
 	
 sample_objects: sample.o r0dot.o polar.o mat_file.o
 
-EVOL_OBJECTS = red_evol.o cp_evol.o
+evol_objects: red_evol.o cp_evol.o
 
 
 
@@ -143,5 +143,5 @@ clean_backups:
 	rm -f *~
 
 clean: 
-	rm -f $(ASYMPTOTIC_OBJECTS) $(OMEGAD_OBJECTS) $(TDEL_OBJECTS) $(SAMPLE_OBJECTS) $(DATA_FILES) $(EVOL_OBJECTS) asymptotic current_omegad current_tdel red_evol cp_evol sample
+	rm -f $(ASYMPTOTIC_OBJECTS) $(OMEGAD_OBJECTS) $(TDEL_OBJECTS) $(SAMPLE_OBJECTS) $(DATA_FILES) asymptotic current_omegad current_tdel red_evol cp_evol sample
 

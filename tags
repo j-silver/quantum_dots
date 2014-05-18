@@ -6,7 +6,7 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 ASYMPTOTIC_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^ASYMPTOTIC_OBJECTS = asymptotic.o stationary.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o entropy.o write.o $/;"	m	language:Make
 CC	/media/SPACE/PHD/programs/src/Makefile	/^CC = gcc$/;"	m	language:Make
-CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common #-g -W -pedantic -Wwrite-strings -Wnested-externs -fshort-enums $/;"	m	language:Make
+CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal #-g -W -pedantic -Wwrite-strings  -fshort-enums $/;"	m	language:Make
 CPPFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m	language:Make
 D	/media/SPACE/PHD/programs/src/initial.h	/^const double D = 1 ;                           \/* pumping amplitude (GHz) *\/$/;"	v	language:C++
 DATA_FILES	/media/SPACE/PHD/programs/src/Makefile	/^DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS$/;"	m	language:Make
@@ -119,7 +119,7 @@ omega_1	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; }
 omega_c	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/initial.h	/^const double omega_c = 1000 ;                  \/* critical ohmic frequency *\/$/;"	v	language:C++
 polars	/media/SPACE/PHD/programs/src/funcs.h	/^int polars ( double* , double* , double* , const gsl_vector*  ) ;$/;"	p	language:C++
-polars	/media/SPACE/PHD/programs/src/polar.c	/^int polars ( unsigned double* r, double* theta, double* phi, const gsl_vector* v )$/;"	f	language:C
+polars	/media/SPACE/PHD/programs/src/polar.c	/^int polars ( double* r, double* theta, double* phi, const gsl_vector* v )$/;"	f	language:C
 r0_dot	/media/SPACE/PHD/programs/src/funcs.h	/^double r0_dot ( const gsl_matrix* , const gsl_vector*  ) ;$/;"	p	language:C++
 r0_dot	/media/SPACE/PHD/programs/src/r0dot.c	/^double r0_dot ( const gsl_matrix* K, const gsl_vector* R )$/;"	f	language:C
 re_gc0	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gc0 ( void* params, double* val ) ;$/;"	p	language:C++

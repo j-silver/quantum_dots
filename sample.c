@@ -75,7 +75,7 @@ int sample ( const gsl_matrix* M, unsigned int N )
 	gsl_rng* r = gsl_rng_alloc(gsl_rng_ranlxd2) ;
 
 	/* Taking the time in seconds as seed */
-	unsigned long int seed = (unsigned long int) time(0) ;
+ 	unsigned long int seed = (unsigned long int) time(0) ;
 
 	/*  seeding  */
 	gsl_rng_set(r, seed) ;
@@ -87,13 +87,15 @@ int sample ( const gsl_matrix* M, unsigned int N )
 
 	FILE* f = fopen( "POS_VIOLATIONS", "w" );
 
-	unsigned int i , j ;
+	unsigned int i , j , k ;
+	k = 0 ;
 	for ( i = 0 ; i < N ; i++ )
 	{
 		Theta = M_PI*gsl_rng_uniform(r) ;	
 		int n = (int) (N*sin(Theta)) ;
 		for ( j = 0 ; j < n ; j++ )
 		{
+			k++ ;
 			Phi = 2*M_PI*gsl_rng_uniform(r) ;
 			bloch_vector(v, 1, Theta, Phi) ;
 			time_der = r0_dot( M, v ) ;
@@ -109,6 +111,8 @@ int sample ( const gsl_matrix* M, unsigned int N )
 	fclose (f) ;
 
 	gsl_rng_free(r) ;
+
+	printf("n. of points: %d\n", k) ;
 
 	return 0;
 }		/* -----  end of function sample  ----- */

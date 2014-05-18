@@ -87,7 +87,7 @@ int polars ( double* r, double* theta, double* phi, const gsl_vector* v )
 
 	*theta = acos(VECTOR(v,3)) ;
 
-	if ( fabs(*theta)==1 )
+	if ( gsl_fcmp(fabs(*theta),1,1e-9) )
 		*phi = 0 ;
 	else
 		*phi = atan2(VECTOR(v,2),VECTOR(v,1)) ;

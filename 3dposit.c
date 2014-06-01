@@ -26,14 +26,14 @@
  * 
  */
 /*
- * 
  *
- *       Filename:  initial.h
  *
- *    Description:  Initial values
+ *       Filename:  3dposit.c
+ *
+ *    Description:  3D portion of the Bloch sphere where positivity is violated
  *
  *        Version:  1.0
- *        Created:  16/05/2014 00:44:34
+ *        Created:  30/05/2014 17:15:44
  *       Revision:  none
  *        License:  BSD
  *
@@ -43,19 +43,66 @@
  * 
  */
 
-const double omega_c = 1000 ;                  /* critical ohmic frequency */
-const double T = 0.1 ;                        /* temperature */
-const double D = 1 ;                           /* pumping amplitude (GHz) */
-const double OMEGA = 2 ;                       /* pumping frequency (GHz) */
-const double alpha = 5e-3 ;                    /* coupling strength */
+#include "s2plot.h"
+#include <stdio.h>
 
-const double gamma0 = 0.05 ;                   /* energy hopping between sites */
+
+/* 
+ *      FUNCTION  
+ *         Name:  max
+ *  Description:  Pick the max value of the dr0/dt derivative 
+ * 
+ */
+double max()
+{
+	FILE* f = fopen ( "POS_VIOLATIONS", "r" ) ;
+	double max = 0 ; double d ;
+	while ( fscanf( f, "%*f %*f %*f %lf\n", &d ) == 1 )
+		( max < d ) ? max = d : max ;
+	fclose (f) ;
+
+	return max;
+}		/* -----  end of function max  ----- */
+
+
+#include	<stdlib.h>
+
+/* 
+ *      FUNCTION  
+ *         Name:  main
+ *  Description:  
+ * 
+ */
+int main ( int argc, char *argv[] )
+{
+	XYZ      p ;
+	COLOUR col ;
+	double   D, M ;
 	
-const double t_end = 150 ;                     /* time end */
-const double STEP = .01 ;                      /* time step */
+	M = max() ;
+	
+	s2opend("/?", argc, argv) ;
+	s2swin(-1,1,-1,1,-1,1) ;
+	s2box("BCDETOQ",0,0,"BCDETOQ",0,0,"BCDETOQ",0,0) ;
+	s2lab("x", "m", "n", "Positivity violations") ;
 
-const double R[] = { 1, 0, -0.894, -0.447 } ;  /* initial state: |z,-> */
+	/* draw blue axes */
+	ns2line(-1,0,0,1,0,0, 0,0,1) ;
+	ns2line(0,-1,0,0,1,0, 0,0,1) ;
+	ns2line(0,0,-1,0,0,1, 0,0,1) ;
+/* 	ss2sbc(1,1,1) ;
+ */
 
-/* const double R[] = { 1, 0, 0.5, -0.4 } ;  	 initial state with neg. e.p. */
-/* const double r[] = { 1, 0, 1, 0 } ;  	 initial state with pos. t.d. */
+	FILE* f = fopen ( "POS_VIOLATIONS", "r" ) ;
+	while ( fscanf (f, "%lf %lf %lf %lf", &p.x, &p.y, &p.z, &D) == 4 )
+	{
+		col.r = D/M ;
+		ns2vpoint (p, col) ;
+	}
 
+	fclose (f) ;
+
+	s2show(1);
+
+	return EXIT_SUCCESS;
+}				/* ----------  end of function main  ---------- */

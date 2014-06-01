@@ -43,7 +43,6 @@
  * 
  */
 
-#include	<gsl/gsl_odeiv2.h>
 #include	<stdlib.h>
 #include	<string.h>
 #include	<gsl/gsl_ieee_utils.h>
@@ -119,6 +118,9 @@ int red_evol ( void* params, const double r[], double time_end, double step,
 				t, -VECTOR(init_red,3)*Omega/omega_1 ) ;
 		t += step ;
 	}
+	
+	/* final entropy */
+	printf("Final entropy: %g\n", entropy_of_state(init_red)) ;
 
 	/*  close the files */
 	fclose (f_red) ;

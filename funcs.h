@@ -42,6 +42,8 @@ struct f_params { double omega_c ; double beta ; double Omega ;
 	double omega_1; double alpha; } ;
 int assign_p ( void*, double*, double*, double*, double* ) ;
 
+struct ent_pars { const gsl_vector* rhoeq ; const gsl_matrix* red_m ; } ;
+
 /* Re_gsc functions */
 double k_func ( double, void* ) ;
 double k_func_1 ( double , void* ) ;
@@ -97,7 +99,10 @@ int cp_evol ( void*, const double*, double, double, const gsl_vector*,	gsl_matri
 int stationary ( const gsl_matrix* , gsl_vector*  ) ;
 
 /* Entropy */
+double entropy_of_state ( const gsl_vector* ) ;
 double entropy_production ( const gsl_vector*, const gsl_vector*, const gsl_matrix* ) ;
+double entropy_prod_time  ( double, void* ) ;
+double entropy_integ ( double, const gsl_vector*, const gsl_matrix* ) ;
 
 /* DC current */
 double current ( const gsl_vector* ) ;

@@ -111,7 +111,7 @@ int evol ( double t, gsl_vector* state, double step,
 		gsl_odeiv2_evolve* e, gsl_odeiv2_control* c, gsl_odeiv2_step* s,
 		gsl_odeiv2_system* sys )
 {
-	/* Creating the array 'rho' pointing to vector 'state' */
+	/* Creating the array 'rho' for the vector 'state' */
 	double rho[4] ;
 	unsigned int i ;
 	for ( i = 0 ; i < 4 ; i++ ) 

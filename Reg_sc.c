@@ -348,8 +348,8 @@ int fourth_int ( double* val, double* err, void* params )
 	K.params = pars ;
 	double v3, err3 ;
 
-	int status3 = gsl_integration_qag( &K, 0, (O+o_1)/2, 1e-9, 1e-3, WS_SZ, 6,
-	    fourth_int_ws_3, &v3, &err3 ) ;
+	int status3 = gsl_integration_qag( &K, 0, (O+o_1)/2, 1e-9, 1e-3, WS_SZ, 
+			GSL_INTEG_GAUSS61, fourth_int_ws_3, &v3, &err3 ) ;
 
 	gsl_integration_workspace_free(fourth_int_ws_3) ;
 

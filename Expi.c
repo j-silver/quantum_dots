@@ -65,7 +65,7 @@ int expi ( double x, double* result, double* abserr )
 {
 	double r, err ;
 
-	gsl_integration_workspace *expi_ws =
+	gsl_integration_workspace* expi_ws =
 	       	gsl_integration_workspace_alloc (WS_SZ) ;
 
 	gsl_function F ;

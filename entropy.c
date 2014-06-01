@@ -46,6 +46,9 @@
 
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_sf_log.h>
+#include <gsl/gsl_eigen.h>
+#include <gsl/gsl_complex.h>
+#include <gsl/gsl_complex_math.h>
 
 #include "funcs.h"
 
@@ -94,3 +97,32 @@ double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq,
 
 	return s;
 }		/* -----  end of function entropy_production  ----- */
+
+
+/* 
+ *      FUNCTION  
+ *         Name:  entropy_of_state
+ *  Description:  Calculate the Von Neumann entropy of state 'rho'
+ * 
+ */
+double entropy_of_state ( const gsl_vector* rho )
+{
+	double entr = 0 ;
+
+	/* Finding the eigenvalues */
+	gsl_eigen_herm_workspace* rho_ei = gsl_eigen_herm_alloc(2);
+	gsl_matrix_complex* dens = gsl_matrix_complex_calloc (2,2);
+	gsl_matrix_complex_set (dens, 0, 0, gsl_complex_rect(1+VECTOR(rho, 3),0));
+	gsl_matrix_complex_set (dens,0,1,gsl_complex_rect(VECTOR(rho,1),-VECTOR(rho,2)));
+	gsl_matrix_complex_set (dens,1,0,gsl_complex_rect(VECTOR(rho,1),VECTOR(rho,2)));
+	gsl_matrix_complex_set (dens,1,1,gsl_complex_rect(1-VECTOR(rho,3),0));
+	gsl_matrix_complex_scale (dens, gsl_complex_rect(0.5,0));
+	gsl_vector* eigenvalues = gsl_vector_calloc(2) ;
+	gsl_eigen_herm (dens, eigenvalues, rho_ei) ;
+	
+	/* Calculating entropy */
+	entr = - (VECTOR(eigenvalues,0)*gsl_sf_log(VECTOR(eigenvalues,0)) +
+			VECTOR(eigenvalues,1)*gsl_sf_log(VECTOR(eigenvalues,1))) ;
+
+	return (entr);
+}		/* -----  end of function entropy_of_state  ----- */

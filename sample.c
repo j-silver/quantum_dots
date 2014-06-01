@@ -92,7 +92,7 @@ int sample ( const gsl_matrix* M, unsigned int N )
 	for ( i = 0 ; i < N ; i++ )
 	{
 		Theta = M_PI*gsl_rng_uniform(r) ;	
-		int n = (int) (N*sin(Theta)) ;
+		int n = (int) (2*N*sin(Theta)) ;
 		for ( j = 0 ; j < n ; j++ )
 		{
 			k++ ;

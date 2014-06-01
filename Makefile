@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal #-g -W -pedantic -Wwrite-strings  -fshort-enums 
+CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -g #-W -pedantic -Wwrite-strings  -fshort-enums 
 LDLIBS = -lgsl -lgslcblas -lm
 
 libs_for_intelc = -L/media/SPACE/intel/lib/intel64 -mkl -lgsl
@@ -66,6 +66,12 @@ polar.o: polar.c funcs.h
 sample: sample.o r0dot.o polar.o mat_file.o
 	$(CC) -o sample sample.o r0dot.o polar.o mat_file.o $(LDLIBS) $(LDFLAGS)
 
+# Average
+#
+average.o: average.c funcs.h initial.h
+
+average: average_objects
+	$(CC) -o average $(AVERAGE_OBJECTS) $(LDLIBS) $(LDFLAGS)
 
 #
 # Object files
@@ -123,6 +129,10 @@ TDEL_OBJECTS = stationary.o current_tdel.o red_gen.o cp_gen.o integs.o Reg_cc.o 
 
 SAMPLE_OBJECTS = sample.o r0dot.o polar.o mat_file.o
 
+EVOL_OBJECTS = red_evol.o cp_evol.o
+
+AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o
+
 DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS
 
 asymptotic_objects: $(ASYMPTOTIC_OBJECTS)
@@ -131,10 +141,9 @@ omegad_objects: $(OMEGAD_OBJECTS)
 	
 tdel_objects: $(TDEL_OBJECTS) 
 	
-sample_objects: sample.o r0dot.o polar.o mat_file.o
+sample_objects: $(SAMPLE_OBJECTS)
 
-EVOL_OBJECTS = red_evol.o cp_evol.o
-
+average_objects: $(AVERAGE_OBJECTS)
 
 
 .PHONY: clean
@@ -143,5 +152,5 @@ clean_backups:
 	rm -f *~
 
 clean: 
-	rm -f $(ASYMPTOTIC_OBJECTS) $(OMEGAD_OBJECTS) $(TDEL_OBJECTS) $(SAMPLE_OBJECTS) $(DATA_FILES) $(EVOL_OBJECTS) asymptotic current_omegad current_tdel red_evol cp_evol sample
+	rm -f $(ASYMPTOTIC_OBJECTS) $(OMEGAD_OBJECTS) $(TDEL_OBJECTS) $(SAMPLE_OBJECTS) $(DATA_FILES) $(EVOL_OBJECTS) $(AVERAGE_OBJECTS) asymptotic current_omegad current_tdel red_evol cp_evol sample average
 

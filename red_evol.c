@@ -99,8 +99,9 @@ int red_evol ( void* params, const double r[], double time_end, double step,
 
 	/* opening the files */
 	FILE* f_red = fopen ( "RED-EVOLUTION.dat", "w" ) ;
-	FILE* g_red = fopen ( "RED-ENTROPY.dat", "w" ) ;
+	FILE* g_red = fopen ( "RED-ENTROPY-PROD.dat", "w" ) ;
 	FILE* h_red = fopen ( "RED-CURRENT.dat", "w" ) ;
+	FILE* i_red = fopen ( "RED-ENTROPY.dat", "w" ) ;
 
 
 	/* writing data */
@@ -116,16 +117,19 @@ int red_evol ( void* params, const double r[], double time_end, double step,
 				t, entropy_production( init_red, req_red, red_m )) ;
 		fprintf ( h_red, "%.2f %.9f\n",
 				t, -VECTOR(init_red,3)*Omega/omega_1 ) ;
+		fprintf ( i_red, "%.2f %.9f\n",
+				t, entropy_of_state(init_red) ) ;
 		t += step ;
 	}
 	
 	/* final entropy */
-	printf("Final entropy: %g\n", entropy_of_state(init_red)) ;
+	printf("Final entropy: %g\n", entropy_of_state(init_red) ) ;
 
 	/*  close the files */
 	fclose (f_red) ;
 	fclose (g_red) ;
 	fclose (h_red) ;
+	fclose (i_red) ;
 
 	/* free memory for evolution */
 	gsl_odeiv2_evolve_free (r_e) ;

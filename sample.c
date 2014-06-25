@@ -87,24 +87,18 @@ int sample ( const gsl_matrix* M, unsigned int N )
 
 	FILE* f = fopen( "POS_VIOLATIONS", "w" );
 
-	unsigned int i , j , k ;
-	k = 0 ;
-	for ( i = 0 ; i < N ; i++ )
+	unsigned int i ;
+	for ( i = 0; i < N; i++ )
 	{
-		Theta = M_PI*gsl_rng_uniform(r) ;	
-		int n = (int) (2*N*sin(Theta)) ;
-		for ( j = 0 ; j < n ; j++ )
+		Theta = M_PI*gsl_rng_uniform(r);
+		Phi   = 2*M_PI*gsl_rng_uniform(r);
+		bloch_vector(v, 1, Theta, Phi) ;
+		time_der = r0_dot( M, v ) ;
+		if ( time_der > 0 )
 		{
-			k++ ;
-			Phi = 2*M_PI*gsl_rng_uniform(r) ;
-			bloch_vector(v, 1, Theta, Phi) ;
-			time_der = r0_dot( M, v ) ;
-			if ( time_der > 0 )
-			{
-				fprintf( f, "%-.9f %-.9f %-.9f %g\n",
-						VECTOR(v,1),VECTOR(v,2),VECTOR(v,3),
-						time_der ) ;
-			}
+			fprintf( f, "%-.9f %-.9f %-.9f %g\n",
+					VECTOR(v,1),VECTOR(v,2),VECTOR(v,3),
+					time_der ) ;
 		}
 	}
 	
@@ -112,7 +106,7 @@ int sample ( const gsl_matrix* M, unsigned int N )
 
 	gsl_rng_free(r) ;
 
-	printf("n. of points: %d\n", k) ;
+	printf("n. of points: %d\n", N) ;
 
 	return 0;
 }		/* -----  end of function sample  ----- */
@@ -127,7 +121,7 @@ int sample ( const gsl_matrix* M, unsigned int N )
  */
 int main ( int argc, char *argv[] )
 {
-	unsigned int num = 1000 ;
+	unsigned int num = 1e6 ;
 	
 	gsl_matrix* red_m = gsl_matrix_calloc(4, 4) ;
 	mat_read (red_m, "REDFIELD_MATRIX") ;

@@ -84,7 +84,7 @@ int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
 
 	/* Create a submatrix view of the spatial part of m and a vector view
 	 * of the spatial part of the 0-th column, which goes into -b in the system
-	 * A X = b */
+	 * A x = b */
 	gsl_matrix_view A = gsl_matrix_submatrix ( m, 1, 1, 3, 3 ) ;
 	gsl_vector_view b = gsl_matrix_subcolumn ( m, 0, 1, 3 ) ;
 	int status1 = gsl_vector_scale ( &b.vector, -1.0 ) ;	
@@ -104,3 +104,42 @@ int stationary ( const gsl_matrix* M, gsl_vector* stat_state )
 
 
 
+/* 
+ *      FUNCTION  
+ *         Name:  J
+ *  Description:  Ohmic spectral density (divided by alpha)
+ * 
+ */
+double J ( double w, double oc )
+{
+	double W = w*exp(-w/oc) ;
+	return (W);
+}		/* -----  end of function J  ----- */
+
+
+/* 
+ *      FUNCTION  
+ *         Name:  polarization
+ *  Description:  Polarization P through the CP formula 
+ * 
+ */
+double polarization ( void* params, double oc )
+{
+	struct f_params* pars = (struct f_params*) params ;
+	double Omega, omega_1, b ;
+	Omega   = pars->Omega ;
+	omega_1 = pars->omega_1 ;
+	b       = pars->beta ;
+
+	double P, num, den, add1, add2, Jplus, Jminus ;
+	Jplus  = J(omega_1 + Omega, oc) ;
+	Jminus = J(omega_1 - Omega, oc) ;
+	add1 = POW_2(omega_1 - Omega)*Jplus ;
+	add2 = POW_2(omega_1 + Omega)*Jminus ;
+	num = add1 + add2 ;
+	den = add1/(tanh((omega_1+Omega)*b/2)) +
+		add2/(tanh((omega_1-Omega)*b/2)) ;
+	P = num/den ;
+
+	return (P);
+}		/* -----  end of function polarization  ----- */

@@ -91,8 +91,10 @@ double entropy_production ( const gsl_vector* rho, const gsl_vector* rhoeq,
 	/* internal entropy s */
 	double s ;
 	if ( r < 1 && req < 1 )
-		s = -(gsl_sf_log((1+r)/(1-r))*Lr/r - gsl_sf_log((1+req)/(1-req))*Leq/req) ;
-	else 
+		s = -(gsl_sf_log((1+r)/(1-r))*Lr/r -gsl_sf_log((1+req)/(1-req))*Leq/req);
+	else if ( r < 1 && req >= 0 )
+		s = -gsl_sf_log((1+r)/(1-r))*Lr/r ;
+	else
 		s = 0 ;
 
 	return s;
@@ -121,7 +123,11 @@ double entropy_of_state ( const gsl_vector* rho )
 	gsl_eigen_herm (dens, eigenvalues, rho_ei) ;
 	
 	/* Calculating entropy */
-	entr = - (VECTOR(eigenvalues,0)*gsl_sf_log(VECTOR(eigenvalues,0)) +
+	double norm = gsl_hypot3( VECTOR(rho,1), VECTOR(rho,2),	VECTOR(rho,3) ) ;
+	if ( gsl_fcmp(norm, 1, 1e-9) > 0 )
+		entr = 0 ;
+	else
+		entr = - (VECTOR(eigenvalues,0)*gsl_sf_log(VECTOR(eigenvalues,0)) +
 			VECTOR(eigenvalues,1)*gsl_sf_log(VECTOR(eigenvalues,1))) ;
 
 	return (entr);

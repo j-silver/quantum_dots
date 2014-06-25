@@ -73,7 +73,7 @@ double fu_inv ( double k, void* params )
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
 	alpha = pars->alpha ;
 
-	double temp = (alpha/2)*exp(-1/(k*o_c))/(1-(O*O*k*k)) ;
+	double temp = alpha*O*exp(-1/(k*o_c))/(1-(O*O*k*k)) ;
 	double val = temp/(k*tanh(b/(k*2))) ;
 
 	return val ;
@@ -95,7 +95,7 @@ double fu_cau ( double k, void* params )
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
 	alpha = pars->alpha ;
 
-	double temp = (alpha/2)*k*exp(-k/o_c)/(k+O) ;
+	double temp = alpha*O*k*exp(-k/o_c)/(k+O) ;
 	double val = temp/tanh(b*k/2) ;
 
 	return val ;
@@ -114,7 +114,7 @@ double fu_coth ( double k, void* params )
 	assign_p ( pars, &o_c, &b, &O, &o_1 ) ;
 	alpha = pars->alpha ;
 
-	double temp = (alpha/2)*k*exp(-k/o_c)/(k*k-O*O) ;
+	double temp = alpha*O*k*exp(-k/o_c)/(k*k-O*O) ;
 	double val = temp/tanh(b*k/2) ;
 
 	return val ;

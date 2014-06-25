@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log version="1.0" tool="sctool">
+<msg id="0">
+	<type>start-log</type>
+	<arg>2014/06/05 15:07:27</arg>
+</msg>
+<msg id="1">
+	<type>end-log</type>
+	<arg>2014/06/05 15:07:27</arg>
+</msg>
+
+</log>

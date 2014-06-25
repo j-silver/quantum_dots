@@ -83,8 +83,9 @@ int main ( int argc, char *argv[] )
 	
 	s2opend("/?", argc, argv) ;
 	s2swin(-1,1,-1,1,-1,1) ;
-	s2box("BCDETOQ",0,0,"BCDETOQ",0,0,"BCDETOQ",0,0) ;
-	s2lab("x", "m", "n", "Positivity violations") ;
+/* 	s2box("BCDETOQ",0,0,"BCDETOQ",0,0,"BCDETOQ",0,0) ;
+ */
+	s2lab("", "", "", "Positivity violations") ;
 
 	/* draw blue axes */
 	ns2line(-1,0,0,1,0,0, 0,0,1) ;

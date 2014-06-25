@@ -105,6 +105,7 @@ int red_mat ( gsl_matrix* red_mx , void* params )
 	/* Multiplies times -2 to obtain the Bloch matrix */
 	gsl_matrix_scale ( red_mx, -2 ) ;
 
+
 	return 0;
 }		/* -----  end of function red_mat  ----- */
 

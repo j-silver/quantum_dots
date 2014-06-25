@@ -99,9 +99,9 @@ int cp_evol ( void* params, const double r[], double time_end, double step,
 
 	/* opening the files */
 	FILE* f_cp = fopen ( "CP-EVOLUTION.dat", "w" ) ;
-	FILE* g_cp = fopen ( "CP-ENTROPY.dat", "w" ) ;
+	FILE* g_cp = fopen ( "CP-ENTROPY-PROD.dat", "w" ) ;
 	FILE* h_cp = fopen ( "CP-CURRENT.dat", "w" ) ;
-
+	FILE* i_cp = fopen ( "CP-ENTROPY.dat", "w" ) ;
 
 	/* writing data */
 	while ( t < t_end )
@@ -116,13 +116,19 @@ int cp_evol ( void* params, const double r[], double time_end, double step,
 				t, entropy_production( init_cp, req_cp, cp_m )) ;
 		fprintf ( h_cp, "%.2f %.9f\n",
 				t, -VECTOR(init_cp,3)*Omega/omega_1 ) ;
+		fprintf ( i_cp, "%.2f %.9f\n",
+				t, entropy_of_state(init_cp) ) ;
 		t += step ;
 	}
+
+	/* final entropy */
+	printf("Final entropy: %g\n", entropy_of_state(init_cp)) ;
 
 	/*  close the files */
 	fclose (f_cp) ;
 	fclose (g_cp) ;
 	fclose (h_cp) ;
+	fclose (i_cp) ;
 
 	/* free memory for evolution */
 	gsl_odeiv2_evolve_free (c_e) ;

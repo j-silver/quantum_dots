@@ -44,18 +44,19 @@
  */
 
 const double omega_c = 1000 ;                  /* critical ohmic frequency */
-const double T = 0.1 ;                        /* temperature */
+const double T = .1 ;                        /* temperature */
 const double D = 1 ;                           /* pumping amplitude (GHz) */
 const double OMEGA = 2 ;                       /* pumping frequency (GHz) */
 const double alpha = 5e-3 ;                    /* coupling strength */
 
 const double gamma0 = 0.05 ;                   /* energy hopping between sites */
 	
-const double t_end = 150 ;                     /* time end */
+const double t_end = 600 ;                     /* time end */
 const double STEP = .01 ;                      /* time step */
 
-const double R[] = { 1, 0, -0.894, -0.447 } ;  /* initial state: |z,-> */
+/* const double R[] = { 1, 0, -0.894, -0.447 } ; */  /* initial state: |z,-> */
+ 
 
-/* const double R[] = { 1, 0, 0.5, -0.4 } ;  	 initial state with neg. e.p. */
+const double R[] = { 1, 0, 0.5, -0.4 } ;  /*  initial state with neg. e.p. */
 /* const double r[] = { 1, 0, 1, 0 } ;  	 initial state with pos. t.d. */
 

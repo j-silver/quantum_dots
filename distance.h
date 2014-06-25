@@ -26,14 +26,15 @@
  * 
  */
 /*
+ * 
  *
+ *       Filename:  distance.h
  *
- *       Filename:  current.c
- *
- *    Description:  Calculate the DC current given the state
+ *    Description:  Distance in trace norm among the stationary and thermal
+ *    			states.
  *
  *        Version:  1.0
- *        Created:  07/05/2014 12:12:37
+ *        Created:  22/06/2014 22:21:50
  *       Revision:  none
  *        License:  BSD
  *
@@ -44,22 +45,47 @@
  */
 
 #include <gsl/gsl_vector.h>
-#include <gsl/gsl_const_mksa.h>
-#include <gsl/gsl_math.h>
-#include <math.h>
+#include "funcs.h"
+
 
 /* 
  *      FUNCTION  
- *         Name:  current
- *  Description:  Asymptotic current produced on the stationary state.
+ *         Name:  dist
+ *  Description:  distance between two states in Bloch vector form. It does not
+ *  			check the positivity of the states
  * 
  */
-double current ( const gsl_vector* state )
+double dist ( const gsl_vector* rho1, const gsl_vector* rho2 )
 {
-	double P = - VECTOR(state,3) ;
-	double I0 = GSL_CONST_MKSA_ELECTRON_CHARGE*gamma0/sqrt(3.0) ;
-	double cur = I0*P*Omega/gsl_hypot(Omega,D) ;
+	double square = POW_2(VECTOR(rho1,1)-VECTOR(rho2,1)) +
+			POW_2(VECTOR(rho1,2)-VECTOR(rho2,2)) +
+			POW_2(VECTOR(rho1,3)-VECTOR(rho2.3)) ;
+	double distance = gsl_sqrt(square) ;
 
-	return cur;
-}		/* -----  end of function current  ----- */
+	return (distance);
+}		/* -----  end of function dist  ----- */
 
+
+/* 
+ *      FUNCTION  
+ *         Name:  therm_state
+ *  Description:  Return the thermal Gibbs state, given the parameter
+ *  			beta and the Hamiltonian H
+ * 
+ */
+gsl_vector therm_state ( const double beta, const gsl_matrix* H )
+{
+	/* Copy the Hamiltonian into a matrix object that can be destroyed */
+	gsl_matrix* h = gsl_matrix_calloc(2, 2) ;
+	gsl_matrix_memcpy ( h, H ) ;
+
+	/* Find the eigenvalues.
+	 * When written in Bloch form, states have an immediate spectral 
+	 * decomposition:
+	 *
+	 * rho = (1+r)/2 (s0+r.s)/2 + (1-r)/2 (s0-r.s)/2
+	 *
+	 */
+	double rsq = POW_2(VECTOR(
+	return <+return_value+>;
+}		/* -----  end of function therm_state  ----- */

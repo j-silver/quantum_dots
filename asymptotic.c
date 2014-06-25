@@ -103,6 +103,12 @@ int main ( int argc, char* argv[] )
 	double pol = -D30/D33 ;
 	printf("n-Polarization of the CP dynamics -D30/D33: %.9f\n", pol ) ;
 
+	/* polarization through the formula (for checking) */
+	double P = polarization ( &params, omega_c ) ;
+	printf("\n") ;
+	printf("n-Polarization through the given formula: %.9f\n", P ) ;
+	printf("Stationary normalized (I/I0) DC current: %.9f\n", -P*OMEGA/omega_1 ) ;
+
 	/* free memory for matrices */
 	gsl_matrix_free(red_m) ;
  	gsl_matrix_free(cp_m) ;	

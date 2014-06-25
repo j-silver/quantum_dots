@@ -63,7 +63,7 @@ double entropy_prod_time ( double t1, void* pars )
 	/* Setting the parameters */
 	struct ent_pars* p = (struct ent_pars*) pars ;
 	const gsl_vector* rhoeq = p->rhoeq ;
-	const gsl_matrix* red_m = p->red_m ;
+	gsl_matrix* red_m = p->red_m ;
 
 	/* Value to be returned */
 	double ept ;
@@ -117,7 +117,7 @@ double entropy_prod_time ( double t1, void* pars )
  *  Description:  Integrate entropy production up to time t
  * 
  */
-double entropy_integ ( double t, const gsl_vector* rhoeq, const gsl_matrix* red_m )
+double entropy_integ ( double t, const gsl_vector* rhoeq, gsl_matrix* red_m )
 {
 	double res, abserr;
 	

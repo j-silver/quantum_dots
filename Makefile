@@ -1,16 +1,19 @@
-CC = gcc
-CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -g #-W -pedantic -Wwrite-strings  -fshort-enums 
+CC = gcc-4.9
+CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums 
 LDLIBS = -lgsl -lgslcblas -lm
 
 libs_for_intelc = -L/media/SPACE/intel/lib/intel64 -mkl -lgsl
 headers_for_intelc = -I/media/SPACE/intel/mkl/include -I/media/SPACE/intel/include/intel64
 
 ifeq ($(CC),icc)
+	CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wfloat-equal 
 	LDLIBS = $(libs_for_intelc)
 	CPPFLAGS = $(headers_for_intelc)
 	MAIN = main-intel
 else ifeq ($(CC),clang)
 	MAIN = main-clang
+else ifeq ($(CC),gcc-4.9)
+	CFLAGS += -fdiagnostics-color
 endif
 
 
@@ -133,7 +136,7 @@ EVOL_OBJECTS = red_evol.o cp_evol.o
 
 AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o
 
-DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS
+DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat
 
 asymptotic_objects: $(ASYMPTOTIC_OBJECTS)
 

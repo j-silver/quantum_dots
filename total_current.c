@@ -26,7 +26,7 @@
  * 
  */
 /*
- * =====================================================================================
+ * 
  *
  *       Filename:  total_current.c
  *
@@ -40,10 +40,9 @@
  *         Author:  Giuseppe Argentieri (ga), giuseppe.argentieri@ts.infn.it
  *   Organization:  Università degli Studi di Trieste
  *
- * =====================================================================================
+ * 
  */
 
-#include "initial.h"
 #include "funcs.h"
 #include <gsl/gsl_vector.h>
 
@@ -53,9 +52,12 @@
  *  Description:  
  * 
  */
-double tot_current ( const gsl_vector* rho )
+double tot_current ( const gsl_vector* rho, void* params )
 {
-	double o_1 = gsl_hypot(OMEGA, D) ;
-	double curr = (VECTOR(rho, 2)*D + VECTOR(rho, 3)*OMEGA)/(2*o_1) ;
-	return (cur) ;
+	struct f_params* pars = (struct f_params*) params ;
+	double Omega = pars->Omega ;
+	double o_1   = pars->omega_1 ;
+	double D     = sqrt(o_1*o_1 - Omega*Omega) ;
+	double curr = -((VECTOR(rho, 2)*D + VECTOR(rho, 3)*Omega)/o_1) ;
+	return (curr) ;
 }		/* -----  end of function tot_current  ----- */

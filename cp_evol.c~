@@ -28,12 +28,12 @@
 /*
  *
  *
- *       Filename:  red_evol.c
+ *       Filename:  cp_evol.c
  *
- *    Description:  Evolution of the Redfield dynamics
+ *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/05/2014 19:14:06
+ *        Created:  15/05/2014 19:36:38
  *       Revision:  none
  *        License:  BSD
  *
@@ -43,21 +43,21 @@
  * 
  */
 
+#include	<gsl/gsl_odeiv2.h>
 #include	<stdlib.h>
 #include	<string.h>
 #include	<gsl/gsl_ieee_utils.h>
-#include 	"funcs.h"
+#include	"funcs.h"
 #include	"initial.h"
-
 
 /* 
  *      FUNCTION  
- *         Name:  red_evol
+ *         Name:  cp_evol
  *  Description:  
  * 
  */
-int red_evol ( void* params, const double r[], double time_end, double step,
-		const gsl_vector* req_red, gsl_matrix* red_m )
+int cp_evol ( void* params, const double r[], double time_end, double step,
+		const gsl_vector* req_cp, gsl_matrix* cp_m )
 {
 	struct f_params* pars = (struct f_params*) params ;
 
@@ -71,69 +71,70 @@ int red_evol ( void* params, const double r[], double time_end, double step,
 	double t = 0 ; 
 
 	/* setting the initial vector */
-	gsl_vector* init_red = gsl_vector_calloc(4) ;
+	gsl_vector* init_cp = gsl_vector_calloc(4) ;
 	for ( i = 0 ; i < 4 ; i++ )
-		gsl_vector_set ( init_red, i, r[i] ) ;
+		gsl_vector_set ( init_cp, i, r[i] ) ;
 
 	/* 
 	 *
 	 * Initializing the system for Redfield dynamics
 	 *
 	 */
-	gsl_odeiv2_system red_sys = { generator, jac, 4, (void*) red_m } ;
+	gsl_odeiv2_system cp_sys = { generator, jac, 4, (void*) cp_m } ;
 
 	/* Choosing the step function type: Runge-Kutta-Fehlberg (4,5) */	
 	/* gsl_odeiv2_step* s = gsl_odeiv2_step_alloc ( gsl_odeiv2_step_rkf45 , 4 ) ; */
 
 	/* Choosing the step function type: Runge-Kutta Cash-Karp (4,5) */	
-	gsl_odeiv2_step* r_s = gsl_odeiv2_step_alloc ( gsl_odeiv2_step_rkck , 4 ) ;
+	gsl_odeiv2_step* c_s = gsl_odeiv2_step_alloc ( gsl_odeiv2_step_rkck , 4 ) ;
 
 	/* Setting the step control: abserr=1e-9, relerr=1e-3 */
-	gsl_odeiv2_control* r_c = gsl_odeiv2_control_standard_new ( 1e-9, 1e-3, 1, 1 ) ;
+	gsl_odeiv2_control* c_c = gsl_odeiv2_control_standard_new ( 1e-9, 1e-3, 1, 1 ) ;
 
 	/* Allocating the space for evolution function */
-	gsl_odeiv2_evolve* r_e = gsl_odeiv2_evolve_alloc ( 4 ) ;
+	gsl_odeiv2_evolve* c_e = gsl_odeiv2_evolve_alloc ( 4 ) ;
 
 	/* opening the files */
-	FILE* f_red = fopen ( "RED-EVOLUTION.dat", "w" ) ;
-	FILE* g_red = fopen ( "RED-ENTROPY-PROD.dat", "w" ) ;
-	FILE* h_red = fopen ( "RED-CURRENT.dat", "w" ) ;
-	FILE* i_red = fopen ( "RED-ENTROPY.dat", "w" ) ;
-
+	FILE* f_cp = fopen ( "CP-EVOLUTION.dat", "w" ) ;
+	FILE* g_cp = fopen ( "CP-ENTROPY-PROD.dat", "w" ) ;
+	FILE* h_cp = fopen ( "CP-CURRENT.dat", "w" ) ;
+	FILE* i_cp = fopen ( "CP-ENTROPY.dat", "w" ) ;
 
 	/* writing data */
 	while ( t < t_end )
 	{
-		evol ( t, init_red, step, r_e, r_c, r_s, &red_sys ) ;
-		fprintf ( f_red, "%.2f %.9f %.9f %.9f %.9f\n", t,
-				VECTOR(init_red,1), VECTOR(init_red,2),
-				VECTOR(init_red,3),
-				gsl_hypot3(VECTOR(init_red,1),VECTOR(init_red,2),
-					VECTOR(init_red,3)) ) ;
-		fprintf ( g_red, "%.2f %.9f\n",
-				t, entropy_production( init_red, req_red, red_m )) ;
-		fprintf ( h_red, "%.2f %.9f\n",	t, tot_current(init_red, pars) ) ;
-		fprintf ( i_red, "%.2f %.9f\n",
-				t, entropy_of_state(init_red) ) ;
+		evol ( t, init_cp, step, c_e, c_c, c_s, &cp_sys ) ;
+		fprintf ( f_cp, "%.2f %.9f %.9f %.9f %.9f\n", t,
+				VECTOR(init_cp,1), VECTOR(init_cp,2),
+				VECTOR(init_cp,3),
+				gsl_hypot3(VECTOR(init_cp,1),VECTOR(init_cp,2),
+					VECTOR(init_cp,3)) ) ;
+		fprintf ( g_cp, "%.2f %.9f\n",
+				t, entropy_production( init_cp, req_cp, cp_m )) ;
+		fprintf ( h_cp, "%.2f %.9f\n",
+				t, tot_current(init_cp, pars) ) ;
+		fprintf ( i_cp, "%.2f %.9f\n",
+				t, entropy_of_state(init_cp) ) ;
 		t += step ;
 	}
-	
+
 	/* final entropy */
-	printf("Final entropy: %g\n", entropy_of_state(init_red) ) ;
+	printf("Final entropy: %g\n", entropy_of_state(init_cp)) ;
 
 	/*  close the files */
-	fclose (f_red) ;
-	fclose (g_red) ;
-	fclose (h_red) ;
-	fclose (i_red) ;
+	fclose (f_cp) ;
+	fclose (g_cp) ;
+	fclose (h_cp) ;
+	fclose (i_cp) ;
 
 	/* free memory for evolution */
-	gsl_odeiv2_evolve_free (r_e) ;
-	gsl_odeiv2_control_free (r_c) ;
-	gsl_odeiv2_step_free (r_s) ;
+	gsl_odeiv2_evolve_free (c_e) ;
+	gsl_odeiv2_control_free (c_c) ;
+	gsl_odeiv2_step_free (c_s) ;
 
 	return 0;
-}		/* -----  end of function red_evol  ----- */
+}		/* -----  end of function cp_evol  ----- */
+
 
 
 /* 
@@ -146,7 +147,7 @@ int main ( int argc, char *argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1.0/(BOLTZ*T) ;           /* Boltzmann factor: beta */
+	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;
@@ -156,36 +157,36 @@ int main ( int argc, char *argv[] )
 	params.omega_1 = omega_1 ;
 	params.alpha = alpha ;
 
-	/* read the Redfield matrix from a file */
-	gsl_matrix* red_m = gsl_matrix_calloc ( 4, 4 ) ;
-	mat_read ( red_m, "REDFIELD_MATRIX" ) ;
+	/* read the CP matrix from a file */
+	gsl_matrix* cp_m = gsl_matrix_calloc ( 4, 4 ) ;
+	mat_read ( cp_m, "CP_MATRIX" ) ;
 
 	/* 
 	 * Find the stationary state by solving the linear systems
 	 * and the associated stationary currents
 	 */
-	gsl_vector* req_red = gsl_vector_calloc (4) ;
-	FILE* f_red = fopen ( "RED_STATIONARY.dat", "r" ) ;
-	if ( f_red == NULL )
-		printf("error: %s\n", strerror(errno)) ;
-	gsl_vector_fscanf ( f_red, req_red ) ;
-	fclose ( f_red ) ;
 
-	printf("REDFIELD DYNAMICS\n") ;
-	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
-			VECTOR(req_red,0), VECTOR(req_red,1),
-			VECTOR(req_red,2), VECTOR(req_red,3) ) ;
-	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
-			-VECTOR(req_red,3)*OMEGA/omega_1) ;
+	gsl_vector* req_cp = gsl_vector_calloc (4) ;
 	
-	int status = red_evol ( &params, R, t_end, STEP, req_red, red_m ) ;
+	FILE* f_cp = fopen ( "CP_STATIONARY.dat", "r" ) ;
+	gsl_vector_fscanf ( f_cp, req_cp ) ;
+	if ( f_cp == NULL )
+		printf("error: %s\n", strerror(errno)) ;
+	fclose ( f_cp ) ;
+
+	printf("CP DYNAMICS\n") ;
+	printf("Stationary state: ( %.1f , %.9f , %.9f , %.9f )\n", 
+			VECTOR(req_cp,0), VECTOR(req_cp,1),
+			VECTOR(req_cp,2), VECTOR(req_cp,3) ) ;
+	printf("Stationary normalized (I/I0) DC current: %.9f\n\n",
+			-VECTOR(req_cp,3)*OMEGA/omega_1) ;
+
+	int status = cp_evol ( &params, R, t_end, STEP, req_cp, cp_m ) ;
 	if ( status != 0 )
 		exit (EXIT_FAILURE) ;
 
-	/* free memory for matrix */
-	gsl_matrix_free(red_m) ;
+	/* free memory for matrices */
+ 	gsl_matrix_free(cp_m) ;	
 
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
-
-

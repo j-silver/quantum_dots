@@ -39,8 +39,6 @@ int main ( int argc, char* argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	printf("Temperature: %g\n\n", T*HBAR*Delta/BOLTZ) ;
-
 	double beta = 1.0/T ;           	/* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 

@@ -28,12 +28,12 @@
 /*
  * 
  *
- *       Filename:  initial.h
+ *       Filename:  total_current.c
  *
- *    Description:  Initial values
+ *    Description:  Total current ( AC + DC )
  *
  *        Version:  1.0
- *        Created:  16/05/2014 00:44:34
+ *        Created:  26/06/2014 14:59:12
  *       Revision:  none
  *        License:  BSD
  *
@@ -43,31 +43,21 @@
  * 
  */
 
-#include <gsl/gsl_const_mksa.h>
+#include "funcs.h"
+#include <gsl/gsl_vector.h>
 
-#define	BOLTZ	GSL_CONST_MKSA_BOLTZMANN	/* Boltzmann constant  */
-#define HBAR	GSL_CONST_MKSA_PLANCKS_CONSTANT_HBAR /* hbar */
-
-const double omega_c = 1000 ;			/* critical ohmic frequency */
-const double alpha = 5e-3 ;			/* coupling strength */
-const double Delta = 8.0e+9 ;			/* pumping amplitude (GHz) */
-const double D = 1 ;                            /* normalized delta */
-
-double T = .1 ;					/* 
-						 *  The real temperature is given by
-						 *  temp = T*HBAR*Delta/BOLTZ
-						 */
-				
-double OMEGA = 2 ;				/* pumping frequency (GHz) */
-
-const double gamma0 = 0.05 ;			/* energy hopping between sites */
-	
-const double t_end = 600 ;			/* time end */
-const double STEP = .01 ;			/* time step */
-
-const double R[] = { 1, 0, -0.894, -0.447 } ;   /* initial state: |z,-> */
- 
-
-/*   const double R[] = { 1, 0, 0.5, -0.4 } ; */ /* initial state with neg. e.p. */
-/* const double r[] = { 1, 0, 1, 0 } ;  	 initial state with pos. t.d. */
-
+/* 
+ *      FUNCTION  
+ *         Name:  tot_current
+ *  Description:  
+ * 
+ */
+double tot_current ( const gsl_vector* rho, void* params )
+{
+	struct f_params* pars = (struct f_params*) params ;
+	double Omega = pars->Omega ;
+	double o_1   = pars->omega_1 ;
+	double D     = sqrt(o_1*o_1 - Omega*Omega) ;
+	double curr = fabs((VECTOR(rho, 2)*D + VECTOR(rho, 3)*Omega)/o_1) ;
+	return (curr) ;
+}		/* -----  end of function tot_current  ----- */

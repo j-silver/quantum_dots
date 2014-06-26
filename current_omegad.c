@@ -209,7 +209,7 @@ int main ( int argc, char *argv[] )
 
 	struct f_params params;
 	params.omega_c = omega_c ;
-	params.beta = 1/T ;                       
+	params.beta = 1.0/(BOLTZ*T) ;                       
 	params.Omega = Omega ;			/* it will be changed after... */
 	params.omega_1 = omega_1 ;              /* ...and also this one */
 	params.alpha = alpha ;

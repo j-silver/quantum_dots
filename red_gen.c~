@@ -102,7 +102,7 @@ int red_mat ( gsl_matrix* red_mx , void* params )
 	gsl_matrix_set ( red_mx, 3, 2, -(O*D/(o_1*o_1))*rc0 ) ;
 	gsl_matrix_set ( red_mx, 3, 3, (1+POW_2(O/o_1))*rcc+2*(O/o_1)*rss ) ;
 
-	/* Multiplies times -4 to obtain the Bloch matrix */
+	/* Multiplies times -2 to obtain the Bloch matrix */
 	gsl_matrix_scale ( red_mx, -4 ) ;
 
 

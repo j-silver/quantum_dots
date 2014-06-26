@@ -31,7 +31,9 @@
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_odeiv2.h>
+#include <gsl/gsl_const_mksa.h>
 
+#define	BOLTZ	GSL_CONST_MKSA_BOLTZMANN	/* Boltzmann constant  */
 #define WS_SZ	1000  			/* size of the integration workspace */
 
 #define POW_2	gsl_pow_2  		/* square */

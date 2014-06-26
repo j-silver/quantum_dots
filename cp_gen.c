@@ -100,8 +100,8 @@ int cp_mat ( gsl_matrix* cp_mx , void* params )
 	gsl_matrix_set ( cp_mx, 3, 2, 0	) ;
 	gsl_matrix_set ( cp_mx, 3, 3, (1+POW_2(O/o_1))*rcc+2*(O/o_1)*rss )  ;
 
-	/* Multiplies times -2 to obtain the Bloch matrix */
-	gsl_matrix_scale ( cp_mx, -2 ) ;
+	/* Multiplies times -4 to obtain the Bloch matrix */
+	gsl_matrix_scale ( cp_mx, -4 ) ;
 
 	return 0;
 }		/* -----  end of function cp_mat  ----- */

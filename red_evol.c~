@@ -146,7 +146,7 @@ int main ( int argc, char *argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1.0/(BOLTZ*T) ;           /* Boltzmann factor: beta */
+	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;

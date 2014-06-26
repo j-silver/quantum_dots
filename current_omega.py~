@@ -19,7 +19,7 @@ R_CURRT = (np.loadtxt('RED-STAT-CURR-O.dat')).T
 C_CURRT = (np.loadtxt('CP-STAT-CURR-O.dat')).T
 
 
-rfig = plt.plot(R_CURRT[0], R_CURRT[1], color='red', label='Redfield dynamics')
-cfig = plt.plot(C_CURRT[0], C_CURRT[1], color='blue', label='CP dynamics')
+rfig = plt.plot(R_CURRT[0],R_CURRT[1],color='red')
+cfig = plt.plot(C_CURRT[0],C_CURRT[1],color='blue')
 
 plt.show()

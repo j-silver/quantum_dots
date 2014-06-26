@@ -60,9 +60,6 @@ int cp_evol ( void* params, const double r[], double time_end, double step,
 		const gsl_vector* req_cp, gsl_matrix* cp_m )
 {
 	struct f_params* pars = (struct f_params*) params ;
-	double Omega, omega_1 ;
-	Omega   = pars->Omega ;
-	omega_1 = pars->omega_1 ;
 
 	unsigned int i ;                        /* counter for the for loops */
 
@@ -115,7 +112,7 @@ int cp_evol ( void* params, const double r[], double time_end, double step,
 		fprintf ( g_cp, "%.2f %.9f\n",
 				t, entropy_production( init_cp, req_cp, cp_m )) ;
 		fprintf ( h_cp, "%.2f %.9f\n",
-				t, tot_current( init_cp ) ;
+				t, tot_current(init_cp, pars) ) ;
 		fprintf ( i_cp, "%.2f %.9f\n",
 				t, entropy_of_state(init_cp) ) ;
 		t += step ;
@@ -150,7 +147,7 @@ int main ( int argc, char *argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
+	double beta = 1.0/(BOLTZ*T) ;                   /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;

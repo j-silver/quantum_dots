@@ -116,7 +116,7 @@ int red_evol ( void* params, const double r[], double time_end, double step,
 		fprintf ( g_red, "%.2f %.9f\n",
 				t, entropy_production( init_red, req_red, red_m )) ;
 		fprintf ( h_red, "%.2f %.9f\n",
-				t, -VECTOR(init_red,3)*Omega/omega_1 ) ;
+				t, tot_current( init_red ) ;
 		fprintf ( i_red, "%.2f %.9f\n",
 				t, entropy_of_state(init_red) ) ;
 		t += step ;

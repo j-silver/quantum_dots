@@ -24,13 +24,13 @@ endif
 #
 red_evol.o: red_evol.c funcs.h initial.h
 
-red_evol: red_evol.o evol.o mat_file.o entropy.o
-	$(CC) -o red_evol red_evol.o evol.o mat_file.o entropy.o $(LDLIBS) $(LDFLAGS) 
+red_evol: red_evol.o evol.o mat_file.o entropy.o total_current.o
+	$(CC) -o red_evol red_evol.o evol.o mat_file.o entropy.o total_current.o $(LDLIBS) $(LDFLAGS) 
 
 cp_evol.o: cp_evol.c funcs.h initial.h
 
-cp_evol: cp_evol.o evol.o mat_file.o entropy.o
-	$(CC) -o cp_evol cp_evol.o evol.o mat_file.o entropy.o $(LDLIBS) $(LDFLAGS)
+cp_evol: cp_evol.o evol.o mat_file.o entropy.o total_current.o
+	$(CC) -o cp_evol cp_evol.o evol.o mat_file.o entropy.o total_current.o $(LDLIBS) $(LDFLAGS)
 
 	
 #
@@ -46,6 +46,11 @@ current_omegad.o: current_omegad.c funcs.h
 
 current_omegad:	omegad_objects
 	$(CC) -o current_omegad $(OMEGAD_OBJECTS) $(LDLIBS) $(LDFLAGS)
+
+# 
+# Total current
+#
+total_current.o: total_current.c funcs.h initial.h
 
 
 #
@@ -132,7 +137,7 @@ TDEL_OBJECTS = stationary.o current_tdel.o red_gen.o cp_gen.o integs.o Reg_cc.o 
 
 SAMPLE_OBJECTS = sample.o r0dot.o polar.o mat_file.o
 
-EVOL_OBJECTS = red_evol.o cp_evol.o
+EVOL_OBJECTS = red_evol.o cp_evol.o total_current.o
 
 AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o
 

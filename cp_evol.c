@@ -115,7 +115,7 @@ int cp_evol ( void* params, const double r[], double time_end, double step,
 		fprintf ( g_cp, "%.2f %.9f\n",
 				t, entropy_production( init_cp, req_cp, cp_m )) ;
 		fprintf ( h_cp, "%.2f %.9f\n",
-				t, -VECTOR(init_cp,3)*Omega/omega_1 ) ;
+				t, tot_current( init_cp ) ;
 		fprintf ( i_cp, "%.2f %.9f\n",
 				t, entropy_of_state(init_cp) ) ;
 		t += step ;

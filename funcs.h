@@ -110,6 +110,8 @@ double entropy_integ ( double, const gsl_vector*, gsl_matrix* ) ;
 double current ( const gsl_vector* ) ;
 double current_temp ( double ) ;
 
+/* total current */
+double tot_current ( const gsl_vector* ) ;
 
 /* writing operations */
 int save_integrals ( void* ) ;

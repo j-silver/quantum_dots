@@ -1,0 +1,180 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{braket}
+
+\begin{document}
+
+\begin{equation}
+  \left\{
+    \begin{aligned}
+      V_1 &= \int_0^{+\infty}{\rm d}\tau\, G(\tau)\, U_{\mathrm{eff}}(\tau)\,
+      \widetilde{\sigma}_1(-\tau)\, U^\dag_{\mathrm{eff}}(\tau)\ ,\quad V_2=\sigma_1
+      \\  
+      V_3 &= \int_0^{+\infty}{\rm d}\tau\, G(\tau)\, U_{\mathrm{eff}}(\tau)\,
+      \widetilde{\sigma}_3(-\tau)\, U^\dag_{\mathrm{eff}}(\tau)\ ,\quad
+      V_4=\sigma_3\ .  
+    \end{aligned}
+  \right.
+\end{equation}
+
+\begin{equation}
+  \frac{\Delta(\alpha)}{(1+\vert \alpha \vert ^2)^2} = \Re \left\{
+    \Braket{\phi|V_1|\psi} \Braket{\psi|\sigma_1|\phi} + \Braket{\phi|V_3|\psi}
+    \Braket{\psi|\sigma_3|\phi} \right\} 
+\end{equation}
+
+\begin{equation}
+  \Ket{\psi} = \frac{\Ket{0} + \alpha\Ket{1}}{\sqrt{1+\vert\alpha\vert^2}} \, ,
+  \qquad \Ket{\phi} =
+  \frac{\alpha^\ast\Ket{0}-\Ket{1}}{\sqrt{1+\vert\alpha\vert^2}} 
+\end{equation}
+
+\begin{equation}
+  \sigma_3 \Ket{0} = \Ket{0} \, , \qquad \sigma_3 \Ket{1} = - \Ket{1} .
+\end{equation}
+
+\begin{multline}
+  \Delta(\alpha) = \Re \left\{ (\alpha^{\ast 2} -1) \left( \alpha
+      (\Braket{0|V_1|0} - \Braket{1|V_1|1}) + \alpha^2 \Braket{0|V_1|1} -
+      \Braket{1|V_1|0} \right) + \right. \\ 
+  \left.  2 \alpha^\ast \left( \alpha (\Braket{0|V_3|0} - \Braket{1|V_3|1}) +
+      \alpha^2 \Braket{0|V_3|1} - \Braket{1|V_3|0} \right) \right\} 
+\end{multline}
+
+\begin{equation}
+  G(\tau) = \int_0^{+\infty}\mathrm{d}\omega\, J(\omega) \left( \cos\omega\tau
+  \coth\frac{\beta\omega}{2} - i \sin\omega\tau \right) 
+\end{equation}
+
+\begin{equation}
+  \widetilde{\sigma}_1(-\tau) = \sum_{i=1}^3 \mathcal{R}_{1i}(-\tau)\sigma_i
+\end{equation}
+
+\begin{equation}
+  \mathcal{R}(-\tau) = 
+  \begin{pmatrix}
+    \cos(-\Omega\tau)  &0 & \sin(-\Omega\tau) \\
+    0                  &1 & 0                 \\
+    -\sin(-\Omega\tau) &0 & \cos(-\Omega\tau) 
+  \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+  \left\{
+    \begin{aligned}
+      \widetilde{\sigma}_1(-\tau) &= \cos\Omega\tau \, \sigma_1 - \sin\Omega\tau
+      \,
+      \sigma_3 \\
+      \widetilde{\sigma}_3(-\tau) &= \sin\Omega\tau \, \sigma_1 + \cos\Omega\tau
+      \, \sigma_3
+    \end{aligned}
+  \right.
+\end{equation}
+
+\begin{equation}
+  \sigma_i = \sum_{k=1}^3 \nu^T_{ij} \hat{\sigma}_j
+\end{equation}
+
+\begin{equation}
+  \nu^{T} = \frac{1}{\omega_{\mathrm{eff}}}
+  \begin{pmatrix}
+    1 &0 &0 \\
+    0 &\Delta &-\Omega\\
+    0 &\Omega &\Delta
+  \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+  \left\{
+    \begin{aligned}
+      \widetilde{\sigma}_1(-\tau) &= \cos\Omega\tau \, \hat{\sigma}_1 -
+      \sin\Omega\tau \left(\frac{\Omega}{\omega_{\mathrm{eff}}} \, \hat{\sigma}_2 +
+        \frac{\Delta}{\omega_{\mathrm{eff}}} \, \hat{\sigma}_3 \right) \\
+      \widetilde{\sigma}_3(-\tau) &= \sin\Omega\tau \, \hat{\sigma}_1 +
+      \cos\Omega\tau \left( \frac{\Omega}{\omega_{\mathrm{eff}}} \,
+        \hat{\sigma}_2 + \frac{\Delta}{\omega_{\mathrm{eff}}} \, \hat{\sigma}_3
+      \right) 
+    \end{aligned}
+  \right.
+\end{equation}
+
+\begin{equation}
+  U_{\mathrm{eff}}(\tau) \hat{\sigma}_j U_{\mathrm{eff}}^\dagger (\tau) =
+  \sum_{k=1}^3 U_{jk}(\tau)\hat{\sigma}_k
+\end{equation}
+
+\begin{equation}
+  U(\tau) = 
+  \begin{pmatrix}
+    \cos(\omega_{\mathrm{eff}}\tau) &-\sin(\omega_{\mathrm{eff}}\tau) &0 \\
+    \sin(\omega_{\mathrm{eff}}\tau) &\cos(\omega_{\mathrm{eff}}\tau)  &0 \\
+    0                            &0                             &1
+  \end{pmatrix}
+\end{equation}
+
+\begin{align}
+    U_{\mathrm{eff}}(\tau) \widetilde{\sigma}_1(-\tau) U_{\mathrm{eff}}^\dagger
+    (\tau) &= \left( \cos\Omega\tau \cos\omega_{\mathrm{eff}}\tau -
+      \frac{\Omega}{\omega_{\mathrm{eff}}} \sin\Omega\tau
+      \sin\omega_{\mathrm{eff}}\tau  \right) \hat{\sigma}_1 + \notag \\ 
+    &+ \left( - \cos\Omega\tau \sin\omega_{\mathrm{eff}}\tau -
+      \frac{\Omega}{\omega_{\mathrm{eff}}} \sin\Omega\tau
+      \cos\omega_{\mathrm{eff}}\tau \right) \hat{\sigma}_2 + \notag \\
+    &- \frac{\Delta}{\omega_{\mathrm{eff}}} \sin\Omega\tau \, \hat{\sigma}_3
+\end{align}
+
+\begin{align}
+      U_{\mathrm{eff}}(\tau) \widetilde{\sigma}_3(-\tau) U_{\mathrm{eff}}^\dagger
+    (\tau) &= \left( \sin\Omega\tau \cos\omega_{\mathrm{eff}}\tau +
+      \frac{\Omega}{\omega_{\mathrm{eff}}} \cos\Omega\tau
+      \sin\omega_{\mathrm{eff}}\tau  \right) \hat{\sigma}_1 + \notag \\
+    &+ \left( -\sin\Omega\tau \sin\omega_{\mathrm{eff}}\tau +
+      \frac{\Omega}{\omega_{\mathrm{eff}}} \cos\Omega\tau
+      \cos\omega_{\mathrm{eff}}\tau  \right) \hat{\sigma}_2 + \notag \\
+    &+ \frac{\Delta}{\omega_{\mathrm{eff}}} \cos\Omega\tau \, \hat{\sigma}_3
+\end{align}
+
+% \begin{equation}
+%   \hat{\sigma}_1 = 
+%   \begin{pmatrix}
+%     0 &1 \\
+%     1 &0 
+%   \end{pmatrix}
+%   \quad
+%   \hat{\sigma}_2 =
+%   \begin{pmatrix}
+%     0 &-i \\
+%     i &0
+%   \end{pmatrix}
+%   \quad
+%   \hat{\sigma}_3 =
+%   \begin{pmatrix}
+%     1 &0 \\
+%     0 &-1
+%   \end{pmatrix}
+% \end{equation}
+
+% \begin{equation}
+%   \left\{
+%     \begin{aligned}
+%       \hat{\sigma}_3 \Ket{0} &= \Ket{0} \\
+%       \hat{\sigma}_3 \Ket{1} &= -\Ket{1}
+%     \end{aligned}
+%   \right.
+% \end{equation}
+
+
+
+
+
+
+
+\end{document}

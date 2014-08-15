@@ -133,3 +133,17 @@ double r0_dot ( const gsl_matrix* , const gsl_vector*  ) ;
 int bloch_vector ( gsl_vector* , double , double , double ) ;
 int polars ( double* , double* , double* , const gsl_vector*  ) ;
 int sample ( const gsl_matrix* , unsigned int ) ;
+
+/* posit */
+gsl_matrix_complex* state_matrix ( double, double ) ;
+gsl_matrix_complex* rotate ( gsl_matrix_complex*, double ) ;
+gsl_matrix_complex* D_psi ( gsl_matrix_complex* ) ;
+
+/* pos_study */
+double delta ( double, double*, double, double, double ) ;
+int read_integs ( double* ) ;
+
+/* entropy production with different parameters */
+int ent_prod_fixed_t ( double, double ) ;
+int ent_prod_red_evol ( void* , const double* , double , double , const gsl_vector* , gsl_matrix* , double ) ;
+

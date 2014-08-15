@@ -146,7 +146,7 @@ int main ( int argc, char *argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1.0/(BOLTZ*T) ;           /* Boltzmann factor: beta */
+	double beta = 1.0/T ;           /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;
@@ -167,7 +167,8 @@ int main ( int argc, char *argv[] )
 	gsl_vector* req_red = gsl_vector_calloc (4) ;
 	FILE* f_red = fopen ( "RED_STATIONARY.dat", "r" ) ;
 	if ( f_red == NULL )
-		printf("error: %s\n", strerror(errno)) ;
+		printf("Error: %s.\nFailed to open RED_STATIONARY.dat",
+				strerror(errno)) ;
 	gsl_vector_fscanf ( f_red, req_red ) ;
 	fclose ( f_red ) ;
 

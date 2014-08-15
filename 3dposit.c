@@ -83,16 +83,20 @@ int main ( int argc, char *argv[] )
 	
 	s2opend("/?", argc, argv) ;
 	s2swin(-1,1,-1,1,-1,1) ;
-/* 	s2box("BCDETOQ",0,0,"BCDETOQ",0,0,"BCDETOQ",0,0) ;
- */
-	s2lab("", "", "", "Positivity violations") ;
+ 	s2box("BCDETOQ",0,0,"BCDETOQ",0,0,"BCDETOQ",0,0) ;
+ 
+	s2lab("X", "Y", "Z", "Positivity violations") ;
 
 	/* draw blue axes */
 	ns2line(-1,0,0,1,0,0, 0,0,1) ;
 	ns2line(0,-1,0,0,1,0, 0,0,1) ;
 	ns2line(0,0,-1,0,0,1, 0,0,1) ;
-/* 	ss2sbc(1,1,1) ;
- */
+
+	/* white background */
+ 	ss2sbc(1,1,1) ;
+
+	/* blue foreground */
+ 	ss2sfc(0,0,1) ;
 
 	FILE* f = fopen ( "POS_VIOLATIONS", "r" ) ;
 	while ( fscanf (f, "%lf %lf %lf %lf", &p.x, &p.y, &p.z, &D) == 4 )

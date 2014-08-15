@@ -158,7 +158,8 @@ int main ( int argc, char *argv[] )
 	FILE* f = fopen( "RED_STATIONARY.dat", "r") ;
 	gsl_vector_fscanf ( f, rhoeq ) ;
 	if ( f == NULL )
-                printf("error: %s\n", strerror(errno)) ;
+                printf("Error: %s.\nFailed to open RED_STATIONARY.dat\n",
+				strerror(errno)) ;
 	fclose (f) ;
 
 	double INT = entropy_integ ( t_end, rhoeq, red_m ) ;

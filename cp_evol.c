@@ -147,7 +147,7 @@ int main ( int argc, char *argv[] )
 {
 	gsl_ieee_env_setup () ;			/* read GSL_IEEE_MODE */
 
-	double beta = 1.0/(BOLTZ*T) ;                   /* Boltzmann factor: beta */
+	double beta = 1.0/T ;                   /* Boltzmann factor: beta */
 	double omega_1 = gsl_hypot(OMEGA,D) ;   /* omega' */
 
 	struct f_params params;
@@ -171,7 +171,8 @@ int main ( int argc, char *argv[] )
 	FILE* f_cp = fopen ( "CP_STATIONARY.dat", "r" ) ;
 	gsl_vector_fscanf ( f_cp, req_cp ) ;
 	if ( f_cp == NULL )
-		printf("error: %s\n", strerror(errno)) ;
+		printf("Error: %s.\nFailed to open CP_STATIONARY.dat",
+				strerror(errno)) ;
 	fclose ( f_cp ) ;
 
 	printf("CP DYNAMICS\n") ;

@@ -65,7 +65,7 @@ asymptotic: asymptotic_objects
 #
 # Positivity check 
 #
-sample.o: sample.c funcs.h
+sample.o: sample.c funcs.h initial.h
 
 r0dot.o: r0dot.c funcs.h
 
@@ -80,6 +80,19 @@ average.o: average.c funcs.h initial.h
 
 average: average_objects
 	$(CC) -o average $(AVERAGE_OBJECTS) $(LDLIBS) $(LDFLAGS)
+
+# Positivity of Delta(alpha)
+#
+pos_study: pos_study.o
+	$(CC) -o pos_study pos_study.o $(LD_FLAGS) $(LDLIBS)
+
+pos_study.o: pos_study.c funcs.h 
+
+# CP violations of entropy production
+#
+cp_violations: cp_violations_objects funcs.h initial.h
+	$(CC) -o cp_violations $(CP_VIOLATIONS_OBJECTS) $(LDLIBS) $(LD_FLAGS)
+
 
 #
 # Object files
@@ -141,7 +154,11 @@ EVOL_OBJECTS = red_evol.o cp_evol.o total_current.o
 
 AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o
 
-DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat
+POS_STUDY_OBJECTS = pos_study.o
+
+CP_VIOLATIONS_OBJECTS = cp_violations.o evol.o stationary.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o entropy.o
+
+DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat D_ALPHA.dat
 
 asymptotic_objects: $(ASYMPTOTIC_OBJECTS)
 
@@ -153,6 +170,10 @@ sample_objects: $(SAMPLE_OBJECTS)
 
 average_objects: $(AVERAGE_OBJECTS)
 
+pos_study_objects: $(POS_STUDY_OBJECTS)
+
+cp_violations_objects: $(CP_VIOLATIONS_OBJECTS)
+
 
 .PHONY: clean
 
@@ -160,5 +181,5 @@ clean_backups:
 	rm -f *~
 
 clean: 
-	rm -f $(ASYMPTOTIC_OBJECTS) $(OMEGAD_OBJECTS) $(TDEL_OBJECTS) $(SAMPLE_OBJECTS) $(DATA_FILES) $(EVOL_OBJECTS) $(AVERAGE_OBJECTS) asymptotic current_omegad current_tdel red_evol cp_evol sample average
+	rm -f $(ASYMPTOTIC_OBJECTS) $(OMEGAD_OBJECTS) $(TDEL_OBJECTS) $(SAMPLE_OBJECTS) $(DATA_FILES) $(EVOL_OBJECTS) $(AVERAGE_OBJECTS) $(POS_STUDY_OBJECTS) $(CP_VIOLATIONS_OBJECTS) asymptotic current_omegad current_tdel red_evol cp_evol sample average pos_study cp_violations
 

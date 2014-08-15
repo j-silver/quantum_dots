@@ -64,7 +64,7 @@ double current_red_T ( double x, void* params )
 
 	/* Calculate beta and set into pars */
 	double Temp = x*D ;
-	pars->beta = 1.0/(Temp*BOLTZ) ;
+	pars->beta = 1.0/Temp ;
 
 	/* Calculate the stationary current */
 	gsl_vector* stat_state = gsl_vector_calloc (4) ;
@@ -93,7 +93,7 @@ double current_cp_T ( double x, void* params )
 
 	/* Calculate beta and set into pars */
 	double Temp = x*D ;
-	pars->beta = 1.0/(Temp*BOLTZ) ;	
+	pars->beta = 1.0/Temp ;	
 
 	/* Calculate the stationary current */
 	gsl_vector* stat_state = gsl_vector_calloc (4) ;

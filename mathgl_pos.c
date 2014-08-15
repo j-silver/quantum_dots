@@ -28,12 +28,12 @@
 /*
  *
  *
- *       Filename:  mat_file.c
+ *       Filename:  mathgl_pos.c
  *
- *    Description:  Write and read the generator matrices on files
+ *    Description:  Draw a dot sample plot using MathGL library
  *
  *        Version:  1.0
- *        Created:  03/05/2014 13:52:15
+ *        Created:  27/07/2014 08:55:11
  *       Revision:  none
  *        License:  BSD
  *
@@ -43,48 +43,42 @@
  * 
  */
 
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_errno.h>
-#include <string.h>
-#include "funcs.h"
 
-/* 
- *      FUNCTION  
- *         Name:  mat_write
- *  Description:  Save the generator matrix in a file.
- * 
- */
-int mat_write ( gsl_matrix* mat, char* name )
-{
-	FILE* f = fopen ( name, "w" ) ;
-	if ( f == NULL )
-		printf("Error: %s.\nFailed to open %s.\n", strerror(errno),
-				name) ;
-
-	int status = gsl_matrix_fprintf ( f, mat, "%.9f" ) ;
-
-	fclose (f) ;	
-
-	return status;
-}		/* -----  end of function mat_write  ----- */
+#include	<stdlib.h>
+#include	<mgl2/mgl.h>
+#include	<mgl2/data.h>
 
 
 /* 
  *      FUNCTION  
- *         Name:  mat_read
- *  Description:  Read the Redfield matrix from a file 
+ *         Name:  sample
+ *  Description:  
  * 
  */
-int mat_read ( gsl_matrix* mat, char* name )
+int sample ( void )
 {
-	FILE* f = fopen ( name, "r" ) ;
-	if ( f == NULL )
-		printf( "Error: %s.\nFailed to open %s.\n", strerror(errno),
-				name ) ;
+	HADT data = mgl_create_datac_size(1e5, 1e5, 1e5);
+	while ( fscanf (f, "%lf %lf %lf %lf", &data[0], &data[1], &data[2]) )
+		;
+	mgl_rotate(50,60);
+	mgl_box();
+	mgl_dots(x, y, z, "r.");
 
-	int status = gsl_matrix_fscanf ( f, mat ) ;
+	return 0;
+}		/* -----  end of function sample  ----- */
 
-	fclose (f) ;
 
-	return status;
-}		/* -----  end of function mat_read  ----- */
+
+
+/* 
+ *      FUNCTION  
+ *         Name:  main
+ *  Description:  
+ * 
+ */
+int main ( int argc, char *argv[] )
+{
+	sample();
+
+	return EXIT_SUCCESS;
+}				/* ----------  end of function main  ---------- */

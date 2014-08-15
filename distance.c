@@ -26,14 +26,15 @@
  * 
  */
 /*
+ * 
  *
+ *       Filename:  distance.c
  *
- *       Filename:  mat_file.c
- *
- *    Description:  Write and read the generator matrices on files
+ *    Description:  Distance in trace norm among the stationary and thermal
+ *    			states.
  *
  *        Version:  1.0
- *        Created:  03/05/2014 13:52:15
+ *        Created:  22/06/2014 22:21:50
  *       Revision:  none
  *        License:  BSD
  *
@@ -43,48 +44,48 @@
  * 
  */
 
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_errno.h>
-#include <string.h>
+#include <gsl/gsl_vector.h>
 #include "funcs.h"
 
-/* 
- *      FUNCTION  
- *         Name:  mat_write
- *  Description:  Save the generator matrix in a file.
- * 
- */
-int mat_write ( gsl_matrix* mat, char* name )
-{
-	FILE* f = fopen ( name, "w" ) ;
-	if ( f == NULL )
-		printf("Error: %s.\nFailed to open %s.\n", strerror(errno),
-				name) ;
-
-	int status = gsl_matrix_fprintf ( f, mat, "%.9f" ) ;
-
-	fclose (f) ;	
-
-	return status;
-}		/* -----  end of function mat_write  ----- */
-
 
 /* 
  *      FUNCTION  
- *         Name:  mat_read
- *  Description:  Read the Redfield matrix from a file 
+ *         Name:  dist
+ *  Description:  distance between two states in Bloch vector form. It does not
+ *  			check the positivity of the states
  * 
  */
-int mat_read ( gsl_matrix* mat, char* name )
+double dist ( const gsl_vector* rho1, const gsl_vector* rho2 )
 {
-	FILE* f = fopen ( name, "r" ) ;
-	if ( f == NULL )
-		printf( "Error: %s.\nFailed to open %s.\n", strerror(errno),
-				name ) ;
+	double square = POW_2(VECTOR(rho1,1)-VECTOR(rho2,1)) +
+			POW_2(VECTOR(rho1,2)-VECTOR(rho2,2)) +
+			POW_2(VECTOR(rho1,3)-VECTOR(rho2.3)) ;
+	double distance = gsl_sqrt(square) ;
 
-	int status = gsl_matrix_fscanf ( f, mat ) ;
+	return (distance);
+}		/* -----  end of function dist  ----- */
 
-	fclose (f) ;
 
-	return status;
-}		/* -----  end of function mat_read  ----- */
+/* 
+ *      FUNCTION  
+ *         Name:  therm_state
+ *  Description:  Return the thermal Gibbs state, given the parameter
+ *  			beta and the Hamiltonian H
+ * 
+ */
+gsl_vector therm_state ( const double beta, const gsl_matrix* H )
+{
+	/* Copy the Hamiltonian into a matrix object that can be destroyed */
+	gsl_matrix* h = gsl_matrix_calloc(2, 2) ;
+	gsl_matrix_memcpy ( h, H ) ;
+
+	/* Find the eigenvalues.
+	 * When written in Bloch form, states have an immediate spectral 
+	 * decomposition:
+	 *
+	 * rho = (1+r)/2 (s0+r.s)/2 + (1-r)/2 (s0-r.s)/2
+	 *
+	 */
+	double rsq = POW_2(VECTOR(
+	return <+return_value+>;
+}		/* -----  end of function therm_state  ----- */

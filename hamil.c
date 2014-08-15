@@ -63,5 +63,8 @@ int ham_gen ( gsl_matrix* h, const double* o )
 	gsl_matrix_set (h, 3, 1, o[2] ) ;
 	gsl_matrix_set (h, 3, 2, -o[1] ) ;
 
+	/*  Multiplies times -4 to obtain the Bloch matrix */
+	gsl_matrix_scale ( h, -4 ) ;
+
 	return 0;
 }		/* -----  end of function ham_gen  ----- */

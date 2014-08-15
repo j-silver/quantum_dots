@@ -4,51 +4,63 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.6	//
-ASYMPTOTIC_OBJECTS	Makefile	/^ASYMPTOTIC_OBJECTS = asymptotic.o stationary.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o entropy.o write.o $/;"	m
-AVERAGE_OBJECTS	Makefile	/^AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o$/;"	m
+ASYMPTOTIC_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^ASYMPTOTIC_OBJECTS = asymptotic.o stationary.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o entropy.o write.o $/;"	m	language:Make
+AVERAGE_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o$/;"	m	language:Make
 BOLTZ	/media/SPACE/PHD/programs/src/initial.h	48;"	d	language:C++
-CC	Makefile	/^CC = gcc-4.9$/;"	m
+CC	/media/SPACE/PHD/programs/src/Makefile	/^CC = gcc-4.9$/;"	m	language:Make
 CCUR	/media/SPACE/PHD/programs/src/time_current.py	/^CCUR = (np.loadtxt('CP-CURRENT.dat')).T$/;"	v	language:Python
-CFLAGS	Makefile	/^	CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wfloat-equal $/;"	m
-CFLAGS	Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums $/;"	m
-CPPFLAGS	Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m
+CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wfloat-equal $/;"	m	language:Make
+CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums $/;"	m	language:Make
+CPPFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m	language:Make
+CP_VIOLATIONS_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^CP_VIOLATIONS_OBJECTS = cp_violations.o evol.o stationary.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o entropy.o$/;"	m	language:Make
 C_CURRT	/media/SPACE/PHD/programs/src/current_omega.py	/^C_CURRT = (np.loadtxt('CP-STAT-CURR-O.dat')).T$/;"	v	language:Python
+C_CURRT	/media/SPACE/PHD/programs/src/current_t.py	/^C_CURRT = (np.loadtxt('CP-STAT-CURR-T.dat')).T$/;"	v	language:Python
 D	/media/SPACE/PHD/programs/src/initial.h	/^const double D = 1 ;                            \/* normalized delta *\/$/;"	v	language:C++
-DATA_FILES	Makefile	/^DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat$/;"	m
+DATA	/media/SPACE/PHD/programs/src/delta_alpha.py	/^DATA = (np.loadtxt('D_ALPHA.dat')).T$/;"	v	language:Python
+DATA_FILES	/media/SPACE/PHD/programs/src/Makefile	/^DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat D_ALPHA.dat$/;"	m	language:Make
+D_psi	/media/SPACE/PHD/programs/src/posit.c	/^gsl_matrix_complex* D_psi ( gsl_matrix_complex* dpsi )$/;"	f	language:C
 Delta	/media/SPACE/PHD/programs/src/initial.h	/^const double Delta = 8.0e+9 ;			\/* pumping amplitude (GHz) *\/$/;"	v	language:C++
-EVOL_OBJECTS	Makefile	/^EVOL_OBJECTS = red_evol.o cp_evol.o$/;"	m
+EVOL_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^EVOL_OBJECTS = red_evol.o cp_evol.o total_current.o$/;"	m	language:Make
 HBAR	/media/SPACE/PHD/programs/src/initial.h	49;"	d	language:C++
 J	/media/SPACE/PHD/programs/src/funcs.h	/^double J ( double, double ) ;$/;"	p	language:C++
 J	stationary.c	/^double J ( double w, double oc )$/;"	f
-LDLIBS	Makefile	/^	LDLIBS = $(libs_for_intelc)$/;"	m
-LDLIBS	Makefile	/^LDLIBS = -lgsl -lgslcblas -lm$/;"	m
-MAIN	Makefile	/^	MAIN = main-clang$/;"	m
-MAIN	Makefile	/^	MAIN = main-intel$/;"	m
-OMEGA	/media/SPACE/PHD/programs/src/initial.h	/^double OMEGA = 2 ;				\/* pumping frequency (GHz) *\/$/;"	v	language:C++
-OMEGAD_OBJECTS	Makefile	/^OMEGAD_OBJECTS = stationary.o current_omegad.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o$/;"	m
+LDLIBS	/media/SPACE/PHD/programs/src/Makefile	/^	LDLIBS = $(libs_for_intelc)$/;"	m	language:Make
+LDLIBS	/media/SPACE/PHD/programs/src/Makefile	/^LDLIBS = -lgsl -lgslcblas -lm$/;"	m	language:Make
+MAIN	/media/SPACE/PHD/programs/src/Makefile	/^	MAIN = main-clang$/;"	m	language:Make
+MAIN	/media/SPACE/PHD/programs/src/Makefile	/^	MAIN = main-intel$/;"	m	language:Make
+OMEGA	/media/SPACE/PHD/programs/src/initial.h	/^double OMEGA = 2 ;				\/* normalized pumping frequency *\/$/;"	v	language:C++
+OMEGAD_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^OMEGAD_OBJECTS = stationary.o current_omegad.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o$/;"	m	language:Make
 Omega	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
+POS_STUDY_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^POS_STUDY_OBJECTS = pos_study.o$/;"	m	language:Make
 POW_2	/media/SPACE/PHD/programs/src/funcs.h	37;"	d	language:C++
+PTS	/media/SPACE/PHD/programs/src/positivity.py	/^PTS = (np.loadtxt ('POS_VIOLATIONS')).T$/;"	v	language:Python
 R	/media/SPACE/PHD/programs/src/initial.h	/^const double R[] = { 1, 0, -0.894, -0.447 } ;   \/* initial state: |z,-> *\/$/;"	v	language:C++
 RCUR	/media/SPACE/PHD/programs/src/time_current.py	/^RCUR = (np.loadtxt('RED-CURRENT.dat')).T$/;"	v	language:Python
 R_CURRT	/media/SPACE/PHD/programs/src/current_omega.py	/^R_CURRT = (np.loadtxt('RED-STAT-CURR-O.dat')).T$/;"	v	language:Python
-SAMPLE_OBJECTS	Makefile	/^SAMPLE_OBJECTS = sample.o r0dot.o polar.o mat_file.o$/;"	m
+R_CURRT	/media/SPACE/PHD/programs/src/current_t.py	/^R_CURRT = (np.loadtxt('RED-STAT-CURR-T.dat')).T$/;"	v	language:Python
+SAMPLE_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^SAMPLE_OBJECTS = sample.o r0dot.o polar.o mat_file.o$/;"	m	language:Make
+STATE	/media/SPACE/PHD/programs/src/state_tomog.py	/^STATE = (np.loadtxt('RED-EVOLUTION_200.dat')).T$/;"	v	language:Python
 STEP	/media/SPACE/PHD/programs/src/initial.h	/^const double STEP = .01 ;			\/* time step *\/$/;"	v	language:C++
-T	/media/SPACE/PHD/programs/src/initial.h	/^double T = .1 ;					\/* $/;"	v	language:C++
-TDEL_OBJECTS	Makefile	/^TDEL_OBJECTS = stationary.o current_tdel.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o$/;"	m
+T	/media/SPACE/PHD/programs/src/initial.h	/^double T = 0.1 ;				\/* $/;"	v	language:C++
+TDEL_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^TDEL_OBJECTS = stationary.o current_tdel.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o$/;"	m	language:Make
 VECTOR	/media/SPACE/PHD/programs/src/funcs.h	38;"	d	language:C++
 WS_SZ	/media/SPACE/PHD/programs/src/funcs.h	35;"	d	language:C++
+X	/media/SPACE/PHD/programs/src/positivity.py	/^X = PTS[0]$/;"	v	language:Python
+Y	/media/SPACE/PHD/programs/src/positivity.py	/^Y = PTS[1]$/;"	v	language:Python
+Z	/media/SPACE/PHD/programs/src/positivity.py	/^Z = PTS[2]$/;"	v	language:Python
 alpha	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
 alpha	/media/SPACE/PHD/programs/src/initial.h	/^const double alpha = 5e-3 ;			\/* coupling strength *\/$/;"	v	language:C++
 assign_p	/media/SPACE/PHD/programs/src/funcs.h	/^int assign_p ( void*, double*, double*, double*, double* ) ;$/;"	p	language:C++
 assign_p	Reg_cc.c	/^int assign_p ( void* params, double* o_c, double* b, double* O, double* o_1  )$/;"	f
-ax	/media/SPACE/PHD/programs/src/entropy_plot.py	/^ax = plt.twinx()$/;"	v	language:Python
-bbox	/media/SPACE/PHD/programs/src/current_omega.py	/^		bbox={'facecolor':'white','alpha':0.5})$/;"	v	language:Python
+ax	/media/SPACE/PHD/programs/src/positivity.py	/^ax = fig.add_subplot(111, projection='3d')$/;"	v	language:Python
+bbox_to_anchor	/media/SPACE/PHD/programs/src/current_t.py	/^		bbox_to_anchor=(0.95, 0.95))$/;"	v	language:Python
 bbox_to_anchor	/media/SPACE/PHD/programs/src/entropy_plot.py	/^	bbox_to_anchor=(0.2, 0.95))$/;"	v	language:Python
-bbox_to_anchor	/media/SPACE/PHD/programs/src/time_current.py	/^		bbox_to_anchor=(0.95, 0.05))$/;"	v	language:Python
+bbox_to_anchor	/media/SPACE/PHD/programs/src/time_current.py	/^		bbox_to_anchor=(0.95, 0.5))$/;"	v	language:Python
 beta	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
 bloch_vector	/media/SPACE/PHD/programs/src/funcs.h	/^int bloch_vector ( gsl_vector* , double , double , double ) ;$/;"	p	language:C++
 bloch_vector	polar.c	/^int bloch_vector ( gsl_vector* v, double r, double theta, double phi )$/;"	f
-cfig	/media/SPACE/PHD/programs/src/current_omega.py	/^cfig = plt.plot(C_CURRT[0],C_CURRT[1],color='blue')$/;"	v	language:Python
+cfig	/media/SPACE/PHD/programs/src/current_omega.py	/^cfig = plt.plot(C_CURRT[0], C_CURRT[1], color='blue', label='CP dynamics')$/;"	v	language:Python
+cfig	/media/SPACE/PHD/programs/src/current_t.py	/^cfig = plt.plot(C_CURRT[0],C_CURRT[1],color='blue', label='CP dynamics')$/;"	v	language:Python
 cfig	/media/SPACE/PHD/programs/src/entropy_plot.py	/^cfig = plt.plot(cpent[0],  cpent[1],  color='blue',$/;"	v	language:Python
 cp_evol	/media/SPACE/PHD/programs/src/cp_evol.c	/^int cp_evol ( void* params, const double r[], double time_end, double step,$/;"	f	language:C
 cp_evol	/media/SPACE/PHD/programs/src/funcs.h	/^int cp_evol ( void*, const double*, double, double, const gsl_vector*,	gsl_matrix* ) ;$/;"	p	language:C++
@@ -67,8 +79,11 @@ current_red_T	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red_T ( dou
 current_red_om	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_red_om ( double x, void* params )$/;"	f	language:C
 current_red_om	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red_om ( double, void* ) ;$/;"	p	language:C++
 current_temp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_temp ( double ) ;$/;"	p	language:C++
+delta	/media/SPACE/PHD/programs/src/pos_study.c	/^double delta ( double a, double integrals[], double O, double d, double o_1 )$/;"	f	language:C
 dist	distance.h	/^double dist ( const gsl_vector* rho1, const gsl_vector* rho2 )$/;"	f
 ent_pars	/media/SPACE/PHD/programs/src/funcs.h	/^struct ent_pars { const gsl_vector* rhoeq ; gsl_matrix* red_m ; } ;$/;"	s	language:C++
+ent_prod_fixed_t	/media/SPACE/PHD/programs/src/cp_violations.c	/^int ent_prod_fixed_t ( double Te, double x )$/;"	f	language:C
+ent_prod_red_evol	/media/SPACE/PHD/programs/src/cp_violations.c	/^int ent_prod_red_evol ( void* params, const double r[], double time_end, $/;"	f	language:C
 entropy_integ	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_integ ( double, const gsl_vector*, gsl_matrix* ) ;$/;"	p	language:C++
 entropy_integ	average.c	/^double entropy_integ ( double t, const gsl_vector* rhoeq, gsl_matrix* red_m )$/;"	f
 entropy_of_state	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_of_state ( const gsl_vector* ) ;$/;"	p	language:C++
@@ -86,8 +101,13 @@ expi	Expi.c	/^int expi ( double x, double* result, double* abserr )$/;"	f
 expi_plus	/media/SPACE/PHD/programs/src/funcs.h	/^int expi_plus ( double, double*, double* ) ;$/;"	p	language:C++
 expi_plus	Expi.c	/^int expi_plus ( double x, double* result, double* abserr )$/;"	f
 f_params	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	s	language:C++
+fcvt	/media/SPACE/PHD/programs/src/cp_violations.c	/^char* fcvt (double, int, int*, int*);$/;"	p	language:C	file:
 fig	/media/SPACE/PHD/programs/src/current_omega.py	/^fig = plt.figure()$/;"	v	language:Python
+fig	/media/SPACE/PHD/programs/src/current_t.py	/^fig = plt.figure()$/;"	v	language:Python
+fig	/media/SPACE/PHD/programs/src/delta_alpha.py	/^fig = plt.figure()$/;"	v	language:Python
 fig	/media/SPACE/PHD/programs/src/entropy_plot.py	/^fig = plt.figure()$/;"	v	language:Python
+fig	/media/SPACE/PHD/programs/src/positivity.py	/^fig = plt.figure()$/;"	v	language:Python
+fig	/media/SPACE/PHD/programs/src/state_tomog.py	/^fig = plt.figure()$/;"	v	language:Python
 first_int	/media/SPACE/PHD/programs/src/funcs.h	/^int first_int ( double*, double*, void* ) ;$/;"	p	language:C++
 first_int	Reg_sc.c	/^int first_int ( double* val, double* error, void* params )$/;"	f
 fourth_int	/media/SPACE/PHD/programs/src/funcs.h	/^int fourth_int ( double* , double* , void* ) ;$/;"	p	language:C++
@@ -104,8 +124,8 @@ gamma0	/media/SPACE/PHD/programs/src/initial.h	/^const double gamma0 = 0.05 ;			
 generator	/media/SPACE/PHD/programs/src/funcs.h	/^int generator ( double, const double*, double*, void* ) ;$/;"	p	language:C++
 generator	evol.c	/^int generator ( double t, const double y[], double dydt[], void* PARS )$/;"	f
 ham_gen	/media/SPACE/PHD/programs/src/funcs.h	/^int ham_gen ( gsl_matrix*, const double* ) ;$/;"	p	language:C++
-ham_gen	hamil.c	/^int ham_gen ( gsl_matrix* h, const double* o )$/;"	f
-headers_for_intelc	Makefile	/^headers_for_intelc = -I\/media\/SPACE\/intel\/mkl\/include -I\/media\/SPACE\/intel\/include\/intel64$/;"	m
+ham_gen	/media/SPACE/PHD/programs/src/hamil.c	/^int ham_gen ( gsl_matrix* h, const double* o )$/;"	f	language:C
+headers_for_intelc	/media/SPACE/PHD/programs/src/Makefile	/^headers_for_intelc = -I\/media\/SPACE\/intel\/mkl\/include -I\/media\/SPACE\/intel\/include\/intel64$/;"	m	language:Make
 im_gc0	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gc0 ( void* params, double* val, double* error ) ;$/;"	p	language:C++
 im_gc0	Img_c0.c	/^int im_gc0 ( void* params, double* val, double* error ) $/;"	f
 im_gcc	/media/SPACE/PHD/programs/src/funcs.h	/^int im_gcc ( void* params, double* val, double* error ) ;$/;"	p	language:C++
@@ -134,20 +154,24 @@ k_func_4	/media/SPACE/PHD/programs/src/funcs.h	/^double k_func_4 ( double , void
 k_func_4	Reg_sc.c	/^double k_func_4 ( double k, void* params )$/;"	f
 label	/media/SPACE/PHD/programs/src/entropy_plot.py	/^		label='Completely positive dynamics entropy')$/;"	v	language:Python
 label	/media/SPACE/PHD/programs/src/entropy_plot.py	/^		label='Redfield dynamics entropy')$/;"	v	language:Python
-libs_for_intelc	Makefile	/^libs_for_intelc = -L\/media\/SPACE\/intel\/lib\/intel64 -mkl -lgsl$/;"	m
+libs_for_intelc	/media/SPACE/PHD/programs/src/Makefile	/^libs_for_intelc = -L\/media\/SPACE\/intel\/lib\/intel64 -mkl -lgsl$/;"	m	language:Make
+main	/media/SPACE/PHD/programs/src/3dposit.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/asymptotic.c	/^int main ( int argc, char* argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/cp_evol.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/cp_violations.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/current_omegad.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/current_tdel.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/mathgl_pos.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/pos_study.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/posit.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/red_evol.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
-main	3dposit.c	/^int main ( int argc, char *argv[] )$/;"	f
+main	/media/SPACE/PHD/programs/src/sample.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	average.c	/^int main ( int argc, char *argv[] )$/;"	f
-main	sample.c	/^int main ( int argc, char *argv[] )$/;"	f
 mat_read	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_read ( gsl_matrix*, char* ) ;$/;"	p	language:C++
-mat_read	mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f
+mat_read	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f	language:C
 mat_write	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_write ( gsl_matrix*, char* ) ;$/;"	p	language:C++
-mat_write	mat_file.c	/^int mat_write ( gsl_matrix* mat, char* name )$/;"	f
-max	3dposit.c	/^double max()$/;"	f
+mat_write	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_write ( gsl_matrix* mat, char* name )$/;"	f	language:C
+max	/media/SPACE/PHD/programs/src/3dposit.c	/^double max()$/;"	f	language:C
 maxent	/media/SPACE/PHD/programs/src/entropy_plot.py	/^maxent = np.log(2.0)*np.ones_like(redent[0])$/;"	v	language:Python
 omega_1	/media/SPACE/PHD/programs/src/funcs.h	/^	double omega_1; double alpha; } ;$/;"	m	language:C++	struct:f_params
 omega_c	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	m	language:C++	struct:f_params
@@ -170,6 +194,7 @@ re_gsc	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gsc ( double* result, doub
 re_gsc	Reg_sc.c	/^int re_gsc ( double* result, double* error, void* params )$/;"	f
 re_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gss ( void* params, double* val ) ;$/;"	p	language:C++
 re_gss	Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f
+read_integs	/media/SPACE/PHD/programs/src/pos_study.c	/^int read_integs ( double integs[] )$/;"	f	language:C
 red_evol	/media/SPACE/PHD/programs/src/funcs.h	/^int red_evol ( void*, const double*, double, double, const gsl_vector*,	gsl_matrix* ) ;$/;"	p	language:C++
 red_evol	/media/SPACE/PHD/programs/src/red_evol.c	/^int red_evol ( void* params, const double r[], double time_end, double step,$/;"	f	language:C
 red_m	/media/SPACE/PHD/programs/src/funcs.h	/^struct ent_pars { const gsl_vector* rhoeq ; gsl_matrix* red_m ; } ;$/;"	m	language:C++	struct:ent_pars
@@ -177,21 +202,28 @@ red_mat	/media/SPACE/PHD/programs/src/funcs.h	/^int red_mat ( gsl_matrix* , void
 red_mat	/media/SPACE/PHD/programs/src/red_gen.c	/^int red_mat ( gsl_matrix* red_mx , void* params )$/;"	f	language:C
 redent	/media/SPACE/PHD/programs/src/entropy_plot.py	/^redent = (np.loadtxt('RED-ENTROPY.dat')).T$/;"	v	language:Python
 redprod	/media/SPACE/PHD/programs/src/entropy_plot.py	/^redprod = (np.loadtxt('RED-ENTROPY-PROD.dat')).T$/;"	v	language:Python
-rfig	/media/SPACE/PHD/programs/src/current_omega.py	/^rfig = plt.plot(R_CURRT[0],R_CURRT[1],color='red')$/;"	v	language:Python
+rfig	/media/SPACE/PHD/programs/src/current_omega.py	/^rfig = plt.plot(R_CURRT[0], R_CURRT[1], color='red', label='Redfield dynamics')$/;"	v	language:Python
+rfig	/media/SPACE/PHD/programs/src/current_t.py	/^rfig = plt.plot(R_CURRT[0],R_CURRT[1],color='red', label='Redfield dynamics')$/;"	v	language:Python
 rfig	/media/SPACE/PHD/programs/src/entropy_plot.py	/^rfig = plt.plot(redent[0], redent[1], color='red', $/;"	v	language:Python
 rhoeq	/media/SPACE/PHD/programs/src/funcs.h	/^struct ent_pars { const gsl_vector* rhoeq ; gsl_matrix* red_m ; } ;$/;"	m	language:C++	struct:ent_pars
+rotate	/media/SPACE/PHD/programs/src/funcs.h	/^gsl_matrix_complex* rotate ( gsl_matrix_complex*, double ) ;$/;"	p	language:C++
+rotate	/media/SPACE/PHD/programs/src/posit.c	/^gsl_matrix_complex* rotate ( gsl_matrix_complex* m, double t )$/;"	f	language:C
 rpfig	/media/SPACE/PHD/programs/src/entropy_plot.py	/^rpfig = plt.plot(redprod[0], redprod[1], 'y-', label='Redfield entropy prod.')$/;"	v	language:Python
 sample	/media/SPACE/PHD/programs/src/funcs.h	/^int sample ( const gsl_matrix* , unsigned int ) ;$/;"	p	language:C++
-sample	sample.c	/^int sample ( const gsl_matrix* M, unsigned int N )$/;"	f
+sample	/media/SPACE/PHD/programs/src/mathgl_pos.c	/^int sample ( void )$/;"	f	language:C
+sample	/media/SPACE/PHD/programs/src/sample.c	/^int sample ( const gsl_matrix* M, unsigned int N )$/;"	f	language:C
 save_integrals	/media/SPACE/PHD/programs/src/funcs.h	/^int save_integrals ( void* ) ;$/;"	p	language:C++
 save_integrals	write.c	/^int save_integrals ( void* params )$/;"	f
 save_matrices	/media/SPACE/PHD/programs/src/funcs.h	/^int save_matrices ( void* ) ;$/;"	p	language:C++
 save_matrices	write.c	/^int save_matrices ( void* params )$/;"	f
 second_int	/media/SPACE/PHD/programs/src/funcs.h	/^int second_int ( double* , double* , void* ) ;$/;"	p	language:C++
 second_int	Reg_sc.c	/^int second_int ( double* val, double* error, void* params )$/;"	f
+state_matrix	/media/SPACE/PHD/programs/src/funcs.h	/^gsl_matrix_complex* state_matrix ( double, double ) ;$/;"	p	language:C++
+state_matrix	/media/SPACE/PHD/programs/src/posit.c	/^gsl_matrix_complex* state_matrix ( double r, double theta )$/;"	f	language:C
 stationary	/media/SPACE/PHD/programs/src/funcs.h	/^int stationary ( const gsl_matrix* , gsl_vector*  ) ;$/;"	p	language:C++
 stationary	stationary.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f
-t_end	/media/SPACE/PHD/programs/src/initial.h	/^const double t_end = 600 ;			\/* time end *\/$/;"	v	language:C++
+surf	/media/SPACE/PHD/programs/src/positivity.py	/^surf = ax.scatter( X, Y, Z, s=0.01, color='r')$/;"	v	language:Python
+t_end	/media/SPACE/PHD/programs/src/initial.h	/^const double t_end = 200 ;			\/* time end *\/$/;"	v	language:C++
 therm_state	distance.h	/^gsl_vector therm_state ( const double beta, const gsl_matrix* H )$/;"	f
 third_int	/media/SPACE/PHD/programs/src/funcs.h	/^int third_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f

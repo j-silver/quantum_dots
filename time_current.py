@@ -24,10 +24,10 @@ plt.plot(CCUR[0], CCUR[1], 'g', label='CP dynamics current')
 plt.xlabel('$t \Delta$')
 plt.ylabel('$I/I_0$', rotation='horizontal')
 
-plt.text(200, 0.4, '$\Omega/\Delta=2$\n$T=0.1$\n$\\alpha=0.005$\n$\\rho_0=\{1, 0, 0.5, -0.4\}$', bbox={'facecolor':'white'}) #$\\vert z; -\\rangle$', bbox={'facecolor':'white'}
-
+plt.text(150, 0.6, '$\Omega/\Delta=2$\n$\kappa_B T/\hbar \Delta=10$\n$\\alpha=0.005$\n$\\rho_0=\\vert z; -\\rangle$', bbox={'facecolor':'white'})
+#\{1, 0, 0.5, -0.4\}$', bbox={'facecolor':'white'}) #
 plt.legend(('Redfield dynamics current', 'CP dynamics current'), loc='lower right',
-		bbox_to_anchor=(0.95, 0.05))
+		bbox_to_anchor=(0.95, 0.5))
 plt.grid(True)
 
 plt.draw()

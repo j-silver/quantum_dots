@@ -50,6 +50,7 @@
 #include	<gsl/gsl_vector.h>
 #include	<gsl/gsl_matrix.h>
 #include	<stdlib.h>
+#include	<string.h>
 #include	"funcs.h"
 
 /* 
@@ -86,6 +87,9 @@ int sample ( const gsl_matrix* M, unsigned int N )
 	double time_der ;
 
 	FILE* f = fopen( "POS_VIOLATIONS", "w" );
+	if ( errno != 0 )
+		printf("Error: %s.\nFailed to open POS_VIOLATIONS",
+				strerror(errno)) ;
 
 	unsigned int i ;
 	for ( i = 0; i < N; i++ )
@@ -121,7 +125,7 @@ int sample ( const gsl_matrix* M, unsigned int N )
  */
 int main ( int argc, char *argv[] )
 {
-	unsigned int num = 1e6 ;
+	unsigned int num = 1e5 ;
 	
 	gsl_matrix* red_m = gsl_matrix_calloc(4, 4) ;
 	mat_read (red_m, "REDFIELD_MATRIX") ;

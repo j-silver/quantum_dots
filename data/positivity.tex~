@@ -1,0 +1,73 @@
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
+
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{braket}
+
+\begin{document}
+
+\begin{equation}
+  \frac{\Delta(\alpha)}{(1+\vert \alpha \vert ^2)^2} = \Re \left\{
+    \Braket{\phi|V_1|\psi} \Braket{\psi|\sigma_1|\phi} + \Braket{\phi|V_3|\psi}
+    \Braket{\psi|\sigma_3|\phi} \right\} 
+\end{equation}
+
+\begin{equation}
+  \Ket{\psi} = \frac{\Ket{0} + \alpha\Ket{1}}{\sqrt{1+\vert\alpha\vert^2}} \, ,
+  \qquad \Ket{\phi} =
+  \frac{\alpha^\ast\Ket{0}-\Ket{1}}{\sqrt{1+\vert\alpha\vert^2}} 
+\end{equation}
+
+\begin{equation}
+  \sigma_3 \Ket{0} = \Ket{0} \, , \qquad \sigma_3 \Ket{1} = - \Ket{1} .
+\end{equation}
+
+\begin{multline}
+  \Delta(\alpha) = \Re \left\{ (\alpha^{\ast 2} -1) \left( \alpha
+      (\Braket{0|V_1|0} - \Braket{1|V_1|1}) + \alpha^2 \Braket{0|V_1|1} -
+      \Braket{1|V_1|0} \right) + \right. \\ 
+  \left.  2 \alpha^\ast \left( \alpha (\Braket{0|V_3|0} - \Braket{1|V_3|1}) +
+      \alpha^2 \Braket{0|V_3|1} - \Braket{1|V_3|0} \right) \right\} 
+\end{multline}
+
+\begin{align}
+  V_1&=\int_0^{+\infty}{\rm d}\tau\, G(\tau)\, U_{\mathrm{eff}}(\tau)\,
+  \widetilde{\sigma}_1(-\tau)\, U^\dag_{\mathrm{eff}}(\tau)\ ,\quad V_2=\sigma_1 \\ 
+  V_3&=\int_0^{+\infty}{\rm d}\tau\, G(\tau)\, U_{\mathrm{eff}}(\tau)\,
+  \widetilde{\sigma}_3(-\tau)\, U^\dag_{\mathrm{eff}}(\tau)\ ,\quad V_4=\sigma_3\ . 
+\end{align}
+
+\begin{align}
+  V_1 &= \int_0^{+\infty} \mathrm{d}\tau \, G(\tau) \left\{ \cos\Omega\tau
+    \cos\omega_{\mathrm{eff}}\tau \,\sigma_1 - \cos\Omega\tau
+    \sin\omega_{\mathrm{eff}}\tau \,\sigma_2 - \sin\Omega\tau \,\sigma_3 \right\}
+  \\
+  V_3 &= \int_0^{+\infty} \mathrm{d}\tau \, G(\tau) \left\{ \sin\Omega\tau
+    \cos\omega_{\mathrm{eff}}\tau \,\sigma_1 - \sin\Omega\tau
+    \sin\omega_{\mathrm{eff}}\tau \,\sigma_2 - \cos\Omega\tau \,\sigma_3 \right\}
+\end{align}
+
+\begin{equation}
+  G(\tau) = \int_0^{+\infty}\mathrm{d}\omega\, J(\omega) \left( \cos\omega\tau
+  \coth\frac{\beta\omega}{2} - i \sin\omega\tau \right) 
+\end{equation}
+
+Taking $\alpha \in \mathbb{R}$,
+
+\begin{multline}
+  \Delta(\alpha) = (\alpha^2-1) \left( 2\alpha \Re{g_{s0}} + \alpha^2 (
+      \Re{g_{cc}} + \Im{g_{cs}} ) - \Re{g_{cc}} + \Im{g_{cs}} \right) + \\
+    2\alpha \left( -2\alpha\Re{g_{c0}} - \alpha^2 ( \Re{g_{sc}} + \Im{g_{ss}} ) +
+        \Re{g_{sc}} - \Im{g_{ss}} \right) 
+\end{multline}
+
+
+
+
+\end{document}

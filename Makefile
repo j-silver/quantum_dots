@@ -20,6 +20,7 @@ endif
 #
 # main programs
 #
+#
 # Evolution of the Redfield and CP dynamics (state, current and entropy)
 #
 red_evol.o: red_evol.c funcs.h initial.h
@@ -47,11 +48,6 @@ current_omegad.o: current_omegad.c funcs.h
 current_omegad:	omegad_objects
 	$(CC) -o current_omegad $(OMEGAD_OBJECTS) $(LDLIBS) $(LDFLAGS)
 
-# 
-# Total current
-#
-total_current.o: total_current.c funcs.h initial.h
-
 
 #
 # Asymptotic current and generators matrices
@@ -71,7 +67,7 @@ r0dot.o: r0dot.c funcs.h
 
 polar.o: polar.c funcs.h
 
-sample: sample.o r0dot.o polar.o mat_file.o
+sample: sample.o r0dot.o polar.o mat_file.o 
 	$(CC) -o sample sample.o r0dot.o polar.o mat_file.o $(LDLIBS) $(LDFLAGS)
 
 # Average
@@ -81,23 +77,27 @@ average.o: average.c funcs.h initial.h
 average: average_objects
 	$(CC) -o average $(AVERAGE_OBJECTS) $(LDLIBS) $(LDFLAGS)
 
+
 # Positivity of Delta(alpha)
 #
-pos_study: pos_study.o
+pos_study.o: pos_study.c funcs.h initial.h
+
+pos_study: pos_study.o 
 	$(CC) -o pos_study pos_study.o $(LD_FLAGS) $(LDLIBS)
 
-pos_study.o: pos_study.c funcs.h 
 
 # CP violations of entropy production
 #
-cp_violations: cp_violations_objects funcs.h initial.h
+cp_violations.o: cp_violations.c funcs.h initial.h 
+
+cp_violations: cp_violations_objects 
 	$(CC) -o cp_violations $(CP_VIOLATIONS_OBJECTS) $(LDLIBS) $(LD_FLAGS)
 
 
 #
 # Object files
 #
-stationary.o: stationary.c funcs.h 
+stationary.o: stationary.c funcs.h
 
 Reg_cc.o: Reg_cc.c funcs.h
 
@@ -133,6 +133,8 @@ mat_file.o: mat_file.c funcs.h
 
 evol.o:	evol.c funcs.h
 
+total_current.o: total_current.c funcs.h initial.h
+
 hamil.o: hamil.c funcs.h
 
 entropy.o: entropy.c funcs.h
@@ -140,6 +142,8 @@ entropy.o: entropy.c funcs.h
 current.o: current.c funcs.h
 
 write.o: write.c funcs.h
+
+dtoascii.o: dtoascii.c funcs.h
 
 
 ASYMPTOTIC_OBJECTS = asymptotic.o stationary.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o red_gen.o integs.o Expi.o evol.o cp_gen.o mat_file.o hamil.o entropy.o write.o 
@@ -156,7 +160,7 @@ AVERAGE_OBJECTS = average.o evol.o entropy.o mat_file.o
 
 POS_STUDY_OBJECTS = pos_study.o
 
-CP_VIOLATIONS_OBJECTS = cp_violations.o evol.o stationary.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o entropy.o
+CP_VIOLATIONS_OBJECTS = cp_violations.o evol.o stationary.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o entropy.o dtoascii.o 
 
 DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat D_ALPHA.dat
 
@@ -172,7 +176,7 @@ average_objects: $(AVERAGE_OBJECTS)
 
 pos_study_objects: $(POS_STUDY_OBJECTS)
 
-cp_violations_objects: $(CP_VIOLATIONS_OBJECTS)
+cp_violations_objects: $(CP_VIOLATIONS_OBJECTS) 
 
 
 .PHONY: clean

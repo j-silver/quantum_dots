@@ -52,9 +52,12 @@ const double omega_c = 1000 ;			/* critical ohmic frequency */
 const double alpha = 5e-3 ;			/* coupling strength */
 const double Delta = 8.0e+9 ;			/* pumping amplitude (GHz) */
 
-double T = 0.1 ;				/* 
+double T = 2.0 ;				/* 
 						 *  The real temperature is given by
 						 *  temp = T*HBAR*Delta/BOLTZ
+						 *
+						 *  HBAR*Delta/BOLTZ = 0.061
+						 *
 						 */
 				
 const double D = 1 ;                            /* normalized delta */

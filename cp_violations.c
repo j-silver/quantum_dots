@@ -48,8 +48,8 @@
 #include "initial.h"
 
 #include <stdlib.h>
+#include <string.h>
 
-char* fcvt (double, int, int*, int*);
 
 /* 
  *      FUNCTION  
@@ -132,34 +132,25 @@ int ent_prod_red_evol ( void* params, const double r[], double time_end,
 	gsl_odeiv2_evolve* r_e = gsl_odeiv2_evolve_alloc ( 4 );
 
 	/* opening the file */
-	int decpt, sgn;
-	char* ratio = fcvt(x, 2, &decpt, &sgn); 
-	unsigned int sz = 0;
-	while ( ratio[sz] != '\0' )
-		sz++;
-	char Ratio[sz+1];
-	int k;
-	for ( k = 0; k < decpt; k++ )
-		Ratio[k] = ratio[k];
-	if ( decpt >= 0 )
-		Ratio[decpt] = '.';
-	for ( k = decpt+1; k < sz+1; k++ )
-		Ratio[k] = ratio[k-1];
-	char S[sz+2];
-	S[0] = '0';
-	for ( k = 1; k < sz+2; k++ )
-		S[k] = Ratio[k-1];
+	/*
+	 * We want to generate consistent filenames for the ent. prod.
+	 * evolution: each filename is given by the ratio x=O/D
+	 *
+	 */
+	char* ratio = dtoascii(x, 1);
+	char filename[13+strlen(ratio)];
+	strcpy( filename, "t-fixed-");
+	strncat( filename, ratio, strlen(ratio) );
+	strncat( filename, ".DAT", 4 );
 
-	printf("Ratio: %s\n", S);
-	FILE* g_red = fopen ( S, "w" );
-
+	FILE* g_red = fopen ( filename, "w" );
 
 	/* writing data */
 	while ( t < t_end )
 	{
 		evol ( t, init_red, step, r_e, r_c, r_s, &red_sys );
 		fprintf ( g_red, "%.2f %.9f\n",	t,
-				entropy_production( init_red, req_red, red_m ));
+			entropy_production( init_red, req_red, red_m ));
 		t += step;
 	}
 	
@@ -187,20 +178,22 @@ int main ( int argc, char *argv[] )
 	unsigned int i;		/*  counter  */
 	double x = 0;		/*  O/D ratio  */
 
+	printf("Temperature (normalized) T: %g\n", T);
+
 	for ( i = 0; i < 9; i++ )
 	{
 		x += 0.1;
 		ent_prod_fixed_t (T, x);
 	}
 
-	x = 1;
+	x = 0;
 	for ( i = 0; i < 9; i++ )
 	{
 		x += 1;
 		ent_prod_fixed_t (T, x);
 	}
 
-	x = 10;
+	x = 0;
 	for ( i = 0; i < 9; i++ )
 	{
 		x += 10;

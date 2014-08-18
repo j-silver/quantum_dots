@@ -12,12 +12,13 @@ CCUR	/media/SPACE/PHD/programs/src/time_current.py	/^CCUR = (np.loadtxt('CP-CURR
 CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wfloat-equal $/;"	m	language:Make
 CFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums $/;"	m	language:Make
 CPPFLAGS	/media/SPACE/PHD/programs/src/Makefile	/^	CPPFLAGS = $(headers_for_intelc)$/;"	m	language:Make
-CP_VIOLATIONS_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^CP_VIOLATIONS_OBJECTS = cp_violations.o evol.o stationary.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o entropy.o$/;"	m	language:Make
+CP_VIOLATIONS_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^CP_VIOLATIONS_OBJECTS = cp_violations.o evol.o stationary.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o entropy.o dtoascii.o $/;"	m	language:Make
 C_CURRT	/media/SPACE/PHD/programs/src/current_omega.py	/^C_CURRT = (np.loadtxt('CP-STAT-CURR-O.dat')).T$/;"	v	language:Python
 C_CURRT	/media/SPACE/PHD/programs/src/current_t.py	/^C_CURRT = (np.loadtxt('CP-STAT-CURR-T.dat')).T$/;"	v	language:Python
 D	/media/SPACE/PHD/programs/src/initial.h	/^const double D = 1 ;                            \/* normalized delta *\/$/;"	v	language:C++
 DATA	/media/SPACE/PHD/programs/src/delta_alpha.py	/^DATA = (np.loadtxt('D_ALPHA.dat')).T$/;"	v	language:Python
 DATA_FILES	/media/SPACE/PHD/programs/src/Makefile	/^DATA_FILES = REDFIELD_MATRIX CP_MATRIX RED-EVOLUTION.dat RED-CURRENT.dat RED-ENTROPY.dat CP-EVOLUTION.dat CP-CURRENT.dat CP-ENTROPY.dat INTEGRALS.dat RED-STAT-CURR-T.dat CP-STAT-CURR-T.dat RED-STAT-CURR-O.dat CP-STAT-CURR-O.dat CP_STATIONARY.dat RED_STATIONARY.dat POS_VIOLATIONS CP-ENTROPY-PROD.dat RED-ENTROPY-PROD.dat D_ALPHA.dat$/;"	m	language:Make
+D_psi	/media/SPACE/PHD/programs/src/funcs.h	/^gsl_matrix_complex* D_psi ( gsl_matrix_complex* ) ;$/;"	p	language:C++
 D_psi	/media/SPACE/PHD/programs/src/posit.c	/^gsl_matrix_complex* D_psi ( gsl_matrix_complex* dpsi )$/;"	f	language:C
 Delta	/media/SPACE/PHD/programs/src/initial.h	/^const double Delta = 8.0e+9 ;			\/* pumping amplitude (GHz) *\/$/;"	v	language:C++
 EVOL_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^EVOL_OBJECTS = red_evol.o cp_evol.o total_current.o$/;"	m	language:Make
@@ -41,7 +42,8 @@ R_CURRT	/media/SPACE/PHD/programs/src/current_t.py	/^R_CURRT = (np.loadtxt('RED-
 SAMPLE_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^SAMPLE_OBJECTS = sample.o r0dot.o polar.o mat_file.o$/;"	m	language:Make
 STATE	/media/SPACE/PHD/programs/src/state_tomog.py	/^STATE = (np.loadtxt('RED-EVOLUTION_200.dat')).T$/;"	v	language:Python
 STEP	/media/SPACE/PHD/programs/src/initial.h	/^const double STEP = .01 ;			\/* time step *\/$/;"	v	language:C++
-T	/media/SPACE/PHD/programs/src/initial.h	/^double T = 0.1 ;				\/* $/;"	v	language:C++
+SWAP	/media/SPACE/PHD/programs/src/swap.c	19;"	d	language:C	file:
+T	/media/SPACE/PHD/programs/src/initial.h	/^double T = 2.0 ;				\/* $/;"	v	language:C++
 TDEL_OBJECTS	/media/SPACE/PHD/programs/src/Makefile	/^TDEL_OBJECTS = stationary.o current_tdel.o red_gen.o cp_gen.o integs.o Reg_cc.o Reg_ss.o Img_cs.o Img_sc.o Reg_c0.o Img_c0.o Img_ss.o Img_cc.o Reg_s0.o Img_s0.o Reg_sc.o Expi.o$/;"	m	language:Make
 VECTOR	/media/SPACE/PHD/programs/src/funcs.h	38;"	d	language:C++
 WS_SZ	/media/SPACE/PHD/programs/src/funcs.h	35;"	d	language:C++
@@ -79,11 +81,19 @@ current_red_T	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red_T ( dou
 current_red_om	/media/SPACE/PHD/programs/src/current_omegad.c	/^double current_red_om ( double x, void* params )$/;"	f	language:C
 current_red_om	/media/SPACE/PHD/programs/src/funcs.h	/^double current_red_om ( double, void* ) ;$/;"	p	language:C++
 current_temp	/media/SPACE/PHD/programs/src/funcs.h	/^double current_temp ( double ) ;$/;"	p	language:C++
+delta	/media/SPACE/PHD/programs/src/funcs.h	/^double delta ( double, double*, double, double, double ) ;$/;"	p	language:C++
 delta	/media/SPACE/PHD/programs/src/pos_study.c	/^double delta ( double a, double integrals[], double O, double d, double o_1 )$/;"	f	language:C
+dist	/media/SPACE/PHD/programs/src/distance.c	/^double dist ( const gsl_vector* rho1, const gsl_vector* rho2 )$/;"	f	language:C
 dist	distance.h	/^double dist ( const gsl_vector* rho1, const gsl_vector* rho2 )$/;"	f
+dtoascii	/media/SPACE/PHD/programs/src/convert.c	/^char* dtoascii ( double, int );$/;"	p	language:C	file:
+dtoascii	/media/SPACE/PHD/programs/src/dtoascii.c	/^char* dtoascii ( double x, int ndigit )$/;"	f	language:C
+dtoascii	/media/SPACE/PHD/programs/src/funcs.h	/^char* dtoascii ( double, int ) ;$/;"	p	language:C++
+ent	/media/SPACE/PHD/programs/src/entp_plots.py	/^ent = (np.loadtxt('t-fixed-2.0.DAT')).T$/;"	v	language:Python
 ent_pars	/media/SPACE/PHD/programs/src/funcs.h	/^struct ent_pars { const gsl_vector* rhoeq ; gsl_matrix* red_m ; } ;$/;"	s	language:C++
 ent_prod_fixed_t	/media/SPACE/PHD/programs/src/cp_violations.c	/^int ent_prod_fixed_t ( double Te, double x )$/;"	f	language:C
+ent_prod_fixed_t	/media/SPACE/PHD/programs/src/funcs.h	/^int ent_prod_fixed_t ( double, double ) ;$/;"	p	language:C++
 ent_prod_red_evol	/media/SPACE/PHD/programs/src/cp_violations.c	/^int ent_prod_red_evol ( void* params, const double r[], double time_end, $/;"	f	language:C
+ent_prod_red_evol	/media/SPACE/PHD/programs/src/funcs.h	/^int ent_prod_red_evol ( void* , const double* , double , double , const gsl_vector* , gsl_matrix* , double ) ;$/;"	p	language:C++
 entropy_integ	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_integ ( double, const gsl_vector*, gsl_matrix* ) ;$/;"	p	language:C++
 entropy_integ	average.c	/^double entropy_integ ( double t, const gsl_vector* rhoeq, gsl_matrix* red_m )$/;"	f
 entropy_of_state	/media/SPACE/PHD/programs/src/funcs.h	/^double entropy_of_state ( const gsl_vector* ) ;$/;"	p	language:C++
@@ -101,10 +111,11 @@ expi	Expi.c	/^int expi ( double x, double* result, double* abserr )$/;"	f
 expi_plus	/media/SPACE/PHD/programs/src/funcs.h	/^int expi_plus ( double, double*, double* ) ;$/;"	p	language:C++
 expi_plus	Expi.c	/^int expi_plus ( double x, double* result, double* abserr )$/;"	f
 f_params	/media/SPACE/PHD/programs/src/funcs.h	/^struct f_params { double omega_c ; double beta ; double Omega ;$/;"	s	language:C++
-fcvt	/media/SPACE/PHD/programs/src/cp_violations.c	/^char* fcvt (double, int, int*, int*);$/;"	p	language:C	file:
+fcvt	/media/SPACE/PHD/programs/src/dtoascii.c	/^char* fcvt ( double, int, int*, int* );$/;"	p	language:C	file:
 fig	/media/SPACE/PHD/programs/src/current_omega.py	/^fig = plt.figure()$/;"	v	language:Python
 fig	/media/SPACE/PHD/programs/src/current_t.py	/^fig = plt.figure()$/;"	v	language:Python
 fig	/media/SPACE/PHD/programs/src/delta_alpha.py	/^fig = plt.figure()$/;"	v	language:Python
+fig	/media/SPACE/PHD/programs/src/entp_plots.py	/^fig = plt.figure()$/;"	v	language:Python
 fig	/media/SPACE/PHD/programs/src/entropy_plot.py	/^fig = plt.figure()$/;"	v	language:Python
 fig	/media/SPACE/PHD/programs/src/positivity.py	/^fig = plt.figure()$/;"	v	language:Python
 fig	/media/SPACE/PHD/programs/src/state_tomog.py	/^fig = plt.figure()$/;"	v	language:Python
@@ -157,15 +168,18 @@ label	/media/SPACE/PHD/programs/src/entropy_plot.py	/^		label='Redfield dynamics
 libs_for_intelc	/media/SPACE/PHD/programs/src/Makefile	/^libs_for_intelc = -L\/media\/SPACE\/intel\/lib\/intel64 -mkl -lgsl$/;"	m	language:Make
 main	/media/SPACE/PHD/programs/src/3dposit.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/asymptotic.c	/^int main ( int argc, char* argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/convert.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/cp_evol.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/cp_violations.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/current_omegad.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/current_tdel.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/fwr.c	/^int main(void)$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/mathgl_pos.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/pos_study.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/posit.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/red_evol.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	/media/SPACE/PHD/programs/src/sample.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
+main	/media/SPACE/PHD/programs/src/swap.c	/^int main ( int argc, char *argv[] )$/;"	f	language:C
 main	average.c	/^int main ( int argc, char *argv[] )$/;"	f
 mat_read	/media/SPACE/PHD/programs/src/funcs.h	/^int mat_read ( gsl_matrix*, char* ) ;$/;"	p	language:C++
 mat_read	/media/SPACE/PHD/programs/src/mat_file.c	/^int mat_read ( gsl_matrix* mat, char* name )$/;"	f	language:C
@@ -194,6 +208,7 @@ re_gsc	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gsc ( double* result, doub
 re_gsc	Reg_sc.c	/^int re_gsc ( double* result, double* error, void* params )$/;"	f
 re_gss	/media/SPACE/PHD/programs/src/funcs.h	/^int re_gss ( void* params, double* val ) ;$/;"	p	language:C++
 re_gss	Reg_ss.c	/^int re_gss ( void* params, double* val )$/;"	f
+read_integs	/media/SPACE/PHD/programs/src/funcs.h	/^int read_integs ( double* ) ;$/;"	p	language:C++
 read_integs	/media/SPACE/PHD/programs/src/pos_study.c	/^int read_integs ( double integs[] )$/;"	f	language:C
 red_evol	/media/SPACE/PHD/programs/src/funcs.h	/^int red_evol ( void*, const double*, double, double, const gsl_vector*,	gsl_matrix* ) ;$/;"	p	language:C++
 red_evol	/media/SPACE/PHD/programs/src/red_evol.c	/^int red_evol ( void* params, const double r[], double time_end, double step,$/;"	f	language:C
@@ -224,6 +239,7 @@ stationary	/media/SPACE/PHD/programs/src/funcs.h	/^int stationary ( const gsl_ma
 stationary	stationary.c	/^int stationary ( const gsl_matrix* M, gsl_vector* stat_state )$/;"	f
 surf	/media/SPACE/PHD/programs/src/positivity.py	/^surf = ax.scatter( X, Y, Z, s=0.01, color='r')$/;"	v	language:Python
 t_end	/media/SPACE/PHD/programs/src/initial.h	/^const double t_end = 200 ;			\/* time end *\/$/;"	v	language:C++
+therm_state	/media/SPACE/PHD/programs/src/distance.c	/^gsl_vector therm_state ( const double beta, const gsl_matrix* H )$/;"	f	language:C
 therm_state	distance.h	/^gsl_vector therm_state ( const double beta, const gsl_matrix* H )$/;"	f
 third_int	/media/SPACE/PHD/programs/src/funcs.h	/^int third_int ( double* , double* , void* ) ;$/;"	p	language:C++
 third_int	Reg_sc.c	/^int third_int ( double* val, double* err, void* params )$/;"	f

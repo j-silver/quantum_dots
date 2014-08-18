@@ -146,4 +146,4 @@ int read_integs ( double* ) ;
 /* entropy production with different parameters */
 int ent_prod_fixed_t ( double, double ) ;
 int ent_prod_red_evol ( void* , const double* , double , double , const gsl_vector* , gsl_matrix* , double ) ;
-
+char* dtoascii ( double, int ) ;

@@ -1,4 +1,4 @@
-CC = gcc
+CC = gcc-4.9
 CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums 
 LDLIBS = -lgsl -lgslcblas -lm
 

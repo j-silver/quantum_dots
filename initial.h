@@ -52,7 +52,7 @@ const double omega_c = 1000 ;			/* critical ohmic frequency */
 const double alpha = 5e-3 ;			/* coupling strength */
 const double Delta = 8.0e+9 ;			/* pumping amplitude (GHz) */
 
-double T = 2.0 ;				/* 
+double T = .1 ;				/* 
 						 *  The real temperature is given by
 						 *  temp = T*HBAR*Delta/BOLTZ
 						 *
@@ -68,7 +68,7 @@ const double gamma0 = 0.05 ;			/* energy hopping between sites */
 const double t_end = 200 ;			/* time end */
 const double STEP = .01 ;			/* time step */
 
-const double R[] = { 1, 0, -0.894, -0.447 } ;   /* initial state: |z,-> */
+const double R[] = { 1, 0, 0.5, -0.4 } ;   /* initial state: |z,-> */
  
 
 /* const double R[] = { 1, 0, 0.5, -0.4 } ; */ /* initial state with neg. e.p. */

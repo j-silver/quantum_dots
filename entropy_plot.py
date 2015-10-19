@@ -22,11 +22,11 @@ cpprod  = (np.loadtxt('CP-ENTROPY-PROD.dat')).T
 # Subplot n.1 : Entropy evolution
 #
 plt.subplot(211)
-plt.title('Entropy time-evolution')
+plt.title('Entropy time-evolution', fontsize=40)
 
 # Setup labels
-plt.xlabel('$t \Delta$')
-plt.ylabel('$S(t)$', rotation='horizontal')
+plt.xlabel('$t \Delta$', fontsize=40)
+plt.ylabel('$S(t)$', rotation='horizontal', fontsize=40)
 
 #
 # Text box

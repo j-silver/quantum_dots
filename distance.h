@@ -55,37 +55,6 @@
  *  			check the positivity of the states
  * 
  */
-double dist ( const gsl_vector* rho1, const gsl_vector* rho2 )
-{
-	double square = POW_2(VECTOR(rho1,1)-VECTOR(rho2,1)) +
-			POW_2(VECTOR(rho1,2)-VECTOR(rho2,2)) +
-			POW_2(VECTOR(rho1,3)-VECTOR(rho2.3)) ;
-	double distance = gsl_sqrt(square) ;
+double dist ( const gsl_vector* rho1, const gsl_vector* rho2 );
+gsl_vector therm_state ( const double beta, const gsl_matrix* H );
 
-	return (distance);
-}		/* -----  end of function dist  ----- */
-
-
-/* 
- *      FUNCTION  
- *         Name:  therm_state
- *  Description:  Return the thermal Gibbs state, given the parameter
- *  			beta and the Hamiltonian H
- * 
- */
-gsl_vector therm_state ( const double beta, const gsl_matrix* H )
-{
-	/* Copy the Hamiltonian into a matrix object that can be destroyed */
-	gsl_matrix* h = gsl_matrix_calloc(2, 2) ;
-	gsl_matrix_memcpy ( h, H ) ;
-
-	/* Find the eigenvalues.
-	 * When written in Bloch form, states have an immediate spectral 
-	 * decomposition:
-	 *
-	 * rho = (1+r)/2 (s0+r.s)/2 + (1-r)/2 (s0-r.s)/2
-	 *
-	 */
-	double rsq = POW_2(VECTOR(
-	return <+return_value+>;
-}		/* -----  end of function therm_state  ----- */

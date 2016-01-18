@@ -1,18 +1,22 @@
-CC = gcc
-CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums 
-LDLIBS = -lgsl -lgslcblas -lm
+LDLIBS = `gsl-config --libs`
+GSLCFLAGS = `gsl-config --cflags`
 
-libs_for_intelc = -L/media/SPACE/intel/lib/intel64 -mkl -lgsl
-headers_for_intelc = -I/media/SPACE/intel/mkl/include -I/media/SPACE/intel/include/intel64
+CFLAGS = $(GSLCFLAGS)
+
+
+CC = gcc
+CFLAGS += -O2 -march=haswell -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums 
+# LDLIBS = -lgsl -lgslcblas -lm
+
 
 ifeq ($(CC),icc)
-	CFLAGS = -O2 -march=core2 -Wall -ansi -Wpointer-arith -Wcast-qual -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wfloat-equal 
+	CFLAGS = -O2 -march=haswell -Wall -ansi -Wpointer-arith -Wcast-qual -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wfloat-equal 
 	LDLIBS = $(libs_for_intelc)
 	CPPFLAGS = $(headers_for_intelc)
 	MAIN = main-intel
 else ifeq ($(CC),clang)
 	MAIN = main-clang
-else ifeq ($(CC),gcc-4.9)
+else ifeq ($(CC),gcc)
 	CFLAGS += -fdiagnostics-color
 endif
 

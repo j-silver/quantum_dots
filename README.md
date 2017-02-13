@@ -23,12 +23,12 @@ In particular:
 
 * the files red\_gen.c, cp\_gen.c implement the matrix generators of the Redfield (non-CP) and CP Master Equations.
 
-* the files red\_evol.c, cp\_evol.c solve the differential Master Equation in the both cases, by adopting standard Runge-Kutta methods. They write the time-evolution of the *entropy productio* and of the *Bloch vector* into two files, which are then used to plot the results through the various Python scripts.
+* the files red\_evol.c, cp\_evol.c solve the differential Master Equation in the both cases, by adopting standard Runge-Kutta methods. They write the time-evolution of the *entropy production* and of the *Bloch vector* into two files, which are then used to plot the results by usnig the various Python scripts.
 
 * the other C files are used to evaluate other quantities such as the asymptotic current (asymptotic.c), the current's' dependence on some parameters like the frequency Omega or the temperature (current\_omegad.c, current\_t.c), for a 3D visualization of the Bloch sphere where the initial entropy violations occur (3Dposit.c) or for test purposes.
 
 
-The integrals, the matrix manipulation and the differential equations are computed by using specific functions from the __GNU Scientific Library GSL__ [link]https://www.gnu.org/software/gsl/.
+The integrals, the matrix manipulation and the differential equations are computed by using specific functions from the __GNU Scientific Library GSL__ [link]https://www.gnu.org/software/gsl/[link].
 
 
 

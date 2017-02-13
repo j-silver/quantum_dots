@@ -27,23 +27,13 @@ In particular:
 
 * the other C files are used to evaluate other quantities such as the asymptotic current (asymptotic.c), the current's' dependence on some parameters like the frequency Omega or the temperature (current\_omegad.c, current\_t.c), for a 3D visualization of the Bloch sphere where the initial entropy violations occur (3Dposit.c) or for test purposes.
 
-
-The integrals, the matrix manipulation and the differential equations are computed by using specific functions from the __GNU Scientific Library GSL__ [link]https://www.gnu.org/software/gsl/[link].
-
+The integrals, the matrix manipulation and the differential equations are computed by using specific functions from the __GNU Scientific Library GSL__ (https://www.gnu.org/software/gsl/).
 
 
+[1] http://link.springer.com/article/10.1007/s10955-015-1210-4 
+	(arXiv free version: https://arxiv.org/abs/1502.00864)
 
-
-
- 
-
-
-
-
-[1] [link]http://link.springer.com/article/10.1007/s10955-015-1210-4 
-	(arXiv version: [link]https://arxiv.org/abs/1502.00864)
-
-[2] [link]http://iopscience.iop.org/article/10.1209/0295-5075/107/50007/meta
-	(arXiv version: [link]https://arxiv.org/abs/1408.4589)
+[2] http://iopscience.iop.org/article/10.1209/0295-5075/107/50007/meta
+	(arXiv free version: https://arxiv.org/abs/1408.4589)
 
 

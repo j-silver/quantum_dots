@@ -1,11 +1,11 @@
 LDLIBS = `gsl-config --libs`
 GSLCFLAGS = `gsl-config --cflags`
 
-CFLAGS = $(GSLCFLAGS)
+CFLAGS += $(GSLCFLAGS)
 
 
 CC = gcc
-CFLAGS += -O2 -march=haswell -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums 
+CFLAGS += -O2 -march=native -Wall -ansi -Wpointer-arith -Wcast-qual -Wcast-align -Wshadow -Wconversion -Wmissing-prototypes -Wstrict-prototypes -fno-common -Wnested-externs -Wfloat-equal -fstack-protector -Wstack-protector # -g -W -pedantic -Wwrite-strings  -fshort-enums 
 # LDLIBS = -lgsl -lgslcblas -lm
 
 
